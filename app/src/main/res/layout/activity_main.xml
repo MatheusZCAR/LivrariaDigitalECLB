@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".MainActivity">
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/textTitulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/bem_vindo"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:background="#0097A7"
+        android:padding="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Guideline vertical central -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/centerVerticalGuide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.55" />
+
+    <!-- Icone Catálogo -->
+    <ImageView
+        android:id="@+id/iconCatalogo"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:contentDescription="@string/catalogo"
+        android:src="@drawable/ic_catalogo"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="@id/centerVerticalGuide"
+        app:layout_constraintBottom_toTopOf="@id/labelCatalogo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/iconVenda"
+        app:layout_constraintHorizontal_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/labelCatalogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/catalogo"
+        android:textSize="16sp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/iconCatalogo"
+        app:layout_constraintStart_toStartOf="@id/iconCatalogo"
+        app:layout_constraintEnd_toEndOf="@id/iconCatalogo"
+        app:layout_constraintBottom_toBottomOf="@id/centerVerticalGuide" />
+
+    <!-- Icone Venda -->
+    <ImageView
+        android:id="@+id/iconVenda"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:contentDescription="@string/realizar_venda"
+        android:src="@drawable/ic_venda"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="@id/iconCatalogo"
+        app:layout_constraintBottom_toBottomOf="@id/iconCatalogo"
+        app:layout_constraintStart_toEndOf="@id/iconCatalogo"
+        app:layout_constraintEnd_toStartOf="@id/iconPedidos" />
+
+    <TextView
+        android:id="@+id/labelVenda"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/realizar_venda"
+        android:textSize="16sp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/iconVenda"
+        app:layout_constraintStart_toStartOf="@id/iconVenda"
+        app:layout_constraintEnd_toEndOf="@id/iconVenda"
+        app:layout_constraintBottom_toBottomOf="@id/labelCatalogo" />
+
+    <!-- Icone Pedidos -->
+    <ImageView
+        android:id="@+id/iconPedidos"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:contentDescription="@string/pedidos"
+        android:src="@drawable/ic_pedidos"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="@id/iconCatalogo"
+        app:layout_constraintBottom_toBottomOf="@id/iconCatalogo"
+        app:layout_constraintStart_toEndOf="@id/iconVenda"
+        app:layout_constraintEnd_toStartOf="@id/iconRelatorios" />
+
+    <TextView
+        android:id="@+id/labelPedidos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pedidos"
+        android:textSize="16sp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/iconPedidos"
+        app:layout_constraintStart_toStartOf="@id/iconPedidos"
+        app:layout_constraintEnd_toEndOf="@id/iconPedidos"
+        app:layout_constraintBottom_toBottomOf="@id/labelCatalogo" />
+
+    <!-- Icone Relatórios -->
+    <ImageView
+        android:id="@+id/iconRelatorios"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:contentDescription="@string/relatorios"
+        android:src="@drawable/ic_relatorios"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintTop_toTopOf="@id/iconCatalogo"
+        app:layout_constraintBottom_toBottomOf="@id/iconCatalogo"
+        app:layout_constraintStart_toEndOf="@id/iconPedidos"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/labelRelatorios"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/relatorios"
+        android:textSize="16sp"
+        android:textColor="#000"
+        app:layout_constraintTop_toBottomOf="@id/iconRelatorios"
+        app:layout_constraintStart_toStartOf="@id/iconRelatorios"
+        app:layout_constraintEnd_toEndOf="@id/iconRelatorios"
+        app:layout_constraintBottom_toBottomOf="@id/labelCatalogo" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
