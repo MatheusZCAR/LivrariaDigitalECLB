@@ -76,14 +76,12 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Botão: Adicionar Livro -->
-    <!-- Botão: Adicionar Livro -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAdicionarLivro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="ADICIONAR LIVRO"
         android:background="@drawable/rounded_button"
-        android:backgroundTint="@null"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:fontFamily="monospace"
@@ -99,13 +97,12 @@
         android:layout_marginBottom="20dp"/>
 
     <!-- Botão: Imprimir Lista -->
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnImprimirLista"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="IMPRIMIR LISTA"
         android:background="@drawable/rounded_button"
-        android:backgroundTint="@null"
         android:textColor="@android:color/white"
         android:textStyle="bold"
         android:fontFamily="monospace"
@@ -117,6 +114,5 @@
         app:layout_constraintHorizontal_weight="1"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="32dp"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
