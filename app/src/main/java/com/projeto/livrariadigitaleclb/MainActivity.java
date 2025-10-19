@@ -23,7 +23,11 @@ public class MainActivity extends AppCompatActivity {
 
         binding.iconVenda.setOnClickListener(v -> showToast("Venda clicada!"));
         binding.iconPedidos.setOnClickListener(v -> showToast("Pedidos clicado!"));
-        binding.iconRelatorios.setOnClickListener(v -> showToast("Relatórios clicado!"));
+        binding.iconRelatorios.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, RelatoriosActivity.class);
+            startActivity(intent);
+            showToast("Relatórios clicado!");
+        });
     }
 
     private void showToast(String message) {
