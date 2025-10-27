@@ -11,10 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LivrariaDigitalECLB">
-        <activity
-            android:name=".CatalogoActivity"
-            android:exported="false"
-            android:theme="@style/Theme.LivrariaDigitalECLB" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,8 +21,28 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".CatalogoActivity"
+            android:exported="false"
+            android:theme="@style/Theme.LivrariaDigitalECLB" />
+
+
+        <activity
+            android:name=".RealizarVendaActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+
+        <activity
+            android:name=".ConcluirVendaActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
+
+
     </application>
 
 </manifest>
