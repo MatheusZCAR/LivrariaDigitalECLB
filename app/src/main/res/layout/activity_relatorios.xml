@@ -22,17 +22,17 @@
             android:id="@+id/txtTitulo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Relatórios"
+            android:text="@string/relatorios"
             android:textColor="@android:color/white"
             android:textSize="36sp"
             android:fontFamily="monospace"
             android:textStyle="bold"
+            android:layout_marginStart="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintMarginStart="16dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Ícone home por cima da barra -->
+        <!-- Ícone home -->
         <ImageView
             android:id="@+id/btnHome"
             android:layout_width="50dp"
@@ -46,93 +46,105 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Grupo de botões -->
-    <LinearLayout
-        android:id="@+id/grupoPrincipal"
+    <!-- Scroll principal -->
+    <ScrollView
+        android:id="@+id/scrollRelatorios"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="48dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/barraSuperior"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <!-- Opções de relatório -->
-        <RadioGroup
-            android:id="@+id/radioGroupRelatorios"
+
+        <LinearLayout
+            android:id="@+id/grupoPrincipal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingHorizontal="40dp"
-            android:layout_marginBottom="40dp">
+            android:gravity="center_horizontal"
+            android:layout_marginTop="48dp">
 
-            <RadioButton
-                android:id="@+id/radioDiario"
+            <!-- Opções de relatório -->
+            <RadioGroup
+                android:id="@+id/radioGroupRelatorios"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="#E8F6F5"
-                android:buttonTint="#009999"
-                android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:text="Relatório diário"
-                android:textColor="#000"
-                android:textSize="20sp"
-                android:fontFamily="monospace"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingHorizontal="40dp"
+                android:layout_marginBottom="40dp">
 
-            <RadioButton
-                android:id="@+id/radioSemanal"
+                <RadioButton
+                    android:id="@+id/radioDiario"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="#E8F6F5"
+                    android:buttonTint="#009999"
+                    android:gravity="center_vertical"
+                    android:paddingStart="24dp"
+                    android:text="@string/relatorio_diario"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
+
+                <RadioButton
+                    android:id="@+id/radioSemanal"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#E8F6F5"
+                    android:buttonTint="#009999"
+                    android:gravity="center_vertical"
+                    android:paddingStart="24dp"
+                    android:text="@string/relatorio_semanal"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
+
+                <RadioButton
+                    android:id="@+id/radioMensal"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_marginTop="12dp"
+                    android:background="#E8F6F5"
+                    android:buttonTint="#009999"
+                    android:gravity="center_vertical"
+                    android:paddingStart="24dp"
+                    android:text="@string/relatorio_mensal"
+                    android:textColor="#000"
+                    android:textSize="20sp"
+                    android:fontFamily="monospace"
+                    android:textStyle="bold"
+                    tools:ignore="RtlSymmetry" />
+            </RadioGroup>
+
+            <!-- Botão imprimir -->
+            <LinearLayout
+                android:id="@+id/grupoBotao"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="12dp"
-                android:background="#E8F6F5"
-                android:buttonTint="#009999"
-                android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:text="Relatório semanal"
-                android:textColor="#000"
-                android:textSize="20sp"
-                android:fontFamily="monospace"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
-            <RadioButton
-                android:id="@+id/radioMensal"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:layout_marginTop="12dp"
-                android:background="#E8F6F5"
-                android:buttonTint="#009999"
-                android:gravity="center_vertical"
-                android:paddingStart="24dp"
-                android:text="Relatório mensal"
-                android:textColor="#000"
-                android:textSize="20sp"
-                android:fontFamily="monospace"
-                android:textStyle="bold"/>
-        </RadioGroup>
-
-        <!-- Botão imprimir -->
-        <LinearLayout
-            android:id="@+id/grupoBotao"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/btnImprimir"
-                android:layout_width="220dp"
-                android:layout_height="70dp"
-                android:backgroundTint="#008C8C"
-                android:text="IMPRIMIR"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                android:textSize="22sp"
-                android:fontFamily="sans-serif-medium"
-                android:letterSpacing="0.02"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="40dp"
-                app:cornerRadius="16dp" />
+                <Button
+                    android:id="@+id/btnImprimir"
+                    android:layout_width="220dp"
+                    android:layout_height="70dp"
+                    android:backgroundTint="#008C8C"
+                    android:text="@string/imprimir"
+                    android:textAllCaps="true"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:fontFamily="sans-serif-medium"
+                    android:letterSpacing="0.02"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp"
+                    app:cornerRadius="16dp" />
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

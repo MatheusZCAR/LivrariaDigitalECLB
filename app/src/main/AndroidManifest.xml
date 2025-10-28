@@ -11,10 +11,32 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LivrariaDigitalECLB">
+
+        <!-- Activity: Catálogo -->
         <activity
             android:name=".CatalogoActivity"
             android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.LivrariaDigitalECLB"
+            tools:ignore="DiscouragedApi" />
+
+        <!-- Activity: Relatórios -->
+        <activity
+            android:name=".RelatoriosActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi"
             android:theme="@style/Theme.LivrariaDigitalECLB" />
+
+        <!-- Activity: Pedidos -->
+        <activity
+            android:name=".PedidosActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi"
+            android:theme="@style/Theme.LivrariaDigitalECLB" />
+
+        <!-- Activity principal -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -22,11 +44,10 @@
             tools:ignore="DiscouragedApi">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".RelatoriosActivity" />
+
     </application>
 
 </manifest>

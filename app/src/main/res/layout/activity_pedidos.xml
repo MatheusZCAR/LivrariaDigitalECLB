@@ -14,7 +14,7 @@
         android:id="@+id/textTituloPedidos"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="lista de pedidos"
+        android:text="@string/lista_de_pedidos"
         android:textSize="28sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
@@ -38,7 +38,7 @@
         android:layout_marginEnd="16dp"
         app:tint="@android:color/white" />
 
-    <!-- Guideline horizontal para separação -->
+    <!-- Guideline horizontal -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/middleGuide"
         android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.65" />
 
-    <!-- Caixa de fundo para lista -->
+    <!-- Container da lista -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerLista"
         android:layout_width="0dp"
@@ -67,12 +67,12 @@
             android:divider="@android:color/transparent"
             android:dividerHeight="8dp"
             android:padding="8dp"
+            android:textColor="#000000"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:listitem="@android:layout/simple_list_item_1" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Botão: Adicionar Livro -->
@@ -80,7 +80,7 @@
         android:id="@+id/btnAdicionarLivro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="ADICIONAR LIVRO"
+        android:text="@string/adicionar_livro"
         android:background="@drawable/rounded_button"
         android:textColor="@android:color/white"
         android:textStyle="bold"
@@ -101,7 +101,7 @@
         android:id="@+id/btnImprimirLista"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="IMPRIMIR LISTA"
+        android:text="@string/imprimir_lista"
         android:background="@drawable/rounded_button"
         android:textColor="@android:color/white"
         android:textStyle="bold"

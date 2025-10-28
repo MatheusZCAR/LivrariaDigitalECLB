@@ -51,4 +51,12 @@
     <string name="cadastrar_livro">Cadastrar\nLivro</string>
     <string name="cadastrar_livro_junto">Cadastrar Livro</string>
     <string name="titulo">Título</string>
+    <string name="lista_de_pedidos">Lista de pedidos</string>
+    <string name="voltar_home">voltar</string>
+    <string name="relatorio_diario">Relatório diário</string>
+    <string name="relatorio_semanal">Relatório semanal</string>
+    <string name="relatorio_mensal">Relatório mensal</string>
+    <string name="imprimir">IMPRIMIR</string>
+    <string name="adicionar_livro">ADICIONAR LIVRO</string>
+    <string name="imprimir_lista">IMPRIMIR LISTA</string>
 </resources>

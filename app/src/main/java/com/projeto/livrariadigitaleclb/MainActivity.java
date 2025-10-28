@@ -22,11 +22,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
         binding.iconVenda.setOnClickListener(v -> showToast("Venda clicada!"));
-        binding.iconPedidos.setOnClickListener(v -> showToast("Pedidos clicado!"));
+        binding.iconPedidos.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, PedidosActivity.class);
+            startActivity(intent);
+        });
         binding.iconRelatorios.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, RelatoriosActivity.class);
             startActivity(intent);
-            showToast("Relatórios clicado!");
         });
     }
 

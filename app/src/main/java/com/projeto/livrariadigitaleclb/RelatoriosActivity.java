@@ -1,10 +1,8 @@
 package com.projeto.livrariadigitaleclb;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.projeto.livrariadigitaleclb.databinding.ActivityRelatoriosBinding;
 
 public class RelatoriosActivity extends AppCompatActivity {
@@ -17,14 +15,10 @@ public class RelatoriosActivity extends AppCompatActivity {
         binding = ActivityRelatoriosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Botão home volta para MainActivity
-        binding.btnHome.setOnClickListener(v -> {
-            Intent intent = new Intent(RelatoriosActivity.this, MainActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
+        // Botão Home — volta sem piscar preto
+        binding.btnHome.setOnClickListener(v -> finish());
 
-        // Botão imprimir
+        // Botão Imprimir
         binding.btnImprimir.setOnClickListener(v -> {
             int checkedId = binding.radioGroupRelatorios.getCheckedRadioButtonId();
 
