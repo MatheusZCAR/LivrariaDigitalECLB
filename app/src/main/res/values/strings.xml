@@ -59,4 +59,12 @@
     <string name="imprimir">IMPRIMIR</string>
     <string name="adicionar_livro">ADICIONAR LIVRO</string>
     <string name="imprimir_lista">IMPRIMIR LISTA</string>
+    <string name="selecione_ou_pesquise_os_produtos">Selecione ou pesquise os produtos:</string>
+    <string name="home">Home</string>
+    <string name="pesquisar_produto">Pesquisar produto...</string>
+    <string name="buscar">Buscar</string>
+    <string name="capa_do_livro">Capa do livro</string>
+    <string name="info_livro">Título do livro, Autor\nPreço\nOutras informações</string>
+    <string name="cancelar_venda">CANCELAR VENDA</string>
+    <string name="confirmar_venda">CONFIRMAR VENDA</string>
 </resources>

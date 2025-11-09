@@ -3,10 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFDF9"
+    android:background="#FFFDF5"
     android:padding="16dp">
 
-    <!-- Capa do livro -->
     <ImageView
         android:id="@+id/imageLivro"
         android:layout_width="150dp"
@@ -16,23 +15,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/botoesLayout"
         app:layout_constraintVertical_bias="0"
-        android:contentDescription="Capa do livro" />
+        android:contentDescription="@string/capa_do_livro" />
 
-    <!-- Informações do livro -->
     <TextView
         android:id="@+id/textInfoLivro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:background="#E0F2F1"
-        android:text="Título do livro, Autor\nPreço\nOutras informações"
+        android:text="@string/info_livro"
         android:textSize="16sp"
         android:gravity="top|start"
         app:layout_constraintTop_toTopOf="@id/imageLivro"
         app:layout_constraintStart_toEndOf="@id/imageLivro"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Botões -->
     <LinearLayout
         android:id="@+id/botoesLayout"
         android:layout_width="0dp"
@@ -48,9 +45,9 @@
             android:id="@+id/btnCancelar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CANCELAR VENDA"
+            android:text="@string/cancelar_venda"
             android:textAllCaps="true"
-            android:backgroundTint="#009688"
+            android:backgroundTint="#0097A7"
             android:textColor="#FFFFFF"
             android:layout_marginEnd="16dp" />
 
@@ -58,9 +55,9 @@
             android:id="@+id/btnConfirmar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CONFIRMAR VENDA"
+            android:text="@string/confirmar_venda"
             android:textAllCaps="true"
-            android:backgroundTint="#009688"
+            android:backgroundTint="#0097A7"
             android:textColor="#FFFFFF" />
     </LinearLayout>
 

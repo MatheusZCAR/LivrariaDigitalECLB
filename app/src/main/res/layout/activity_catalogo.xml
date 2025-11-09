@@ -6,10 +6,9 @@
     android:id="@+id/layoutCatalogo"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#FFFDF5"
     tools:context=".CatalogoActivity">
 
-    <!-- Barra azul com título -->
     <View
         android:id="@+id/barraSuperior"
         android:layout_width="0dp"
@@ -32,7 +31,6 @@
         app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Ícone home por cima da barra -->
     <ImageView
         android:id="@+id/btnHome"
         android:layout_width="36dp"
@@ -45,7 +43,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp" />
 
-    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerLivros"
         android:layout_width="0dp"

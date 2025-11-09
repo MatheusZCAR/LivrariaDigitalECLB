@@ -6,10 +6,9 @@
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#FFFDF5"
     tools:context=".MainActivity">
 
-    <!-- Título -->
     <TextView
         android:id="@+id/textTitulo"
         android:layout_width="0dp"
@@ -25,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Guideline vertical central -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/centerVerticalGuide"
         android:layout_width="wrap_content"
@@ -33,7 +31,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.55" />
 
-    <!-- Icone Catálogo -->
     <ImageView
         android:id="@+id/iconCatalogo"
         android:layout_width="96dp"
@@ -60,7 +57,6 @@
         app:layout_constraintEnd_toEndOf="@id/iconCatalogo"
         app:layout_constraintBottom_toBottomOf="@id/centerVerticalGuide" />
 
-    <!-- Icone Venda -->
     <ImageView
         android:id="@+id/iconVenda"
         android:layout_width="96dp"
@@ -86,7 +82,6 @@
         app:layout_constraintEnd_toEndOf="@id/iconVenda"
         app:layout_constraintBottom_toBottomOf="@id/labelCatalogo" />
 
-    <!-- Icone Pedidos -->
     <ImageView
         android:id="@+id/iconPedidos"
         android:layout_width="96dp"
@@ -112,7 +107,6 @@
         app:layout_constraintEnd_toEndOf="@id/iconPedidos"
         app:layout_constraintBottom_toBottomOf="@id/labelCatalogo" />
 
-    <!-- Icone Relatórios -->
     <ImageView
         android:id="@+id/iconRelatorios"
         android:layout_width="96dp"

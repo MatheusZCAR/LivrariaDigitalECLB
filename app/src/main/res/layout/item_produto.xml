@@ -14,13 +14,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Capa do livro" />
+        android:contentDescription="@string/capa_do_livro" />
 
     <TextView
         android:id="@+id/textTitulo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Título"
+        android:text="@string/titulo"
         android:textSize="12sp"
         android:textStyle="bold"
         android:gravity="center"

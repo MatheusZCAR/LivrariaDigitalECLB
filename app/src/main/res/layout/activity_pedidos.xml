@@ -6,10 +6,9 @@
     android:id="@+id/pedidosLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="#FFFDF5"
     tools:context=".PedidosActivity">
 
-    <!-- Cabeçalho -->
     <TextView
         android:id="@+id/textTituloPedidos"
         android:layout_width="0dp"
@@ -25,7 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Ícone Home -->
     <ImageView
         android:id="@+id/iconHome"
         android:layout_width="36dp"
@@ -38,7 +36,6 @@
         android:layout_marginEnd="16dp"
         app:tint="@android:color/white" />
 
-    <!-- Guideline horizontal -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/middleGuide"
         android:layout_width="wrap_content"
@@ -46,7 +43,6 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.65" />
 
-    <!-- Container da lista -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/containerLista"
         android:layout_width="0dp"
@@ -75,7 +71,6 @@
             tools:listitem="@android:layout/simple_list_item_1" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Botão: Adicionar Livro -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnAdicionarLivro"
         android:layout_width="0dp"
@@ -96,7 +91,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="20dp"/>
 
-    <!-- Botão: Imprimir Lista -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnImprimirLista"
         android:layout_width="0dp"

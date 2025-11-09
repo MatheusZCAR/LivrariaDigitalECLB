@@ -15,8 +15,8 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         void onProdutoClick(Produto produto);
     }
 
-    private List<Produto> produtos;
-    private OnProdutoClickListener listener;
+    private final List<Produto> produtos;
+    private final OnProdutoClickListener listener;
 
     public ProdutoAdapter(List<Produto> produtos, OnProdutoClickListener listener) {
         this.produtos = produtos;

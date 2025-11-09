@@ -3,10 +3,10 @@ package com.projeto.livrariadigitaleclb;
 import java.io.Serializable;
 
 public class Produto implements Serializable {
-    private String titulo;
-    private String autor;
-    private double preco;
-    private int imagem;
+    private final String titulo;
+    private final String autor;
+    private final double preco;
+    private final int imagem;
 
     public Produto(String titulo, String autor, double preco, int imagem) {
         this.titulo = titulo;

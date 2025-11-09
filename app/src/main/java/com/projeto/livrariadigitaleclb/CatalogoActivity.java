@@ -15,12 +15,10 @@ public class CatalogoActivity extends AppCompatActivity {
         ActivityCatalogoBinding binding = ActivityCatalogoBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Botão Home — volta sem piscar
         binding.btnHome.setOnClickListener(v -> finish());
 
-        // Configuração da RecyclerView
         List<Livro> livros = new ArrayList<>();
-        livros.add(new Livro(true)); // Botão "Cadastrar Livro"
+        livros.add(new Livro(true));
 
         LivroAdapter adapter = new LivroAdapter(livros, this);
         binding.recyclerLivros.setLayoutManager(new GridLayoutManager(this, 3));

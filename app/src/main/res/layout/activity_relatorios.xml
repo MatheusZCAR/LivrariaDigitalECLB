@@ -8,12 +8,11 @@
     android:background="#FFFDF5"
     tools:context=".RelatoriosActivity">
 
-    <!-- Barra superior -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/barraSuperior"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="#009999"
+        android:background="#0097A7"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -32,7 +31,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Ícone home -->
         <ImageView
             android:id="@+id/btnHome"
             android:layout_width="50dp"
@@ -46,7 +44,6 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Scroll principal -->
     <ScrollView
         android:id="@+id/scrollRelatorios"
         android:layout_width="0dp"
@@ -65,7 +62,6 @@
             android:gravity="center_horizontal"
             android:layout_marginTop="48dp">
 
-            <!-- Opções de relatório -->
             <RadioGroup
                 android:id="@+id/radioGroupRelatorios"
                 android:layout_width="match_parent"
@@ -79,7 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:background="#E8F6F5"
-                    android:buttonTint="#009999"
+                    android:buttonTint="#0097A7"
                     android:gravity="center_vertical"
                     android:paddingStart="24dp"
                     android:text="@string/relatorio_diario"
@@ -95,7 +91,7 @@
                     android:layout_height="70dp"
                     android:layout_marginTop="12dp"
                     android:background="#E8F6F5"
-                    android:buttonTint="#009999"
+                    android:buttonTint="#0097A7"
                     android:gravity="center_vertical"
                     android:paddingStart="24dp"
                     android:text="@string/relatorio_semanal"
@@ -111,7 +107,7 @@
                     android:layout_height="70dp"
                     android:layout_marginTop="12dp"
                     android:background="#E8F6F5"
-                    android:buttonTint="#009999"
+                    android:buttonTint="#0097A7"
                     android:gravity="center_vertical"
                     android:paddingStart="24dp"
                     android:text="@string/relatorio_mensal"
@@ -122,7 +118,6 @@
                     tools:ignore="RtlSymmetry" />
             </RadioGroup>
 
-            <!-- Botão imprimir -->
             <LinearLayout
                 android:id="@+id/grupoBotao"
                 android:layout_width="match_parent"
@@ -133,7 +128,7 @@
                     android:id="@+id/btnImprimir"
                     android:layout_width="220dp"
                     android:layout_height="70dp"
-                    android:backgroundTint="#008C8C"
+                    android:backgroundTint="#0097A7"
                     android:text="@string/imprimir"
                     android:textAllCaps="true"
                     android:textColor="@android:color/white"

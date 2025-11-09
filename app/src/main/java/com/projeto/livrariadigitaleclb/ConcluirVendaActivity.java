@@ -1,5 +1,6 @@
 package com.projeto.livrariadigitaleclb;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import com.projeto.livrariadigitaleclb.databinding.ActivityConcluirVendaBinding;
@@ -8,6 +9,7 @@ public class ConcluirVendaActivity extends AppCompatActivity {
 
     private ActivityConcluirVendaBinding binding;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -15,10 +15,8 @@ public class RelatoriosActivity extends AppCompatActivity {
         binding = ActivityRelatoriosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Botão Home — volta sem piscar preto
         binding.btnHome.setOnClickListener(v -> finish());
 
-        // Botão Imprimir
         binding.btnImprimir.setOnClickListener(v -> {
             int checkedId = binding.radioGroupRelatorios.getCheckedRadioButtonId();
 
