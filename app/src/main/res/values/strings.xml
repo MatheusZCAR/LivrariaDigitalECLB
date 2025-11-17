@@ -67,4 +67,6 @@
     <string name="info_livro">Título do livro, Autor\nPreço\nOutras informações</string>
     <string name="cancelar_venda">CANCELAR VENDA</string>
     <string name="confirmar_venda">CONFIRMAR VENDA</string>
+    <string name="titulo_do_livro">Título do livro</string>
+    <string name="autor">Autor</string>
 </resources>
