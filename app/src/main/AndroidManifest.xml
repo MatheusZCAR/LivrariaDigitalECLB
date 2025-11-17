@@ -38,12 +38,15 @@
 
         <activity android:name=".ConcluirVendaActivity"
             android:exported="true"/>
-        <activity android:name=".RealizarVendaActivity"
+        <!-- Activity principal <activity android:name=".RealizarVendaActivity"
+            android:exported="true"/>-->
+        <activity android:name=".CadastrarLivroActivity"
             android:exported="true"/>
+
 
         <!-- Activity principal -->
         <activity
-            android:name=".MainActivity"
+            android:name=".RealizarVendaActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi">
