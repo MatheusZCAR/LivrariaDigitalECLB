@@ -36,6 +36,7 @@ import java.util.List;
 public class PedidosActivity extends AppCompatActivity {
 
     private ActivityPedidosBinding binding;
+    private List<PedidoEntity> listaPedidos;
     private ArrayAdapter<String> adapter;
     private ArrayList<String> listaStrings;
 
@@ -68,18 +69,43 @@ public class PedidosActivity extends AppCompatActivity {
             gerarPDF();  // CHAMA DIRETO
         });
 
+        binding.listaPedidos.setOnItemClickListener((parent, view, position, id) -> {
+            PedidoEntity pedido = listaPedidos.get(position);
+            abrirDialogEditarLivro(pedido);
+        });
+
+        binding.listaPedidos.setOnItemLongClickListener((parent, view, position, id) -> {
+            PedidoEntity pedido = listaPedidos.get(position);
+
+            new AlertDialog.Builder(this)
+                    .setTitle("Excluir")
+                    .setMessage("Deseja excluir este livro?")
+                    .setPositiveButton("Sim", (dialog, which) -> {
+                        pedidoDao.excluirPedido(pedido);
+                        carregarPedidosDoBanco();
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+
+            return true;
+        });
 
         binding.iconHome.setOnClickListener(v -> finish());
     }
 
     private void carregarPedidosDoBanco() {
-        listaStrings.clear();
-        List<PedidoEntity> pedidos = pedidoDao.getPedidos();
-        for (PedidoEntity p : pedidos) {
-            listaStrings.add(p.titulo + " – " + p.autor);
+        listaPedidos = pedidoDao.getPedidos();
+
+        List<String> textos = new ArrayList<>();
+        for (PedidoEntity p : listaPedidos) {
+            textos.add(p.titulo + " – " + p.autor);
         }
+
+        adapter.clear();
+        adapter.addAll(textos);
         adapter.notifyDataSetChanged();
     }
+
 
 
     private void abrirDialogAdicionarLivro() {
@@ -110,6 +136,42 @@ public class PedidosActivity extends AppCompatActivity {
 
         builder.create().show();
     }
+
+    private void abrirDialogEditarLivro(PedidoEntity pedido) {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View view = inflater.inflate(R.layout.dialog_add_livro, null);
+
+        EditText inputTitulo = view.findViewById(R.id.inputTitulo);
+        EditText inputAutor = view.findViewById(R.id.inputAutor);
+
+        inputTitulo.setText(pedido.titulo);
+        inputAutor.setText(pedido.autor);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(view);
+        builder.setTitle("Editar Livro");
+
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+
+        builder.setPositiveButton("Salvar", (dialog, which) -> {
+            String novoTitulo = inputTitulo.getText().toString().trim();
+            String novoAutor = inputAutor.getText().toString().trim();
+
+            if (novoTitulo.isEmpty() || novoAutor.isEmpty()) {
+                Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            pedido.titulo = novoTitulo;
+            pedido.autor = novoAutor;
+
+            pedidoDao.atualizarPedido(pedido);
+            carregarPedidosDoBanco();
+        });
+
+        builder.create().show();
+    }
+
 
     private void salvarPedido(String titulo, String autor) {
         PedidoEntity pedido = new PedidoEntity(titulo, autor);
