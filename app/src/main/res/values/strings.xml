@@ -69,4 +69,6 @@
     <string name="confirmar_venda">CONFIRMAR VENDA</string>
     <string name="titulo_do_livro">Título do livro</string>
     <string name="autor">Autor</string>
+    <string name="editarLista">Editar</string>
+    <string name="excluirLista">Excluir</string>
 </resources>

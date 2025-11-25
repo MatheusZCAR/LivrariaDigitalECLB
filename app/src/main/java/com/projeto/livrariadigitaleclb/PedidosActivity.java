@@ -37,10 +37,13 @@ public class PedidosActivity extends AppCompatActivity {
 
     private ActivityPedidosBinding binding;
     private List<PedidoEntity> listaPedidos;
-    private ArrayAdapter<String> adapter;
+    /*private ArrayAdapter<String> adapter;*/
     private ArrayList<String> listaStrings;
 
     private PedidoDao pedidoDao;
+
+    private PedidosAdapter adapter;
+
 
     private static final int PERMISSAO_PDF = 100;
 
@@ -53,8 +56,8 @@ public class PedidosActivity extends AppCompatActivity {
         pedidoDao = AppDatabase.getDatabase(this).pedidoDao();
 
         listaStrings = new ArrayList<>();
-        adapter = new ArrayAdapter<>(this, R.layout.item_lista_pedido, listaStrings);
-        binding.listaPedidos.setAdapter(adapter);
+        /*adapter = new ArrayAdapter<>(this, R.layout.item_lista_pedido, listaStrings);
+        binding.listaPedidos.setAdapter(adapter);*/
 
         carregarPedidosDoBanco();
 
@@ -69,43 +72,35 @@ public class PedidosActivity extends AppCompatActivity {
             gerarPDF();  // CHAMA DIRETO
         });
 
-        binding.listaPedidos.setOnItemClickListener((parent, view, position, id) -> {
-            PedidoEntity pedido = listaPedidos.get(position);
-            abrirDialogEditarLivro(pedido);
-        });
-
-        binding.listaPedidos.setOnItemLongClickListener((parent, view, position, id) -> {
-            PedidoEntity pedido = listaPedidos.get(position);
-
-            new AlertDialog.Builder(this)
-                    .setTitle("Excluir")
-                    .setMessage("Deseja excluir este livro?")
-                    .setPositiveButton("Sim", (dialog, which) -> {
-                        pedidoDao.excluirPedido(pedido);
-                        carregarPedidosDoBanco();
-                    })
-                    .setNegativeButton("Cancelar", null)
-                    .show();
-
-            return true;
-        });
-
         binding.iconHome.setOnClickListener(v -> finish());
     }
 
     private void carregarPedidosDoBanco() {
+        // 1. Carrega os Pedidos do banco
         listaPedidos = pedidoDao.getPedidos();
 
-        List<String> textos = new ArrayList<>();
-        for (PedidoEntity p : listaPedidos) {
-            textos.add(p.titulo + " – " + p.autor);
+        // 2. Limpa e preenche a listaStrings com os dados de listaPedidos
+        listaStrings.clear(); // Limpa antes de preencher
+        for (PedidoEntity pedido : listaPedidos) {
+            // Formato para o PDF: Título – Autor
+            listaStrings.add(pedido.titulo + " – " + pedido.autor);
         }
 
-        adapter.clear();
-        adapter.addAll(textos);
-        adapter.notifyDataSetChanged();
+        // 3. Configura o Adapter para a exibição na tela (que já estava correto)
+        adapter = new PedidosAdapter(this, listaPedidos, this);
+        binding.listaPedidos.setAdapter(adapter);
     }
-
+    public void confirmarExclusao(PedidoEntity pedido) {
+        new AlertDialog.Builder(this)
+                .setTitle("Excluir Livro")
+                .setMessage("Deseja excluir este livro?")
+                .setPositiveButton("Sim", (d, w) -> {
+                    pedidoDao.excluirPedido(pedido);
+                    carregarPedidosDoBanco();
+                })
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 
 
     private void abrirDialogAdicionarLivro() {
@@ -137,7 +132,7 @@ public class PedidosActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-    private void abrirDialogEditarLivro(PedidoEntity pedido) {
+    void abrirDialogEditarLivro(PedidoEntity pedido) {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_add_livro, null);
 
