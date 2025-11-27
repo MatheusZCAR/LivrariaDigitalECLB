@@ -3,6 +3,7 @@ package com.projeto.livrariadigitaleclb.ui.pedidos;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import android.app.AlertDialog;
+
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
@@ -24,6 +26,10 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 
 public class PedidosActivity extends AppCompatActivity {
 
@@ -164,10 +170,31 @@ public class PedidosActivity extends AppCompatActivity {
             PdfDocument.Page page = pdf.startPage(pageInfo);
 
             Paint paint = new Paint();
-            paint.setTextSize(14);
-
             int x = 40;
-            int y = 60;
+            int y = 40; // Ponto de partida para o conteúdo, ajustado para o cabeçalho
+
+            //  Adicionar o Cabeçalho
+            Paint headerPaint = new Paint();
+            headerPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            headerPaint.setTextSize(24); // Tamanho maior para o cabeçalho
+            headerPaint.setTextAlign(Paint.Align.CENTER); // Centraliza o texto
+
+            // Calcula o centro da página para posicionar o cabeçalho
+            int pageWidth = pageInfo.getPageWidth();
+            int headerX = pageWidth / 2;
+            int headerY = 50; // Posição Y do cabeçalho
+
+            page.getCanvas().drawText("Lista de Pedidos", headerX, headerY, headerPaint);
+
+            // Desenha uma linha separadora
+            page.getCanvas().drawLine(40, 70, pageWidth - 40, 70, paint);
+
+            // Ajusta a posição Y para começar a listar os pedidos
+            y = 100;
+
+            // Configurações para o texto dos itens da lista
+            paint.setTextSize(14);
+            paint.setTextAlign(Paint.Align.LEFT);
 
             for (String item : listaStrings) {
                 page.getCanvas().drawText(item, x, y, paint);
@@ -179,7 +206,14 @@ public class PedidosActivity extends AppCompatActivity {
             File pasta = new File(getExternalFilesDir(null), "pdfs");
             if (!pasta.exists()) pasta.mkdirs();
 
-            File arquivo = new File(pasta, "lista_pedidos.pdf");
+            // Formatar o Nome do Arquivo com a Data
+            // Obtém a data e formata para o padrão DD/MM/AAAA
+            String dataAtual = new SimpleDateFormat("dd-MM-yyyy", new Locale("pt", "BR")).format(new Date());
+
+            // Constrói o nome do arquivo com a data formatada
+            String nomeArquivo = "Lista de Pedidos - " + dataAtual + ".pdf";
+
+            File arquivo = new File(pasta, nomeArquivo);
             FileOutputStream fos = new FileOutputStream(arquivo);
 
             pdf.writeTo(fos);
@@ -202,7 +236,6 @@ public class PedidosActivity extends AppCompatActivity {
             ).show();
         }
     }
-
     private void abrirPDF(File arquivo) {
         try {
             Uri uri = FileProvider.getUriForFile(
