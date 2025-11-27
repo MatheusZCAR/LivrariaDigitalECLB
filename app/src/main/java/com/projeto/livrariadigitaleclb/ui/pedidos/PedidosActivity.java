@@ -1,4 +1,4 @@
-package com.projeto.livrariadigitaleclb;
+package com.projeto.livrariadigitaleclb.ui.pedidos;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -8,37 +8,32 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.app.AlertDialog;
 import android.widget.Toast;
+import android.app.AlertDialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.projeto.livrariadigitaleclb.R;
+import com.projeto.livrariadigitaleclb.data.local.AppDatabase;
+import com.projeto.livrariadigitaleclb.data.local.dao.PedidoDao;
+import com.projeto.livrariadigitaleclb.data.local.entity.PedidoEntity;
 import com.projeto.livrariadigitaleclb.databinding.ActivityPedidosBinding;
-import com.projeto.livrariadigitaleclb.room.PedidoDao;
-import com.projeto.livrariadigitaleclb.room.PedidoEntity;
-import com.projeto.livrariadigitaleclb.data.AppDatabase;
-
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class PedidosActivity extends AppCompatActivity {
 
     private ActivityPedidosBinding binding;
-    private List<PedidoEntity> listaPedidos;
-    /*private ArrayAdapter<String> adapter;*/
-    private ArrayList<String> listaStrings;
 
     private PedidoDao pedidoDao;
+    private List<PedidoEntity> listaPedidos = new ArrayList<>();
+    private ArrayList<String> listaStrings = new ArrayList<>();
 
     private PedidosAdapter adapter;
-
-
-    private static final int PERMISSAO_PDF = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +43,7 @@ public class PedidosActivity extends AppCompatActivity {
 
         pedidoDao = AppDatabase.getInstance(this).pedidoDao();
 
-        listaStrings = new ArrayList<>();
-        /*adapter = new ArrayAdapter<>(this, R.layout.item_lista_pedido, listaStrings);
-        binding.listaPedidos.setAdapter(adapter);*/
-
+        configurarLista();
         carregarPedidosDoBanco();
 
         binding.btnAdicionarLivro.setOnClickListener(v -> abrirDialogAdicionarLivro());
@@ -61,28 +53,28 @@ public class PedidosActivity extends AppCompatActivity {
                 Toast.makeText(this, "A lista está vazia!", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            gerarPDF();  // CHAMA DIRETO
+            gerarPDF();
         });
 
         binding.iconHome.setOnClickListener(v -> finish());
     }
 
-    private void carregarPedidosDoBanco() {
-        // 1. Carrega os Pedidos do banco
-        listaPedidos = pedidoDao.getPedidos();
-
-        // 2. Limpa e preenche a listaStrings com os dados de listaPedidos
-        listaStrings.clear(); // Limpa antes de preencher
-        for (PedidoEntity pedido : listaPedidos) {
-            // Formato para o PDF: Título – Autor
-            listaStrings.add(pedido.titulo + " – " + pedido.autor);
-        }
-
-        // 3. Configura o Adapter para a exibição na tela (que já estava correto)
+    private void configurarLista() {
         adapter = new PedidosAdapter(this, listaPedidos, this);
         binding.listaPedidos.setAdapter(adapter);
     }
+
+    private void carregarPedidosDoBanco() {
+        listaPedidos = pedidoDao.getPedidos();
+
+        listaStrings.clear();
+        for (PedidoEntity pedido : listaPedidos) {
+            listaStrings.add(pedido.titulo + " – " + pedido.autor);
+        }
+
+        adapter.atualizarLista(listaPedidos);
+    }
+
     public void confirmarExclusao(PedidoEntity pedido) {
         new AlertDialog.Builder(this)
                 .setTitle("Excluir Livro")
@@ -95,11 +87,9 @@ public class PedidosActivity extends AppCompatActivity {
                 .show();
     }
 
-
     private void abrirDialogAdicionarLivro() {
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.dialog_add_livro, null);
-
 
         EditText inputTitulo = view.findViewById(R.id.inputTitulo);
         EditText inputAutor = view.findViewById(R.id.inputAutor);
@@ -160,18 +150,17 @@ public class PedidosActivity extends AppCompatActivity {
         builder.create().show();
     }
 
-
     private void salvarPedido(String titulo, String autor) {
         PedidoEntity pedido = new PedidoEntity(titulo, autor);
         pedidoDao.inserirPedido(pedido);
-        carregarPedidosDoBanco(); // atualiza a lista na tela
+        carregarPedidosDoBanco();
     }
-
 
     private void gerarPDF() {
         try {
             PdfDocument pdf = new PdfDocument();
-            PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 1).create();
+            PdfDocument.PageInfo pageInfo =
+                    new PdfDocument.PageInfo.Builder(595, 842, 1).create();
             PdfDocument.Page page = pdf.startPage(pageInfo);
 
             Paint paint = new Paint();
@@ -182,7 +171,7 @@ public class PedidosActivity extends AppCompatActivity {
 
             for (String item : listaStrings) {
                 page.getCanvas().drawText(item, x, y, paint);
-                y += 30; // espaçamento entre linhas
+                y += 30;
             }
 
             pdf.finishPage(page);
@@ -197,16 +186,20 @@ public class PedidosActivity extends AppCompatActivity {
             pdf.close();
             fos.close();
 
-            Toast.makeText(this,
+            Toast.makeText(
+                    this,
                     "PDF gerado em:\n" + arquivo.getAbsolutePath(),
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_LONG
+            ).show();
 
-            abrirPDF(arquivo); // abre automaticamente!
+            abrirPDF(arquivo);
 
         } catch (Exception e) {
-            Toast.makeText(this,
+            Toast.makeText(
+                    this,
                     "Erro ao gerar PDF: " + e.getMessage(),
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_LONG
+            ).show();
         }
     }
 
@@ -224,11 +217,11 @@ public class PedidosActivity extends AppCompatActivity {
             startActivity(intent);
 
         } catch (Exception e) {
-            Toast.makeText(this,
+            Toast.makeText(
+                    this,
                     "Nenhum leitor de PDF instalado.",
-                    Toast.LENGTH_LONG).show();
+                    Toast.LENGTH_LONG
+            ).show();
         }
     }
-
 }
-

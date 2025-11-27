@@ -1,8 +1,10 @@
-package com.projeto.livrariadigitaleclb;
+package com.projeto.livrariadigitaleclb.data.local.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
 
 import java.util.List;
 
@@ -12,8 +14,11 @@ public interface LivroDao {
     @Query("SELECT * FROM livros WHERE esgotado = 0 ORDER BY titulo ASC")
     List<LivroEntity> listarLivrosParaVenda();
 
-    @Query("SELECT * FROM livros WHERE LOWER(titulo) LIKE '%' || LOWER(:busca) || '%' " +
-            "OR LOWER(autor) LIKE '%' || LOWER(:busca) || '%' AND esgotado = 0")
+    @Query("SELECT * FROM livros " +
+            "WHERE esgotado = 0 AND (" +
+            "LOWER(titulo) LIKE '%' || LOWER(:busca) || '%' " +
+            "OR LOWER(autor) LIKE '%' || LOWER(:busca) || '%'" +
+            ") ORDER BY titulo ASC")
     List<LivroEntity> buscarLivros(String busca);
 
     @Query("SELECT titulo FROM livros WHERE esgotado = 0 ORDER BY titulo ASC")
@@ -28,4 +33,3 @@ public interface LivroDao {
     @Query("SELECT * FROM livros WHERE codigoBarras = :codigo LIMIT 1")
     LivroEntity buscarPorCodigo(String codigo);
 }
-

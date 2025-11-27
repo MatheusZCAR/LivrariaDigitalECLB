@@ -1,6 +1,7 @@
-package com.projeto.livrariadigitaleclb;
+package com.projeto.livrariadigitaleclb.ui.catalogo;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,54 +10,80 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.projeto.livrariadigitaleclb.R;
+import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class LivroAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private final List<Livro> lista;
-    private final Context context;
     private static final int VIEW_TYPE_CADASTRAR = 0;
     private static final int VIEW_TYPE_LIVRO = 1;
 
-    public LivroAdapter(List<Livro> lista, Context context) {
-        this.lista = lista;
+    private final Context context;
+    private final List<LivroEntity> livros = new ArrayList<>();
+
+    public LivroAdapter(Context context, List<LivroEntity> inicial) {
         this.context = context;
+        if (inicial != null) {
+            livros.addAll(inicial);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        // +1 por causa do item "Cadastrar Livro"
+        return livros.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return lista.get(position).isBotaoCadastrar ? VIEW_TYPE_CADASTRAR : VIEW_TYPE_LIVRO;
+        // posição 0 é sempre o botão de cadastrar
+        return position == 0 ? VIEW_TYPE_CADASTRAR : VIEW_TYPE_LIVRO;
     }
 
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(context);
+
         if (viewType == VIEW_TYPE_CADASTRAR) {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_cadastrar_livro, parent, false);
+            View view = inflater.inflate(R.layout.item_cadastrar_livro, parent, false);
             return new CadastrarViewHolder(view);
         } else {
-            View view = LayoutInflater.from(context).inflate(R.layout.item_livro, parent, false);
+            View view = inflater.inflate(R.layout.item_livro, parent, false);
             return new LivroViewHolder(view);
         }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Livro item = lista.get(position);
         if (holder instanceof CadastrarViewHolder) {
-            // ação de cadastrar livro
             holder.itemView.setOnClickListener(v -> {
-                // TODO: abrir tela de cadastro
+                Intent intent = new Intent(context, CadastrarLivroActivity.class);
+                context.startActivity(intent);
             });
         } else if (holder instanceof LivroViewHolder) {
-            ((LivroViewHolder) holder).titulo.setText(item.titulo);
-            // TODO: carregar imagem se tiver
+            // posição 1 em diante correspondem ao índice 0 em livros
+            int index = position - 1;
+            LivroEntity livro = livros.get(index);
+
+            LivroViewHolder vh = (LivroViewHolder) holder;
+            vh.titulo.setText(livro.titulo);
+
+            // Se você usar imagem em arquivo, pode carregar aqui usando imagemPath
+            // Exemplo futuro: Glide/Picasso, etc.
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return lista.size();
+    public void atualizarLista(List<LivroEntity> novosLivros) {
+        livros.clear();
+        if (novosLivros != null) {
+            livros.addAll(novosLivros);
+        }
+        notifyDataSetChanged();
     }
 
     static class CadastrarViewHolder extends RecyclerView.ViewHolder {

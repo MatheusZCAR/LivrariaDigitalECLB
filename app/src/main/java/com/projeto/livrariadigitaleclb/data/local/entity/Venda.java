@@ -1,4 +1,4 @@
-package com.projeto.livrariadigitaleclb;
+package com.projeto.livrariadigitaleclb.data.local.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -15,5 +15,3 @@ public class Venda {
 
     public long dataVenda;
 }
-
-

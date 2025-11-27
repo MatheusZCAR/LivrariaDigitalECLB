@@ -14,7 +14,7 @@
 
         <!-- Activity: Catálogo -->
         <activity
-            android:name=".CatalogoActivity"
+            android:name=".ui.catalogo.CatalogoActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.LivrariaDigitalECLB"
@@ -22,7 +22,7 @@
 
         <!-- Activity: Relatórios -->
         <activity
-            android:name=".RelatoriosActivity"
+            android:name=".ui.relatorios.RelatoriosActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi"
@@ -30,25 +30,25 @@
 
         <!-- Activity: Pedidos -->
         <activity
-            android:name=".PedidosActivity"
+            android:name=".ui.pedidos.PedidosActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi"
             android:theme="@style/Theme.LivrariaDigitalECLB" />
 
-        <activity android:name=".ConcluirVendaActivity"
+        <activity android:name=".ui.concluirvenda.ConcluirVendaActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi"
             android:theme="@style/Theme.LivrariaDigitalECLB"/>
 
-        <activity android:name=".CadastrarLivroActivity"
+        <activity android:name=".ui.catalogo.CadastrarLivroActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi"
             android:theme="@style/Theme.LivrariaDigitalECLB"/>
 
-        <activity android:name=".RealizarVendaActivity"
+        <activity android:name=".ui.realizarvenda.RealizarVendaActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi"
@@ -56,7 +56,7 @@
 
         <!-- Activity principal -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi">

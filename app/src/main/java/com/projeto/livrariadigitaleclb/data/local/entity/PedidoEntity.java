@@ -1,4 +1,4 @@
-package com.projeto.livrariadigitaleclb.room;
+package com.projeto.livrariadigitaleclb.data.local.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

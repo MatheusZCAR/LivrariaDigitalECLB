@@ -1,6 +1,5 @@
-package com.projeto.livrariadigitaleclb;
+package com.projeto.livrariadigitaleclb.ui.realizarvenda;
 
-import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.projeto.livrariadigitaleclb.R;
+import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHolder> {
@@ -20,14 +23,14 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         void onProdutoClick(LivroEntity livro);
     }
 
-    private List<LivroEntity> livros;
     private final OnProdutoClickListener listener;
-    private final Context context;
+    private List<LivroEntity> livros = new ArrayList<>();
 
-    public ProdutoAdapter(List<LivroEntity> livros, OnProdutoClickListener listener, Context context) {
-        this.livros = livros;
+    public ProdutoAdapter(List<LivroEntity> livros, OnProdutoClickListener listener) {
+        if (livros != null) {
+            this.livros.addAll(livros);
+        }
         this.listener = listener;
-        this.context = context;
     }
 
     @NonNull
@@ -64,7 +67,10 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     }
 
     public void updateList(List<LivroEntity> novaLista) {
-        this.livros = novaLista;
+        this.livros.clear();
+        if (novaLista != null) {
+            this.livros.addAll(novaLista);
+        }
         notifyDataSetChanged();
     }
 

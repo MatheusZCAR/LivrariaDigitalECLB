@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFDF5"
-    tools:context=".RelatoriosActivity">
+    tools:context=".ui.relatorios.RelatoriosActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/barraSuperior"

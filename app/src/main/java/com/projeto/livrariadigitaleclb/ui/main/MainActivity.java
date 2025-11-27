@@ -1,8 +1,13 @@
-package com.projeto.livrariadigitaleclb;
+package com.projeto.livrariadigitaleclb.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.projeto.livrariadigitaleclb.ui.catalogo.CatalogoActivity;
+import com.projeto.livrariadigitaleclb.ui.pedidos.PedidosActivity;
+import com.projeto.livrariadigitaleclb.ui.realizarvenda.RealizarVendaActivity;
+import com.projeto.livrariadigitaleclb.ui.relatorios.RelatoriosActivity;
 import com.projeto.livrariadigitaleclb.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
