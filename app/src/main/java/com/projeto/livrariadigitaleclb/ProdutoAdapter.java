@@ -1,58 +1,81 @@
 package com.projeto.livrariadigitaleclb;
 
+import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.io.File;
 import java.util.List;
 
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHolder> {
 
     public interface OnProdutoClickListener {
-        void onProdutoClick(Produto produto);
+        void onProdutoClick(LivroEntity livro);
     }
 
-    private final List<Produto> produtos;
+    private List<LivroEntity> livros;
     private final OnProdutoClickListener listener;
+    private final Context context;
 
-    public ProdutoAdapter(List<Produto> produtos, OnProdutoClickListener listener) {
-        this.produtos = produtos;
+    public ProdutoAdapter(List<LivroEntity> livros, OnProdutoClickListener listener, Context context) {
+        this.livros = livros;
         this.listener = listener;
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ProdutoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_produto, parent, false);
-        return new ViewHolder(view);
+        return new ProdutoAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Produto produto = produtos.get(position);
-        holder.image.setImageResource(produto.getImagem());
-        holder.title.setText(produto.getTitulo());
+    public void onBindViewHolder(@NonNull ProdutoAdapter.ViewHolder holder, int position) {
+        LivroEntity livro = livros.get(position);
 
-        holder.itemView.setOnClickListener(v -> listener.onProdutoClick(produto));
+        holder.titulo.setText(livro.titulo);
+
+        if (livro.imagemPath != null && !livro.imagemPath.isEmpty()) {
+            File imgFile = new File(livro.imagemPath);
+            if (imgFile.exists()) {
+                holder.imagem.setImageBitmap(BitmapFactory.decodeFile(imgFile.getPath()));
+            } else {
+                holder.imagem.setImageResource(R.drawable.caminho_luz);
+            }
+        } else {
+            holder.imagem.setImageResource(R.drawable.caminho_luz);
+        }
+
+        holder.itemView.setOnClickListener(v -> listener.onProdutoClick(livro));
     }
 
     @Override
     public int getItemCount() {
-        return produtos.size();
+        return livros.size();
+    }
+
+    public void updateList(List<LivroEntity> novaLista) {
+        this.livros = novaLista;
+        notifyDataSetChanged();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView title;
-        ViewHolder(View itemView) {
+        ImageView imagem;
+        TextView titulo;
+
+        public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.imageProduto);
-            title = itemView.findViewById(R.id.textTitulo);
+            imagem = itemView.findViewById(R.id.imageProduto);
+            titulo = itemView.findViewById(R.id.textTitulo);
         }
     }
 }
-
