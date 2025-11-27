@@ -44,16 +44,18 @@ dependencies {
     implementation libs.constraintlayout
     implementation libs.navigation.fragment
     implementation libs.navigation.ui
+    implementation libs.room.common.jvm
+    implementation libs.room.runtime
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+   
     // ROOM (Banco de Dados)
     implementation "androidx.room:room-runtime:2.6.1"
-    annotationProcessor "androidx.room:room-compiler:2.6.1"
-
     implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
     implementation 'com.google.zxing:core:3.5.2'
+    annotationProcessor libs.room.compiler
 
-// Para usar allowMainThreadQueries(), RoomDatabase e afins
+    // Para usar allowMainThreadQueries(), RoomDatabase e afins
     implementation "androidx.room:room-ktx:2.6.1"
 }
