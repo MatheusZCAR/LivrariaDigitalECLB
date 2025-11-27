@@ -8,6 +8,8 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.projeto.livrariadigitaleclb.data.AppDatabase;
+
 
 
 public class CadastrarLivroActivity extends AppCompatActivity {

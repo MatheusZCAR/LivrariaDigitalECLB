@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.projeto.livrariadigitaleclb.data.AppDatabase;
 import com.projeto.livrariadigitaleclb.databinding.ActivityRealizarVendaBinding;
 
 import java.util.List;

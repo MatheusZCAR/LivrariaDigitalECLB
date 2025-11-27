@@ -1,37 +1,30 @@
 package com.projeto.livrariadigitaleclb;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Paint;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.app.AlertDialog;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
 import com.projeto.livrariadigitaleclb.databinding.ActivityPedidosBinding;
-import com.projeto.livrariadigitaleclb.room.AppDatabase;
 import com.projeto.livrariadigitaleclb.room.PedidoDao;
 import com.projeto.livrariadigitaleclb.room.PedidoEntity;
+import com.projeto.livrariadigitaleclb.data.AppDatabase;
+
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class PedidosActivity extends AppCompatActivity {
 
@@ -53,7 +46,7 @@ public class PedidosActivity extends AppCompatActivity {
         binding = ActivityPedidosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        pedidoDao = AppDatabase.getDatabase(this).pedidoDao();
+        pedidoDao = AppDatabase.getInstance(this).pedidoDao();
 
         listaStrings = new ArrayList<>();
         /*adapter = new ArrayAdapter<>(this, R.layout.item_lista_pedido, listaStrings);

@@ -15,7 +15,7 @@
         <!-- Activity: Catálogo -->
         <activity
             android:name=".CatalogoActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.LivrariaDigitalECLB"
             tools:ignore="DiscouragedApi" />
@@ -23,7 +23,7 @@
         <!-- Activity: Relatórios -->
         <activity
             android:name=".RelatoriosActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi"
             android:theme="@style/Theme.LivrariaDigitalECLB" />
@@ -31,22 +31,32 @@
         <!-- Activity: Pedidos -->
         <activity
             android:name=".PedidosActivity"
-            android:exported="false"
+            android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi"
             android:theme="@style/Theme.LivrariaDigitalECLB" />
 
         <activity android:name=".ConcluirVendaActivity"
-            android:exported="true"/>
-        <!-- Activity principal <activity android:name=".RealizarVendaActivity"
-            android:exported="true"/>-->
-        <activity android:name=".CadastrarLivroActivity"
-            android:exported="true"/>
+            android:exported="true"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi"
+            android:theme="@style/Theme.LivrariaDigitalECLB"/>
 
+        <activity android:name=".CadastrarLivroActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi"
+            android:theme="@style/Theme.LivrariaDigitalECLB"/>
+
+        <activity android:name=".RealizarVendaActivity"
+            android:exported="true"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi"
+            android:theme="@style/Theme.LivrariaDigitalECLB"/>
 
         <!-- Activity principal -->
         <activity
-            android:name=".RealizarVendaActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:screenOrientation="landscape"
             tools:ignore="DiscouragedApi">
