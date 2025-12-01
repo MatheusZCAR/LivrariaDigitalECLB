@@ -2,6 +2,7 @@ package com.projeto.livrariadigitaleclb.ui.catalogo;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.projeto.livrariadigitaleclb.R;
 import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,13 +36,11 @@ public class LivroAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        // +1 por causa do item "Cadastrar Livro"
         return livros.size() + 1;
     }
 
     @Override
     public int getItemViewType(int position) {
-        // posição 0 é sempre o botão de cadastrar
         return position == 0 ? VIEW_TYPE_CADASTRAR : VIEW_TYPE_LIVRO;
     }
 
@@ -66,15 +66,24 @@ public class LivroAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 context.startActivity(intent);
             });
         } else if (holder instanceof LivroViewHolder) {
-            // posição 1 em diante correspondem ao índice 0 em livros
             int index = position - 1;
             LivroEntity livro = livros.get(index);
 
             LivroViewHolder vh = (LivroViewHolder) holder;
             vh.titulo.setText(livro.titulo);
 
-            // Se você usar imagem em arquivo, pode carregar aqui usando imagemPath
-            // Exemplo futuro: Glide/Picasso, etc.
+            // Carregar a imagem se existir
+            if (livro.imagemPath != null && !livro.imagemPath.isEmpty()) {
+                File imgFile = new File(livro.imagemPath);
+                if (imgFile.exists()) {
+                    Uri photoUri = Uri.fromFile(imgFile);
+                    vh.imagem.setImageURI(photoUri);
+                } else {
+                    vh.imagem.setImageResource(R.drawable.ic_launcher_background);
+                }
+            } else {
+                vh.imagem.setImageResource(R.drawable.ic_launcher_background);
+            }
         }
     }
 

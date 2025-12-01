@@ -6,6 +6,30 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
+    <!-- Preview da foto -->
+    <ImageView
+        android:id="@+id/imgPreviewCapa"
+        android:layout_width="120dp"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:background="#EEEEEE"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginEnd="16dp"/>
+
+    <!-- Botão de tirar foto -->
+    <Button
+        android:id="@+id/btnTirarFoto"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:text="Tirar Foto"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/imgPreviewCapa"
+        app:layout_constraintStart_toStartOf="@id/imgPreviewCapa"
+        app:layout_constraintEnd_toEndOf="@id/imgPreviewCapa"
+        android:layout_marginTop="8dp"/>
+
     <EditText
         android:id="@+id/edtCodigoBarras"
         android:layout_width="0dp"
@@ -13,9 +37,9 @@
         android:hint="Código de Barras"
         android:inputType="text"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgPreviewCapa"
         app:layout_constraintEnd_toStartOf="@+id/btnLerCodigo"
-        />
+        android:layout_marginStart="16dp"/>
 
     <Button
         android:id="@+id/btnLerCodigo"
@@ -24,7 +48,8 @@
         android:text="Ler"
         app:layout_constraintTop_toTopOf="@id/edtCodigoBarras"
         app:layout_constraintStart_toEndOf="@id/edtCodigoBarras"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="8dp"/>
 
     <EditText
         android:id="@+id/edtTitulo"
@@ -32,9 +57,10 @@
         android:layout_height="wrap_content"
         android:hint="Título do Livro"
         app:layout_constraintTop_toBottomOf="@id/edtCodigoBarras"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgPreviewCapa"
         app:layout_constraintEnd_toEndOf="parent"
-        />
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"/>
 
     <EditText
         android:id="@+id/edtAutor"
@@ -42,8 +68,10 @@
         android:layout_height="wrap_content"
         android:hint="Autor"
         app:layout_constraintTop_toBottomOf="@id/edtTitulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintStart_toEndOf="@id/imgPreviewCapa"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"/>
 
     <EditText
         android:id="@+id/edtPreco"
@@ -52,16 +80,19 @@
         android:hint="Preço"
         android:inputType="numberDecimal"
         app:layout_constraintTop_toBottomOf="@id/edtAutor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/imgPreviewCapa"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"/>
 
     <Button
         android:id="@+id/btnSalvarLivro"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Salvar Livro"
-        app:layout_constraintTop_toBottomOf="@id/edtPreco"
+        app:layout_constraintTop_toBottomOf="@id/btnTirarFoto"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
