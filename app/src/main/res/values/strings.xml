@@ -10,7 +10,32 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <!-- Adicione estas strings no seu arquivo res/values/strings.xml -->
 
+    <!-- Strings do Carrinho -->
+    <string name="carrinho">Carrinho</string>
+    <string name="ver_carrinho">Ver Carrinho</string>
+    <string name="limpar_carrinho">Limpar Carrinho</string>
+    <string name="scanner">Scanner</string>
+    <string name="buscar_livro">Buscar por título ou autor</string>
+    <string name="btn_home">Voltar para tela inicial</string>
+
+
+    <!-- Adicione estas strings no seu arquivo res/values/strings.xml -->
+
+    <!-- Strings do Carrinho -->
+
+
+
+    <!-- Strings de Concluir Venda -->
+    <string name="concluir_venda">Concluir Venda</string>
+    <string name="revise_itens">Revise os itens antes de finalizar</string>
+    <string name="total_itens">Total de itens:</string>
+    <string name="valor_total">Valor Total:</string>
+    <string name="capa_livro">Capa do livro</string>
+    <string name="remover_item">Remover item</string>
+    <string name="aumentar_quantidade">Aumentar quantidade</string>
+    <string name="diminuir_quantidade">Diminuir quantidade</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus

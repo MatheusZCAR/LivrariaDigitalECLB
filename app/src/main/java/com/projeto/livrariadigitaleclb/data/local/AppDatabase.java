@@ -40,7 +40,7 @@ import com.projeto.livrariadigitaleclb.data.local.entity.Venda;
                 RelatorioVendaEntity.class,
                 LivroAutorEntity.class
         },
-        version = 11,
+        version = 12,
         exportSchema = false
 )
 public abstract class AppDatabase extends RoomDatabase {

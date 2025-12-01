@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_livro_card"
+    android:elevation="2dp"
+    android:padding="12dp">
+
+    <!-- Capa do Livro -->
+    <ImageView
+        android:id="@+id/imgCapa"
+        android:layout_width="60dp"
+        android:layout_height="90dp"
+        android:contentDescription="@string/capa_livro"
+        android:scaleType="centerCrop"
+        android:background="@drawable/bg_placeholder_livro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/caminho_luz" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="8dp"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/btnRemover"
+        app:layout_constraintStart_toEndOf="@id/imgCapa"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="O Caminho da Luz" />
+
+    <!-- Autor -->
+    <TextView
+        android:id="@+id/txtAutor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="@id/txtTitulo"
+        app:layout_constraintStart_toStartOf="@id/txtTitulo"
+        app:layout_constraintTop_toBottomOf="@id/txtTitulo"
+        tools:text="Autor do Livro" />
+
+    <!-- Preço Unitário -->
+    <TextView
+        android:id="@+id/txtPreco"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textColor="#666666"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@id/txtTitulo"
+        app:layout_constraintTop_toBottomOf="@id/txtAutor"
+        tools:text="R$ 25,00" />
+
+    <!-- Botão Remover -->
+    <ImageButton
+        android:id="@+id/btnRemover"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/remover_item"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Controles de Quantidade -->
+    <LinearLayout
+        android:id="@+id/layoutQuantidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/txtTitulo"
+        app:layout_constraintTop_toBottomOf="@id/txtPreco">
+
+        <!-- Botão Diminuir -->
+        <ImageButton
+            android:id="@+id/btnDiminuir"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/diminuir_quantidade"
+            android:src="@drawable/ic_minus" />
+
+        <!-- Quantidade -->
+        <TextView
+            android:id="@+id/txtQuantidade"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#333333"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="3" />
+
+        <!-- Botão Aumentar -->
+        <ImageButton
+            android:id="@+id/btnAumentar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/aumentar_quantidade"
+            android:src="@drawable/ic_plus" />
+    </LinearLayout>
+
+    <!-- Subtotal -->
+    <TextView
+        android:id="@+id/txtSubtotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#0097A7"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/layoutQuantidade"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/layoutQuantidade"
+        tools:text="R$ 75,00" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
