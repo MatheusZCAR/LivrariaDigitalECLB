@@ -2,6 +2,7 @@ package com.projeto.livrariadigitaleclb.ui.relatorios;
 
 import android.content.Intent;
 import android.graphics.Paint;
+import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -37,14 +39,13 @@ public class RelatoriosActivity extends AppCompatActivity {
         vendaDao = AppDatabase.getInstance(this).vendaDao();
 
         binding.btnHome.setOnClickListener(v -> finish());
-
-        binding.btnImprimir.setOnClickListener(v -> onImprimirClicked());
+        binding.btnImprimir.setOnClickListener(v -> gerarRelatorio());
     }
 
-    private void onImprimirClicked() {
+    private void gerarRelatorio() {
         int checkedId = binding.radioGroupRelatorios.getCheckedRadioButtonId();
-
         String tipo;
+
         if (checkedId == binding.radioDiario.getId()) {
             tipo = "DIARIO";
         } else if (checkedId == binding.radioSemanal.getId()) {
@@ -56,11 +57,11 @@ public class RelatoriosActivity extends AppCompatActivity {
             return;
         }
 
-        List<Venda> todasVendas = vendaDao.listarVendas();
-        List<Venda> filtradas = filtrarPorPeriodo(todasVendas, tipo);
+        List<Venda> todas = vendaDao.listarVendas();
+        List<Venda> filtradas = filtrarPorPeriodo(todas, tipo);
 
         if (filtradas.isEmpty()) {
-            Toast.makeText(this, "Nenhuma venda encontrada para o período selecionado", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nenhuma venda encontrada para este período", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -69,27 +70,27 @@ public class RelatoriosActivity extends AppCompatActivity {
 
     private List<Venda> filtrarPorPeriodo(List<Venda> vendas, String tipo) {
         long agora = System.currentTimeMillis();
+        long limite;
 
-        long limiteMillis;
+        Calendar c = Calendar.getInstance();
+
         switch (tipo) {
             case "DIARIO":
-                // últimas 24 horas
-                limiteMillis = agora - 24L * 60L * 60L * 1000L;
+                limite = getInicioDoDia(agora);
                 break;
             case "SEMANAL":
-                // últimos 7 dias
-                limiteMillis = agora - 7L * 24L * 60L * 60L * 1000L;
+                limite = getInicioDoDia(c.getTimeInMillis());
                 break;
             case "MENSAL":
             default:
-                // últimos 30 dias
-                limiteMillis = agora - 30L * 24L * 60L * 60L * 1000L;
+                c.add(Calendar.DAY_OF_YEAR, -30);
+                limite = getInicioDoDia(c.getTimeInMillis());
                 break;
         }
 
         List<Venda> resultado = new ArrayList<>();
         for (Venda v : vendas) {
-            if (v.dataVenda >= limiteMillis) {
+            if (v.dataVenda >= limite) {
                 resultado.add(v);
             }
         }
@@ -104,47 +105,63 @@ public class RelatoriosActivity extends AppCompatActivity {
             PdfDocument.Page page = pdf.startPage(pageInfo);
 
             Paint paint = new Paint();
-            paint.setTextSize(14);
-
             int x = 40;
-            int y = 60;
+            int y = 40;
 
-            String titulo;
+            // ==== Cabeçalho ====
+            Paint headerPaint = new Paint();
+            headerPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
+            headerPaint.setTextSize(24);
+            headerPaint.setTextAlign(Paint.Align.CENTER);
+
+            int pageWidth = pageInfo.getPageWidth();
+            int headerX = pageWidth / 2;
+            int headerY = 50;
+
+            String tituloCabecalho;
             switch (tipo) {
                 case "DIARIO":
-                    titulo = "Relatório Diário de Vendas";
+                    tituloCabecalho = "Relatório Diário de Vendas";
                     break;
                 case "SEMANAL":
-                    titulo = "Relatório Semanal de Vendas";
+                    tituloCabecalho = "Relatório Semanal de Vendas";
                     break;
                 case "MENSAL":
                 default:
-                    titulo = "Relatório Mensal de Vendas";
+                    tituloCabecalho = "Relatório Mensal de Vendas";
                     break;
             }
 
-            paint.setFakeBoldText(true);
-            page.getCanvas().drawText(titulo, x, y, paint);
-            paint.setFakeBoldText(false);
-            y += 40;
+            page.getCanvas().drawText(tituloCabecalho, headerX, headerY, headerPaint);
+            page.getCanvas().drawLine(40, 75, pageWidth - 40, 75, paint);
+
+            y = 110;
+            paint.setTextSize(14);
 
             SimpleDateFormat sdfDataHora =
                     new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 
+            int numeroPagina = 1;
+
             for (Venda v : vendas) {
-                String linha = "Título: " + v.titulo +
-                        " | Preço: R$ " + v.preco +
-                        " | Data: " + sdfDataHora.format(new Date(v.dataVenda));
+                String linha =
+                        "Título: " + v.titulo +
+                                " | Preço: R$ " + String.format(Locale.getDefault(), "%.2f", v.preco) +
+                                " | Data: " + sdfDataHora.format(new Date(v.dataVenda));
 
                 page.getCanvas().drawText(linha, x, y, paint);
                 y += 30;
 
-                if (y > 800) {
-                    // simples quebra quando estoura a página
+                if (y > 780) {
                     pdf.finishPage(page);
-                    pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 2).create();
+                    numeroPagina++;
+
+                    pageInfo = new PdfDocument.PageInfo.Builder(595, 842, numeroPagina).create();
                     page = pdf.startPage(pageInfo);
-                    y = 60;
+                    y = 110;
+
+                    page.getCanvas().drawText(tituloCabecalho, headerX, headerY, headerPaint);
+                    page.getCanvas().drawLine(40, 75, pageWidth - 40, 75, paint);
                 }
             }
 
@@ -153,19 +170,8 @@ public class RelatoriosActivity extends AppCompatActivity {
             File pasta = new File(getExternalFilesDir(null), "pdfs");
             if (!pasta.exists()) pasta.mkdirs();
 
-            String nomeArquivo;
-            switch (tipo) {
-                case "DIARIO":
-                    nomeArquivo = "relatorio_diario_vendas.pdf";
-                    break;
-                case "SEMANAL":
-                    nomeArquivo = "relatorio_semanal_vendas.pdf";
-                    break;
-                case "MENSAL":
-                default:
-                    nomeArquivo = "relatorio_mensal_vendas.pdf";
-                    break;
-            }
+            String data = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+            String nomeArquivo = tituloCabecalho + " - " + data + ".pdf";
 
             File arquivo = new File(pasta, nomeArquivo);
             FileOutputStream fos = new FileOutputStream(arquivo);
@@ -174,22 +180,29 @@ public class RelatoriosActivity extends AppCompatActivity {
             pdf.close();
             fos.close();
 
-            Toast.makeText(
-                    this,
+            Toast.makeText(this,
                     "PDF gerado em:\n" + arquivo.getAbsolutePath(),
-                    Toast.LENGTH_LONG
-            ).show();
+                    Toast.LENGTH_LONG).show();
 
             abrirPDF(arquivo);
 
         } catch (Exception e) {
-            Toast.makeText(
-                    this,
+            Toast.makeText(this,
                     "Erro ao gerar PDF: " + e.getMessage(),
-                    Toast.LENGTH_LONG
-            ).show();
+                    Toast.LENGTH_LONG).show();
         }
     }
+
+    private long getInicioDoDia(long millis) {
+        Calendar c = Calendar.getInstance();
+        c.setTimeInMillis(millis);
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTimeInMillis();
+    }
+
 
     private void abrirPDF(File arquivo) {
         try {
@@ -205,8 +218,7 @@ public class RelatoriosActivity extends AppCompatActivity {
             startActivity(intent);
 
         } catch (Exception e) {
-            Toast.makeText(
-                    this,
+            Toast.makeText(this,
                     "Nenhum leitor de PDF instalado.",
                     Toast.LENGTH_LONG
             ).show();
