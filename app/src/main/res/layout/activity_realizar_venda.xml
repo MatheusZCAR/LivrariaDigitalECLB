@@ -3,100 +3,177 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutRealizarVenda"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFDF5"
+    android:background="#F5F5F5"
+    android:padding="16dp"
     tools:context=".ui.realizarvenda.RealizarVendaActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/barraSuperior"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="#0097A7"
-        app:layout_constraintTop_toTopOf="parent"
+    <!-- Botão Home -->
+    <ImageButton
+        android:id="@+id/btnHome"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="@string/btn_home"
+        android:src="@drawable/ic_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Título -->
+    <TextView
+        android:id="@+id/txtTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/realizar_venda"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#333333"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btnScan"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_barcode"
-            android:padding="6dp"
-            android:layout_marginEnd="70dp"
-            android:contentDescription="Scan"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <TextView
-            android:id="@+id/txtTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/selecione_ou_pesquise_os_produtos"
-            android:textColor="@android:color/white"
-            android:textSize="20sp"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/btnHome"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/voltar"
-            android:padding="4dp"
-            android:src="@drawable/ic_home"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <!-- Barra de Busca -->
     <LinearLayout
-        android:id="@+id/searchLayout"
+        android:id="@+id/layoutBusca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         android:background="@android:color/white"
-        android:elevation="4dp"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        app:layout_constraintTop_toBottomOf="@id/barraSuperior"
+        android:elevation="2dp"
+        android:orientation="horizontal"
+        android:padding="8dp"
+        app:layout_constraintEnd_toStartOf="@id/btnScan"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/txtTitulo">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/buscar"
+            android:src="@drawable/ic_search" />
 
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:autofillHints=""
-            android:hint="@string/pesquisar_produto"
+            android:background="@android:color/transparent"
+            android:hint="@string/buscar_livro"
             android:inputType="text"
-            android:padding="8dp"
-            android:background="@android:color/transparent" />
-
-        <ImageView
-            android:id="@+id/searchButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:contentDescription="@string/buscar"
-            android:src="@drawable/ic_search" />
+            android:textSize="16sp" />
     </LinearLayout>
 
+    <!-- Botão Scanner -->
+    <Button
+        android:id="@+id/btnScan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="@string/scanner"
+        android:drawableStart="@drawable/ic_scan"
+        android:drawablePadding="8dp"
+        app:layout_constraintBottom_toBottomOf="@id/layoutBusca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/layoutBusca"
+        app:layout_constraintTop_toTopOf="@id/layoutBusca" />
+
+    <!-- RecyclerView de Produtos -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerProdutos"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:paddingTop="8dp"
+        android:layout_marginTop="16dp"
         android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/searchLayout"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutCarrinho"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/layoutBusca"
+        tools:listitem="@layout/item_produto" />
+
+    <!-- Barra do Carrinho (inicialmente oculta) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutCarrinho"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:elevation="8dp"
+        android:padding="16dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible">
+
+        <!-- Ícone Carrinho -->
+        <ImageView
+            android:id="@+id/iconCarrinho"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="@string/carrinho"
+            android:src="@drawable/ic_carrinho"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <!-- Informações do Carrinho -->
+        <LinearLayout
+            android:id="@+id/layoutInfoCarrinho"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnLimparCarrinho"
+            app:layout_constraintStart_toEndOf="@id/iconCarrinho"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txtTotalItens"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#333333"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="3 item(ns)" />
+
+            <TextView
+                android:id="@+id/txtValorTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4CAF50"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="R$ 150,00" />
+        </LinearLayout>
+
+        <!-- Botão Limpar -->
+        <ImageButton
+            android:id="@+id/btnLimparCarrinho"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/limpar_carrinho"
+            android:src="@drawable/ic_delete"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnVerCarrinho"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Botão Ver Carrinho -->
+        <Button
+            android:id="@+id/btnVerCarrinho"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#4CAF50"
+            android:text="@string/ver_carrinho"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

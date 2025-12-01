@@ -27,6 +27,10 @@ public interface LivroDao {
     @Query("SELECT * FROM livros WHERE id = :id LIMIT 1")
     LivroEntity getLivroById(int id);
 
+    // ADICIONE ESTE MÉTODO
+    @Query("SELECT * FROM livros WHERE id = :id LIMIT 1")
+    LivroEntity buscarPorId(long id);
+
     @Insert
     long inserirLivro(LivroEntity livro);
 
