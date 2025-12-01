@@ -1,5 +1,8 @@
 package com.projeto.livrariadigitaleclb.ui.concluirvenda;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.projeto.livrariadigitaleclb.R;
 
+import java.io.File;
 import java.util.List;
 
 public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.ViewHolder> {
@@ -81,13 +85,13 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.ViewHo
 
         void bind(ConcluirVendaActivity.ItemCarrinho item) {
             txtTitulo.setText(item.livro.titulo);
-            // txtAutor.setText(item.livro.autor); // Ajuste conforme sua estrutura
+            txtAutor.setText(item.livro.autor != null ? item.livro.autor : "Autor desconhecido");
             txtPreco.setText(String.format("R$ %.2f", item.livro.preco));
             txtQuantidade.setText(String.valueOf(item.quantidade));
             txtSubtotal.setText(String.format("R$ %.2f", item.getSubtotal()));
 
-            // Configura a capa do livro se disponível
-            // imgCapa.setImageResource(...); // Implemente conforme sua lógica
+            // Carrega a imagem do livro
+            carregarImagemLivro(item);
 
             btnDiminuir.setOnClickListener(v -> {
                 int novaQtd = item.quantidade - 1;
@@ -102,6 +106,45 @@ public class CarrinhoAdapter extends RecyclerView.Adapter<CarrinhoAdapter.ViewHo
             btnRemover.setOnClickListener(v -> {
                 removerListener.onRemover(item);
             });
+        }
+
+        private void carregarImagemLivro(ConcluirVendaActivity.ItemCarrinho item) {
+            // Tenta carregar a imagem se o livro tiver uma foto cadastrada
+            if (item.livro.imagemPath != null && !item.livro.imagemPath.isEmpty()) {
+                File imgFile = new File(item.livro.imagemPath);
+
+                if (imgFile.exists()) {
+                    try {
+                        // Carrega a imagem do arquivo
+                        Uri imageUri = Uri.fromFile(imgFile);
+                        imgCapa.setImageURI(imageUri);
+
+                        // Força o refresh da imageview
+                        imgCapa.invalidate();
+                        return; // Sucesso, sai do método
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        // Se der erro, continua para usar placeholder
+                    }
+                }
+            }
+
+            // Se não tiver imagem ou erro ao carregar, usa placeholder
+            usarPlaceholder(item);
+        }
+
+        private void usarPlaceholder(ConcluirVendaActivity.ItemCarrinho item) {
+            // Lista de placeholders disponíveis
+            int[] placeholders = {
+                    R.drawable.caminho_luz,
+                    R.drawable.anoitecer_aline,
+                    R.drawable.encontrei_voce
+            };
+
+            // Usa um placeholder baseado no ID do livro
+            int placeholderIndex = Math.abs(item.livro.id % placeholders.length);
+            imgCapa.setImageResource(placeholders[placeholderIndex]);
         }
     }
 }

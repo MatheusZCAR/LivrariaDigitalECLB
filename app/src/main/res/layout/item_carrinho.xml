@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@android:color/white"
+    android:background="@drawable/bg_livro_card"
     android:elevation="2dp"
     android:padding="12dp">
 
@@ -14,12 +14,13 @@
     <ImageView
         android:id="@+id/imgCapa"
         android:layout_width="60dp"
-        android:layout_height="80dp"
+        android:layout_height="90dp"
         android:contentDescription="@string/capa_livro"
         android:scaleType="centerCrop"
-        android:src="@drawable/caminho_luz"
+        android:background="@drawable/bg_placeholder_livro"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/caminho_luz" />
 
     <!-- Título -->
     <TextView
@@ -121,7 +122,7 @@
         android:id="@+id/txtSubtotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#4CAF50"
+        android:textColor="#0097A7"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/layoutQuantidade"

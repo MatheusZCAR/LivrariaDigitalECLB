@@ -2,97 +2,258 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:background="#FFFDF5"
+    tools:context=".ui.catalogo.CadastrarLivroActivity">
 
-    <!-- Preview da foto -->
+    <!-- Barra Superior -->
+    <View
+        android:id="@+id/barraSuperior"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:background="#0097A7"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textTituloCadastro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar Livro"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_marginStart="16dp"
+        app:layout_constraintTop_toTopOf="@id/barraSuperior"
+        app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <ImageView
-        android:id="@+id/imgPreviewCapa"
-        android:layout_width="120dp"
-        android:layout_height="180dp"
-        android:scaleType="centerCrop"
-        android:background="#EEEEEE"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/btnHome"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:src="@drawable/ic_home"
+        android:contentDescription="@string/btn_home"
+        android:padding="4dp"
+        app:tint="@android:color/white"
+        app:layout_constraintTop_toTopOf="@id/barraSuperior"
+        app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="16dp" />
+
+    <!-- Conteúdo -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/barraSuperior"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginEnd="16dp"/>
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <!-- Botão de tirar foto -->
-    <Button
-        android:id="@+id/btnTirarFoto"
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:text="Tirar Foto"
-        android:textSize="12sp"
-        app:layout_constraintTop_toBottomOf="@id/imgPreviewCapa"
-        app:layout_constraintStart_toStartOf="@id/imgPreviewCapa"
-        app:layout_constraintEnd_toEndOf="@id/imgPreviewCapa"
-        android:layout_marginTop="8dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="24dp">
 
-    <EditText
-        android:id="@+id/edtCodigoBarras"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Código de Barras"
-        android:inputType="text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgPreviewCapa"
-        app:layout_constraintEnd_toStartOf="@+id/btnLerCodigo"
-        android:layout_marginStart="16dp"/>
+            <!-- Card da Foto -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFoto"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginEnd="24dp">
 
-    <Button
-        android:id="@+id/btnLerCodigo"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:text="Ler"
-        app:layout_constraintTop_toTopOf="@id/edtCodigoBarras"
-        app:layout_constraintStart_toEndOf="@id/edtCodigoBarras"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="8dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:background="@android:color/white">
 
-    <EditText
-        android:id="@+id/edtTitulo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Título do Livro"
-        app:layout_constraintTop_toBottomOf="@id/edtCodigoBarras"
-        app:layout_constraintStart_toEndOf="@id/imgPreviewCapa"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Foto da Capa"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#0097A7"
+                        android:gravity="center"
+                        android:layout_marginBottom="8dp"/>
 
-    <EditText
-        android:id="@+id/edtAutor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Autor"
-        app:layout_constraintTop_toBottomOf="@id/edtTitulo"
-        app:layout_constraintStart_toEndOf="@id/imgPreviewCapa"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
+                    <ImageView
+                        android:id="@+id/imgPreviewCapa"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_placeholder_livro"
+                        android:contentDescription="Capa do livro"/>
 
-    <EditText
-        android:id="@+id/edtPreco"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Preço"
-        android:inputType="numberDecimal"
-        app:layout_constraintTop_toBottomOf="@id/edtAutor"
-        app:layout_constraintStart_toEndOf="@id/imgPreviewCapa"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"/>
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btnTirarFoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:text="📷 Tirar Foto"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/white"
+                        android:background="@drawable/bg_button_rounded"
+                        android:layout_marginTop="12dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btnSalvarLivro"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Salvar Livro"
-        app:layout_constraintTop_toBottomOf="@id/btnTirarFoto"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp"/>
+            <!-- Formulário -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFormulario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp"
+                app:layout_constraintTop_toTopOf="@id/cardFoto"
+                app:layout_constraintStart_toEndOf="@id/cardFoto"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:background="@android:color/white">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Informações do Livro"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="#0097A7"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Código de Barras -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Código de Barras"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:layout_marginBottom="4dp"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <EditText
+                            android:id="@+id/edtCodigoBarras"
+                            android:layout_width="0dp"
+                            android:layout_height="48dp"
+                            android:layout_weight="1"
+                            android:hint="Digite ou escaneie"
+                            android:inputType="text"
+                            android:background="@drawable/bg_livro_card"
+                            android:paddingStart="12dp"
+                            android:paddingEnd="12dp"
+                            android:textSize="14sp"/>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btnLerCodigo"
+                            android:layout_width="80dp"
+                            android:layout_height="48dp"
+                            android:text="📱 Ler"
+                            android:textSize="12sp"
+                            android:textColor="@android:color/white"
+                            android:background="@drawable/bg_button_rounded"
+                            android:layout_marginStart="8dp"/>
+                    </LinearLayout>
+
+                    <!-- Título -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Título"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:layout_marginBottom="4dp"/>
+
+                    <EditText
+                        android:id="@+id/edtTitulo"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Nome do livro"
+                        android:inputType="textCapWords"
+                        android:background="@drawable/bg_livro_card"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Autor -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Autor"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:layout_marginBottom="4dp"/>
+
+                    <EditText
+                        android:id="@+id/edtAutor"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Nome do autor"
+                        android:inputType="textCapWords"
+                        android:background="@drawable/bg_livro_card"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <!-- Preço -->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Preço (R$)"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:layout_marginBottom="4dp"/>
+
+                    <EditText
+                        android:id="@+id/edtPreco"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="0,00"
+                        android:inputType="numberDecimal"
+                        android:background="@drawable/bg_livro_card"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:textSize="14sp"/>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Botão Salvar -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSalvarLivro"
+                android:layout_width="0dp"
+                android:layout_height="64dp"
+                android:text="💾 Salvar Livro"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@android:color/white"
+                android:background="@drawable/bg_button_rounded"
+                app:layout_constraintTop_toBottomOf="@id/cardFormulario"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="24dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
