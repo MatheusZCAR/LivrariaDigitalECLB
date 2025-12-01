@@ -32,4 +32,7 @@ public interface LivroDao {
 
     @Query("SELECT * FROM livros WHERE codigoBarras = :codigo LIMIT 1")
     LivroEntity buscarPorCodigo(String codigo);
+
+    @Query("SELECT * FROM livros WHERE id IN (:ids)")
+    List<LivroEntity> obterLivrosPorId(List<Integer> ids);
 }

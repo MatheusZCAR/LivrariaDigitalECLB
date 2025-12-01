@@ -71,4 +71,5 @@
     <string name="autor">Autor</string>
     <string name="editarLista">Editar</string>
     <string name="excluirLista">Excluir</string>
+    <string name="finalizar">Finalizar</string>
 </resources>

@@ -1,6 +1,7 @@
 package com.projeto.livrariadigitaleclb.ui.realizarvenda;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Color; // Importante para as cores
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,9 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     private final OnProdutoClickListener listener;
     private List<LivroEntity> livros = new ArrayList<>();
 
+    // NOVO: Lista para controlar visualmente quem está selecionado
+    private List<Integer> idsSelecionados = new ArrayList<>();
+
     public ProdutoAdapter(List<LivroEntity> livros, OnProdutoClickListener listener) {
         if (livros != null) {
             this.livros.addAll(livros);
@@ -47,6 +51,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
 
         holder.titulo.setText(livro.titulo);
 
+        // Carregamento da imagem (mantido igual)
         if (livro.imagemPath != null && !livro.imagemPath.isEmpty()) {
             File imgFile = new File(livro.imagemPath);
             if (imgFile.exists()) {
@@ -58,7 +63,34 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
             holder.imagem.setImageResource(R.drawable.caminho_luz);
         }
 
-        holder.itemView.setOnClickListener(v -> listener.onProdutoClick(livro));
+        // NOVO: Verifica se está selecionado e altera o visual
+        boolean isSelected = idsSelecionados.contains(livro.id);
+
+        if (isSelected) {
+            // Estilo quando selecionado (Fundo cinza e imagem mais clara)
+            holder.itemView.setBackgroundColor(Color.parseColor("#E0E0E0"));
+            holder.imagem.setAlpha(0.5f); // 50% de opacidade
+        } else {
+            // Estilo padrão (Fundo normal e imagem nítida)
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+            holder.imagem.setAlpha(1.0f);
+        }
+
+        // NOVO: Lógica de clique atualizada
+        holder.itemView.setOnClickListener(v -> {
+            // Atualiza a lista interna de seleção visual
+            if (idsSelecionados.contains(livro.id)) {
+                idsSelecionados.remove((Integer) livro.id);
+            } else {
+                idsSelecionados.add(livro.id);
+            }
+
+            // Avisa o RecyclerView para redesenhar APENAS este item (performance)
+            notifyItemChanged(holder.getAdapterPosition());
+
+            // Chama o listener da Activity para a lógica de negócio
+            listener.onProdutoClick(livro);
+        });
     }
 
     @Override
@@ -71,6 +103,12 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         if (novaLista != null) {
             this.livros.addAll(novaLista);
         }
+        notifyDataSetChanged();
+    }
+
+    // Opcional: Método para limpar a seleção se você cancelar a venda
+    public void limparSelecao() {
+        idsSelecionados.clear();
         notifyDataSetChanged();
     }
 
