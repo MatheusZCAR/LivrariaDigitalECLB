@@ -73,16 +73,15 @@ public class RelatoriosActivity extends AppCompatActivity {
         long limiteMillis;
         switch (tipo) {
             case "DIARIO":
-                // últimas 24 horas
                 limiteMillis = agora - 24L * 60L * 60L * 1000L;
                 break;
+
             case "SEMANAL":
-                // últimos 7 dias
                 limiteMillis = agora - 7L * 24L * 60L * 60L * 1000L;
                 break;
+
             case "MENSAL":
             default:
-                // últimos 30 dias
                 limiteMillis = agora - 30L * 24L * 60L * 60L * 1000L;
                 break;
         }
@@ -98,17 +97,23 @@ public class RelatoriosActivity extends AppCompatActivity {
 
     private void gerarPDF(String tipo, List<Venda> vendas) {
         try {
-            PdfDocument pdf = new PdfDocument();
-            PdfDocument.PageInfo pageInfo =
-                    new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-            PdfDocument.Page page = pdf.startPage(pageInfo);
+            int pageWidth = 842;   // A4 landscape
+            int pageHeight = 595;
 
+            PdfDocument pdf = new PdfDocument();
             Paint paint = new Paint();
             paint.setTextSize(14);
+
+            int paginaAtual = 1;
+
+            PdfDocument.PageInfo pageInfo =
+                    new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, paginaAtual).create();
+            PdfDocument.Page page = pdf.startPage(pageInfo);
 
             int x = 40;
             int y = 60;
 
+            // TÍTULO
             String titulo;
             switch (tipo) {
                 case "DIARIO":
@@ -132,18 +137,23 @@ public class RelatoriosActivity extends AppCompatActivity {
                     new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
 
             for (Venda v : vendas) {
-                String linha = "Título: " + v.titulo +
-                        " | Preço: R$ " + v.preco +
-                        " | Data: " + sdfDataHora.format(new Date(v.dataVenda));
+
+                String linha =
+                        "Título: " + v.titulo +
+                                " | Preço: R$ " + v.preco +
+                                " | Data: " + sdfDataHora.format(new Date(v.dataVenda));
 
                 page.getCanvas().drawText(linha, x, y, paint);
                 y += 30;
 
-                if (y > 800) {
-                    // simples quebra quando estoura a página
+                if (y > pageHeight - 40) {
                     pdf.finishPage(page);
-                    pageInfo = new PdfDocument.PageInfo.Builder(595, 842, 2).create();
+
+                    paginaAtual++;
+
+                    pageInfo = new PdfDocument.PageInfo.Builder(pageWidth, pageHeight, paginaAtual).create();
                     page = pdf.startPage(pageInfo);
+
                     y = 60;
                 }
             }
@@ -153,41 +163,20 @@ public class RelatoriosActivity extends AppCompatActivity {
             File pasta = new File(getExternalFilesDir(null), "pdfs");
             if (!pasta.exists()) pasta.mkdirs();
 
-            String nomeArquivo;
-            switch (tipo) {
-                case "DIARIO":
-                    nomeArquivo = "relatorio_diario_vendas.pdf";
-                    break;
-                case "SEMANAL":
-                    nomeArquivo = "relatorio_semanal_vendas.pdf";
-                    break;
-                case "MENSAL":
-                default:
-                    nomeArquivo = "relatorio_mensal_vendas.pdf";
-                    break;
-            }
-
+            String nomeArquivo = "relatorio_" + tipo.toLowerCase() + "_vendas.pdf";
             File arquivo = new File(pasta, nomeArquivo);
-            FileOutputStream fos = new FileOutputStream(arquivo);
 
+            FileOutputStream fos = new FileOutputStream(arquivo);
             pdf.writeTo(fos);
             pdf.close();
             fos.close();
 
-            Toast.makeText(
-                    this,
-                    "PDF gerado em:\n" + arquivo.getAbsolutePath(),
-                    Toast.LENGTH_LONG
-            ).show();
+            Toast.makeText(this, "PDF gerado com sucesso!", Toast.LENGTH_LONG).show();
 
             abrirPDF(arquivo);
 
         } catch (Exception e) {
-            Toast.makeText(
-                    this,
-                    "Erro ao gerar PDF: " + e.getMessage(),
-                    Toast.LENGTH_LONG
-            ).show();
+            Toast.makeText(this, "Erro ao gerar PDF: " + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -205,11 +194,7 @@ public class RelatoriosActivity extends AppCompatActivity {
             startActivity(intent);
 
         } catch (Exception e) {
-            Toast.makeText(
-                    this,
-                    "Nenhum leitor de PDF instalado.",
-                    Toast.LENGTH_LONG
-            ).show();
+            Toast.makeText(this, "Nenhum leitor de PDF instalado.", Toast.LENGTH_LONG).show();
         }
     }
 }
