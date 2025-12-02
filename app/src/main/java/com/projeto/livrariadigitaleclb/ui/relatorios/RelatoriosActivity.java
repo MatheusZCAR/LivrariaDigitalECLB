@@ -184,7 +184,7 @@ public class RelatoriosActivity extends AppCompatActivity {
         try {
             Uri uri = FileProvider.getUriForFile(
                     this,
-                    getPackageName() + ".provider",
+                    "com.projeto.livrariadigitaleclb.fileprovider",
                     arquivo
             );
 

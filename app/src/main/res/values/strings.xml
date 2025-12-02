@@ -96,4 +96,22 @@
     <string name="autor">Autor</string>
     <string name="editarLista">Editar</string>
     <string name="excluirLista">Excluir</string>
+    <string name="digite_a_quantidade">Digite a quantidade</string>
+    <string name="quantidade_em_estoque">Quantidade em estoque</string>
+    <string name="preco">Preço (R$)</string>
+    <string name="nome_do_autor">Nome do autor</string>
+    <string name="zeros">0,00</string>
+    <string name="nome_do_livro">Nome do livro</string>
+    <string name="ler_emoji">📱 Ler</string>
+    <string name="digite_ou_escaneie">Digite ou escaneie</string>
+    <string name="codigo_de_barras">Código de Barras</string>
+    <string name="informacoes_do_livro">Informações do Livro</string>
+    <string name="tirar_foto_emoji">📷 Tirar Foto</string>
+    <string name="foto_da_capa">Foto da Capa</string>
+    <string name="salvar_livro_emoji">💾 Salvar Livro</string>
+    <string name="Dica_mais_de_um_livro">Dica: toque mais de uma vez no mesmo livro para adicionar mais de uma unidade ao carrinho.</string>
+    <string name="quantidade_ex_5">Quantidade (Ex: 5)</string>
+    <string name="parcelado">Parcelado</string>
+    <string name="a_vista">À Vista</string>
+    <string name="forma_de_pagamento">Forma de Pagamento</string>
 </resources>

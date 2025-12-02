@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.projeto.livrariadigitaleclb.data.local.AppDatabase;
-import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
+import com.projeto.livrariadigitaleclb.data.local.entity.LivroComEstoque; // Importante: Novo import
 import com.projeto.livrariadigitaleclb.databinding.ActivityCatalogoBinding;
 
 import java.util.List;
@@ -28,15 +28,24 @@ public class CatalogoActivity extends AppCompatActivity {
         carregarLivros();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregarLivros();
+    }
+
     private void configurarRecycler() {
-        binding.recyclerLivros.setLayoutManager(new GridLayoutManager(this, 3));
+        binding.recyclerLivros.setLayoutManager(new GridLayoutManager(this, 5));
         adapter = new LivroAdapter(this, null);
         binding.recyclerLivros.setAdapter(adapter);
     }
 
     private void carregarLivros() {
         AppDatabase db = AppDatabase.getInstance(this);
-        List<LivroEntity> livros = db.livroDao().listarLivrosParaVenda();
+
+        // MUDANÇA PRINCIPAL: Usamos o método que traz o estoque junto (JOIN)
+        List<LivroComEstoque> livros = db.livroDao().listarLivrosComEstoque();
+
         adapter.atualizarLista(livros);
     }
 }

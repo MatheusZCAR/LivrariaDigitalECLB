@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -44,14 +43,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp" />
 
-    <!-- Barra de Busca -->
+    <!-- Barra de busca -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardBusca"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="4dp"
         android:layout_margin="16dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="4dp"
         app:layout_constraintTop_toBottomOf="@id/barraSuperior"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/btnScan">
@@ -60,17 +59,16 @@
             android:id="@+id/layoutBusca"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/white"
             android:orientation="horizontal"
-            android:padding="8dp">
+            android:background="@android:color/white"
+            android:padding="12dp">
 
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"
-                android:contentDescription="@string/buscar"
-                android:src="@drawable/ic_search" />
+                android:src="@drawable/ic_search"
+                android:contentDescription="@string/buscar" />
 
             <EditText
                 android:id="@+id/searchEditText"
@@ -79,10 +77,10 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:hint="@string/buscar_livro"
-                android:inputType="text"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textColorHint="@color/gray" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -95,27 +93,42 @@
         android:background="@drawable/bg_button_rounded"
         android:text="@string/scanner"
         android:textColor="@android:color/white"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="8dp"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
+        android:drawableStart="@drawable/ic_barcode"
+        android:drawablePadding="12dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
         app:layout_constraintTop_toTopOf="@id/cardBusca"
         app:layout_constraintBottom_toBottomOf="@id/cardBusca"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- RecyclerView de Produtos -->
+    <TextView
+        android:id="@+id/txtDicaQuantidade"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/Dica_mais_de_um_livro"
+        android:textColor="@color/gray"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/cardBusca"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerProdutos"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:clipToPadding="false"
         android:padding="16dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toBottomOf="@id/txtDicaQuantidade"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/layoutCarrinho"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="3"
-        app:layout_constraintBottom_toTopOf="@id/layoutCarrinho"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardBusca"
         tools:listitem="@layout/item_livro" />
 
     <!-- Barra do Carrinho -->
@@ -123,9 +136,8 @@
         android:id="@+id/layoutCarrinho"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="8dp"
         android:visibility="gone"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -134,40 +146,38 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#0097A7"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:background="#0097A7">
 
-            <!-- Ícone Carrinho -->
             <ImageView
                 android:id="@+id/iconCarrinho"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:contentDescription="@string/carrinho"
                 android:src="@drawable/ic_carrinho"
+                android:contentDescription="@string/carrinho"
                 app:tint="@android:color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent" />
 
-            <!-- Informações do Carrinho -->
             <LinearLayout
                 android:id="@+id/layoutInfoCarrinho"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
                 android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/btnLimparCarrinho"
+                android:layout_marginStart="12dp"
                 app:layout_constraintStart_toEndOf="@id/iconCarrinho"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintEnd_toStartOf="@id/btnLimparCarrinho"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
 
                 <TextView
                     android:id="@+id/txtTotalItens"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
                     android:textStyle="bold"
+                    android:textSize="14sp"
                     tools:text="3 item(ns)" />
 
                 <TextView
@@ -175,42 +185,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
-                    android:textSize="20sp"
                     android:textStyle="bold"
+                    android:textSize="20sp"
                     android:layout_marginTop="4dp"
                     tools:text="R$ 150,00" />
             </LinearLayout>
 
-            <!-- Botão Limpar -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnLimparCarrinho"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:layout_marginEnd="8dp"
                 android:background="@drawable/bg_button_white"
-                android:text="🗑️ Limpar"
+                android:text="🗑️ LIMPAR"
                 android:textColor="#0097A7"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toStartOf="@id/btnVerCarrinho"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-            <!-- Botão Ver Carrinho -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnVerCarrinho"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="@drawable/bg_button_white"
-                android:text="🛒 Ver Carrinho"
+                android:text="🛒 VER CARRINHO"
                 android:textColor="#0097A7"
                 android:textStyle="bold"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

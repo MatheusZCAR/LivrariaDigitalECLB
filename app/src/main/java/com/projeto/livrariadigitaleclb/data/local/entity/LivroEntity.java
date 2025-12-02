@@ -12,12 +12,9 @@ public class LivroEntity {
     public String titulo;
     public String autor;
     public String codigoBarras;
-
     public double preco;
-
     public boolean esgotado = false;
-
-    // Caminho da imagem salva (opcional)
     public String imagemPath;
-}
 
+    public String localizacao;
+}

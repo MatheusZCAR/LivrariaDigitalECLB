@@ -22,7 +22,7 @@
         android:id="@+id/textTituloCadastro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cadastrar Livro"
+        android:text="@string/cadastrar_livro"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@android:color/white"
@@ -80,7 +80,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Foto da Capa"
+                        android:text="@string/foto_da_capa"
                         android:textSize="14sp"
                         android:textStyle="bold"
                         android:textColor="#0097A7"
@@ -93,13 +93,13 @@
                         android:layout_height="200dp"
                         android:scaleType="centerCrop"
                         android:background="@drawable/bg_placeholder_livro"
-                        android:contentDescription="Capa do livro"/>
+                        android:contentDescription="@string/capa_do_livro"/>
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btnTirarFoto"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:text="📷 Tirar Foto"
+                        android:text="@string/tirar_foto_emoji"
                         android:textSize="14sp"
                         android:textColor="@android:color/white"
                         android:background="@drawable/bg_button_rounded"
@@ -129,7 +129,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Informações do Livro"
+                        android:text="@string/informacoes_do_livro"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#0097A7"
@@ -139,7 +139,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Código de Barras"
+                        android:text="@string/codigo_de_barras"
                         android:textSize="12sp"
                         android:textColor="#666666"
                         android:layout_marginBottom="4dp"/>
@@ -155,18 +155,20 @@
                             android:layout_width="0dp"
                             android:layout_height="48dp"
                             android:layout_weight="1"
-                            android:hint="Digite ou escaneie"
+                            android:hint="@string/digite_ou_escaneie"
                             android:inputType="text"
                             android:background="@drawable/bg_livro_card"
                             android:paddingStart="12dp"
                             android:paddingEnd="12dp"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp"
+                            android:textColor="@android:color/black"
+                            android:textColorHint="@color/gray"/>
 
                         <androidx.appcompat.widget.AppCompatButton
                             android:id="@+id/btnLerCodigo"
                             android:layout_width="80dp"
                             android:layout_height="48dp"
-                            android:text="📱 Ler"
+                            android:text="@string/ler_emoji"
                             android:textSize="12sp"
                             android:textColor="@android:color/white"
                             android:background="@drawable/bg_button_rounded"
@@ -177,7 +179,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Título"
+                        android:text="@string/titulo"
                         android:textSize="12sp"
                         android:textColor="#666666"
                         android:layout_marginBottom="4dp"/>
@@ -186,19 +188,21 @@
                         android:id="@+id/edtTitulo"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:hint="Nome do livro"
+                        android:hint="@string/nome_do_livro"
                         android:inputType="textCapWords"
                         android:background="@drawable/bg_livro_card"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
                         android:textSize="14sp"
-                        android:layout_marginBottom="16dp"/>
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/gray"/>
 
                     <!-- Autor -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Autor"
+                        android:text="@string/autor"
                         android:textSize="12sp"
                         android:textColor="#666666"
                         android:layout_marginBottom="4dp"/>
@@ -207,19 +211,21 @@
                         android:id="@+id/edtAutor"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:hint="Nome do autor"
+                        android:hint="@string/nome_do_autor"
                         android:inputType="textCapWords"
                         android:background="@drawable/bg_livro_card"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
                         android:textSize="14sp"
-                        android:layout_marginBottom="16dp"/>
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/gray"/>
 
                     <!-- Preço -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Preço (R$)"
+                        android:text="@string/preco"
                         android:textSize="12sp"
                         android:textColor="#666666"
                         android:layout_marginBottom="4dp"/>
@@ -228,12 +234,63 @@
                         android:id="@+id/edtPreco"
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
-                        android:hint="0,00"
+                        android:hint="@string/zeros"
                         android:inputType="numberDecimal"
                         android:background="@drawable/bg_livro_card"
                         android:paddingStart="12dp"
                         android:paddingEnd="12dp"
-                        android:textSize="14sp"/>
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/gray"/>
+
+                    <!-- Quantidade em estoque -->
+                    <TextView
+                        android:id="@+id/textViewEstoque"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/quantidade_em_estoque"
+                        android:textSize="12sp"
+                        android:textColor="#666666"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="4dp" />
+
+                    <EditText
+                        android:id="@+id/edtQuantidadeEstoque"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginStart="0dp"
+                        android:layout_marginEnd="0dp"
+                        android:inputType="number"
+                        android:hint="@string/digite_a_quantidade"
+                        android:background="@drawable/bg_livro_card"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:textSize="14sp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/gray"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Prateleira / Local"
+                        android:textSize="12sp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/gray"
+                        android:layout_marginBottom="4dp"/>
+
+                    <EditText
+                        android:id="@+id/edtLocalizacao"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Ex: Estante A, Prateleira 2"
+                        android:inputType="textCapSentences"
+                        android:background="@drawable/bg_livro_card"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:textSize="14sp"
+                        android:layout_marginBottom="16dp"
+                        android:textColor="@android:color/black"
+                        android:textColorHint="@color/gray"/>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
@@ -243,7 +300,7 @@
                 android:id="@+id/btnSalvarLivro"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
-                android:text="💾 Salvar Livro"
+                android:text="@string/salvar_livro_emoji"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"

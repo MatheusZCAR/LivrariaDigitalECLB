@@ -11,9 +11,11 @@ public class PedidoEntity {
 
     public String titulo;
     public String autor;
+    public int quantidadeDesejada;
 
-    public PedidoEntity(String titulo, String autor) {
+    public PedidoEntity(String titulo, String autor, int quantidadeDesejada) {
         this.titulo = titulo;
         this.autor = autor;
+        this.quantidadeDesejada = quantidadeDesejada;
     }
 }

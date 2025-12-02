@@ -1,6 +1,6 @@
 package com.projeto.livrariadigitaleclb.ui.realizarvenda;
 
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.projeto.livrariadigitaleclb.R;
+import com.projeto.livrariadigitaleclb.data.local.entity.LivroComEstoque;
 import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
 
 import java.io.File;
@@ -18,47 +19,57 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHolder> {
-
     public interface OnProdutoClickListener {
-        void onProdutoClick(LivroEntity livro);
+        void onProdutoClick(LivroEntity livro, int estoqueDisponivel);
     }
 
     private final OnProdutoClickListener listener;
-    private List<LivroEntity> livros = new ArrayList<>();
+    private final List<LivroComEstoque> livros = new ArrayList<>();
 
-    public ProdutoAdapter(List<LivroEntity> livros, OnProdutoClickListener listener) {
-        if (livros != null) {
-            this.livros.addAll(livros);
+    public ProdutoAdapter(List<LivroComEstoque> livrosIniciais, OnProdutoClickListener listener) {
+        if (livrosIniciais != null) {
+            this.livros.addAll(livrosIniciais);
         }
         this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ProdutoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_produto, parent, false);
-        return new ProdutoAdapter.ViewHolder(view);
+                .inflate(R.layout.item_livro, parent, false);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProdutoAdapter.ViewHolder holder, int position) {
-        LivroEntity livro = livros.get(position);
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        LivroComEstoque itemCompleto = livros.get(position);
+        LivroEntity livro = itemCompleto.livro;
+        int quantidade = itemCompleto.quantidade;
 
         holder.titulo.setText(livro.titulo);
+
+        if (quantidade <= 0) {
+            holder.bannerEsgotado.setVisibility(View.VISIBLE);
+            holder.imagem.setAlpha(0.6f);
+        } else {
+            holder.bannerEsgotado.setVisibility(View.GONE);
+            holder.imagem.setAlpha(1.0f);
+        }
 
         if (livro.imagemPath != null && !livro.imagemPath.isEmpty()) {
             File imgFile = new File(livro.imagemPath);
             if (imgFile.exists()) {
-                holder.imagem.setImageBitmap(BitmapFactory.decodeFile(imgFile.getPath()));
+                holder.imagem.setImageURI(Uri.fromFile(imgFile));
             } else {
-                holder.imagem.setImageResource(R.drawable.caminho_luz);
+                holder.imagem.setImageResource(R.drawable.ic_launcher_background);
             }
         } else {
-            holder.imagem.setImageResource(R.drawable.caminho_luz);
+            holder.imagem.setImageResource(R.drawable.ic_launcher_background);
         }
 
-        holder.itemView.setOnClickListener(v -> listener.onProdutoClick(livro));
+        // Passa o livro e a quantidade atual para a Activity validar
+        holder.itemView.setOnClickListener(v -> listener.onProdutoClick(livro, quantidade));
     }
 
     @Override
@@ -66,7 +77,7 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
         return livros.size();
     }
 
-    public void updateList(List<LivroEntity> novaLista) {
+    public void updateList(List<LivroComEstoque> novaLista) {
         this.livros.clear();
         if (novaLista != null) {
             this.livros.addAll(novaLista);
@@ -77,11 +88,13 @@ public class ProdutoAdapter extends RecyclerView.Adapter<ProdutoAdapter.ViewHold
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imagem;
         TextView titulo;
+        TextView bannerEsgotado;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imagem = itemView.findViewById(R.id.imageProduto);
-            titulo = itemView.findViewById(R.id.textTitulo);
+            imagem = itemView.findViewById(R.id.imgCapaLivro);
+            titulo = itemView.findViewById(R.id.txtTituloLivro);
+            bannerEsgotado = itemView.findViewById(R.id.txtEsgotadoBanner);
         }
     }
 }

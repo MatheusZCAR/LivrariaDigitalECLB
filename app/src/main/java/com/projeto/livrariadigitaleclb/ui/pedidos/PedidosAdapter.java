@@ -22,7 +22,7 @@ public class PedidosAdapter extends BaseAdapter {
 
     public PedidosAdapter(Context context, List<PedidoEntity> lista, PedidosActivity activity) {
         this.context = context;
-        this.lista = new ArrayList<>(lista); // evita referência mutável externa
+        this.lista = new ArrayList<>(lista);
         this.activity = activity;
     }
 
@@ -43,7 +43,6 @@ public class PedidosAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         ViewHolder holder;
 
         if (convertView == null) {
@@ -56,14 +55,14 @@ public class PedidosAdapter extends BaseAdapter {
             holder.btnDelete = convertView.findViewById(R.id.btnDelete);
 
             convertView.setTag(holder);
-
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         PedidoEntity pedido = lista.get(position);
 
-        holder.txtInfo.setText(pedido.titulo + " – " + pedido.autor);
+        String texto = pedido.titulo + "\n" + pedido.autor + " (Qtd: " + pedido.quantidadeDesejada + ")";
+        holder.txtInfo.setText(texto);
 
         holder.btnEdit.setOnClickListener(v ->
                 activity.abrirDialogEditarLivro(pedido)
@@ -76,7 +75,6 @@ public class PedidosAdapter extends BaseAdapter {
         return convertView;
     }
 
-    // Atualiza a lista sem recriar o adapter inteiro
     public void atualizarLista(List<PedidoEntity> novaLista) {
         this.lista = new ArrayList<>(novaLista);
         notifyDataSetChanged();

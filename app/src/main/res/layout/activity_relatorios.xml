@@ -39,6 +39,7 @@
             android:contentDescription="@string/voltar"
             android:padding="4dp"
             android:src="@drawable/ic_home"
+            app:tint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -24,7 +23,9 @@ import androidx.core.content.FileProvider;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projeto.livrariadigitaleclb.data.local.AppDatabase;
+import com.projeto.livrariadigitaleclb.data.local.dao.EstoqueDao;
 import com.projeto.livrariadigitaleclb.data.local.dao.LivroDao;
+import com.projeto.livrariadigitaleclb.data.local.entity.EstoqueEntity;
 import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
 import com.projeto.livrariadigitaleclb.databinding.ActivityCadastrarLivroBinding;
 
@@ -46,8 +47,12 @@ public class CadastrarLivroActivity extends AppCompatActivity {
 
     private ActivityCadastrarLivroBinding binding;
     private LivroDao livroDao;
+    private EstoqueDao estoqueDao;
+
     private String currentPhotoPath;
     private Uri photoUri;
+    private int livroIdEditar = -1;
+    private LivroEntity livroExistente = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +61,19 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Log.d(TAG, "onCreate chamado");
+        binding.btnHome.setOnClickListener(v -> finish());
+        AppDatabase db = AppDatabase.getInstance(this);
+        livroDao = db.livroDao();
+        estoqueDao = db.estoqueDao();
+        livroIdEditar = getIntent().getIntExtra("livro_id", -1);
 
-        livroDao = AppDatabase.getInstance(this).livroDao();
-
-        String codigoExtra = getIntent().getStringExtra("codigo");
-        if (codigoExtra != null) {
-            binding.edtCodigoBarras.setText(codigoExtra);
+        if (livroIdEditar != -1) {
+            configurarModoEdicao();
+        } else {
+            String codigoExtra = getIntent().getStringExtra("codigo");
+            if (codigoExtra != null) {
+                binding.edtCodigoBarras.setText(codigoExtra);
+            }
         }
 
         binding.btnLerCodigo.setOnClickListener(v -> iniciarScanner());
@@ -69,7 +81,42 @@ public class CadastrarLivroActivity extends AppCompatActivity {
             Log.d(TAG, "Botão Tirar Foto clicado");
             mostrarOpcoesFoto();
         });
-        binding.btnSalvarLivro.setOnClickListener(v -> salvarLivro());
+
+        binding.btnSalvarLivro.setOnClickListener(v -> salvarOuAtualizarLivro());
+    }
+
+    private void configurarModoEdicao() {
+        binding.textTituloCadastro.setText("Editar Livro");
+        binding.btnSalvarLivro.setText("💾 ATUALIZAR LIVRO");
+
+        // Carrega os dados do livro e do estoque
+        livroExistente = livroDao.getLivroById(livroIdEditar);
+        EstoqueEntity estoque = estoqueDao.buscarPorLivro(livroIdEditar);
+
+        if (livroExistente != null) {
+            binding.edtTitulo.setText(livroExistente.titulo);
+            binding.edtAutor.setText(livroExistente.autor);
+
+            // Carrega localização (se existir)
+            if (livroExistente.localizacao != null && !livroExistente.localizacao.equals("Não informado")) {
+                binding.edtLocalizacao.setText(livroExistente.localizacao);
+            }
+
+            binding.edtCodigoBarras.setText(livroExistente.codigoBarras);
+            binding.edtPreco.setText(String.format(Locale.US, "%.2f", livroExistente.preco));
+
+            if (estoque != null) {
+                binding.edtQuantidadeEstoque.setText(String.valueOf(estoque.quantidadeDisponivel));
+            }
+
+            if (livroExistente.imagemPath != null) {
+                currentPhotoPath = livroExistente.imagemPath;
+                File imgFile = new File(currentPhotoPath);
+                if (imgFile.exists()) {
+                    binding.imgPreviewCapa.setImageURI(Uri.fromFile(imgFile));
+                }
+            }
+        }
     }
 
     private void mostrarOpcoesFoto() {
@@ -171,34 +218,28 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         startActivityForResult(pickPhoto, REQUEST_PICK_IMAGE);
     }
 
-    private File criarArquivoImagem() {
-        try {
-            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-                    Locale.getDefault()).format(new Date());
-            String imageFileName = "LIVRO_" + timeStamp;
+    private File criarArquivoImagem() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
+                Locale.getDefault()).format(new Date());
+        String imageFileName = "LIVRO_" + timeStamp;
 
-            File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
-            if (storageDir == null) {
-                Log.e(TAG, "Diretório de armazenamento é null");
-                return null;
-            }
-
-            if (!storageDir.exists()) {
-                boolean created = storageDir.mkdirs();
-                Log.d(TAG, "Diretório criado: " + created);
-            }
-
-            File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-            currentPhotoPath = image.getAbsolutePath();
-            Log.d(TAG, "Caminho da foto: " + currentPhotoPath);
-
-            return image;
-
-        } catch (IOException ex) {
-            Log.e(TAG, "Erro ao criar arquivo: " + ex.getMessage(), ex);
+        if (storageDir == null) {
+            Log.e(TAG, "Diretório de armazenamento é null");
             return null;
         }
+
+        if (!storageDir.exists()) {
+            boolean created = storageDir.mkdirs();
+            Log.d(TAG, "Diretório criado: " + created);
+        }
+
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        currentPhotoPath = image.getAbsolutePath(); // Atualiza o caminho atual
+        Log.d(TAG, "Caminho da foto: " + currentPhotoPath);
+
+        return image;
     }
 
     private void copiarImagemDaGaleria(Uri sourceUri) {
@@ -238,42 +279,99 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         integrator.initiateScan();
     }
 
-    private void salvarLivro() {
+    private void salvarOuAtualizarLivro() {
         String titulo = binding.edtTitulo.getText().toString().trim();
         String autor = binding.edtAutor.getText().toString().trim();
+        String localizacao = binding.edtLocalizacao.getText().toString().trim();
         String codigo = binding.edtCodigoBarras.getText().toString().trim();
         String precoStr = binding.edtPreco.getText().toString().trim();
+        String quantidadeStr = binding.edtQuantidadeEstoque.getText().toString().trim();
 
-        if (TextUtils.isEmpty(titulo) ||
-                TextUtils.isEmpty(autor) ||
-                TextUtils.isEmpty(codigo) ||
-                TextUtils.isEmpty(precoStr)) {
-
-            Toast.makeText(this, "Preencha todos os campos!", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(titulo) || TextUtils.isEmpty(autor) ||
+                TextUtils.isEmpty(precoStr) || TextUtils.isEmpty(quantidadeStr)) {
+            Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
             return;
         }
 
         double preco;
+        int quantidade;
         try {
-            preco = Double.parseDouble(precoStr.replace(',', '.'));
+            preco = Double.parseDouble(precoStr.replace(",", "."));
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Preço inválido!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Preço inválido", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        LivroEntity livro = new LivroEntity();
-        livro.titulo = titulo;
-        livro.autor = autor;
-        livro.codigoBarras = codigo;
-        livro.preco = preco;
-        livro.esgotado = false;
-        livro.imagemPath = currentPhotoPath;
+        try {
+            quantidade = Integer.parseInt(quantidadeStr);
+            if (quantidade < 0) {
+                Toast.makeText(this, "Quantidade não pode ser negativa", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (NumberFormatException e) {
+            Toast.makeText(this, "Quantidade inválida", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        Log.d(TAG, "Salvando livro com imagem: " + currentPhotoPath);
+        if (livroIdEditar != -1 && livroExistente != null) {
+            // ATUALIZAR (UPDATE)
+            livroExistente.titulo = titulo;
+            livroExistente.autor = autor;
+            livroExistente.localizacao = localizacao.isEmpty() ? "Não informado" : localizacao;
+            livroExistente.codigoBarras = codigo;
+            livroExistente.preco = preco;
 
-        livroDao.inserirLivro(livro);
+            // Só atualiza a imagem se o usuário tiver tirado/selecionado uma nova
+            // Se currentPhotoPath mudou em relação ao original, atualiza
+            if (currentPhotoPath != null && !currentPhotoPath.equals(livroExistente.imagemPath)) {
+                livroExistente.imagemPath = currentPhotoPath;
+            }
 
-        Toast.makeText(this, "Livro cadastrado!", Toast.LENGTH_SHORT).show();
+            // Se a imagemPath for nula no objeto mas tivermos um path atual, atribui
+            if (livroExistente.imagemPath == null && currentPhotoPath != null) {
+                livroExistente.imagemPath = currentPhotoPath;
+            }
+
+            livroDao.atualizarLivro(livroExistente);
+
+            // Atualiza Estoque
+            EstoqueEntity estoque = estoqueDao.buscarPorLivro(livroIdEditar);
+            if (estoque != null) {
+                estoque.quantidadeDisponivel = quantidade;
+                estoque.dataAtualizacao = System.currentTimeMillis();
+                estoqueDao.atualizarEstoque(estoque);
+            } else {
+                // Caso raro onde o estoque não existia
+                EstoqueEntity novoEstoque = new EstoqueEntity();
+                novoEstoque.livroId = livroIdEditar;
+                novoEstoque.quantidadeDisponivel = quantidade;
+                novoEstoque.dataAtualizacao = System.currentTimeMillis();
+                estoqueDao.inserirEstoque(novoEstoque);
+            }
+
+            Toast.makeText(this, "Livro atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+
+        } else {
+            // CADASTRAR (INSERT)
+            LivroEntity novoLivro = new LivroEntity();
+            novoLivro.titulo = titulo;
+            novoLivro.autor = autor;
+            novoLivro.preco = preco;
+            novoLivro.codigoBarras = codigo;
+            novoLivro.localizacao = localizacao.isEmpty() ? "Não informado" : localizacao;
+            novoLivro.imagemPath = currentPhotoPath;
+
+            long livroIdGerado = livroDao.inserirLivro(novoLivro);
+
+            EstoqueEntity estoque = new EstoqueEntity();
+            estoque.livroId = (int) livroIdGerado;
+            estoque.quantidadeDisponivel = quantidade;
+            estoque.dataAtualizacao = System.currentTimeMillis();
+            estoqueDao.inserirEstoque(estoque);
+
+            Toast.makeText(this, "Livro cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+        }
+
         finish();
     }
 

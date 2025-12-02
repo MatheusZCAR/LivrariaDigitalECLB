@@ -15,7 +15,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.projeto.livrariadigitaleclb.data.local.AppDatabase;
+import com.projeto.livrariadigitaleclb.data.local.dao.EstoqueDao;
 import com.projeto.livrariadigitaleclb.data.local.dao.LivroDao;
+import com.projeto.livrariadigitaleclb.data.local.entity.EstoqueEntity;
+import com.projeto.livrariadigitaleclb.data.local.entity.LivroComEstoque;
 import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
 import com.projeto.livrariadigitaleclb.databinding.ActivityRealizarVendaBinding;
 import com.projeto.livrariadigitaleclb.ui.catalogo.CadastrarLivroActivity;
@@ -31,6 +34,7 @@ public class RealizarVendaActivity extends AppCompatActivity {
     private ActivityRealizarVendaBinding binding;
     private ProdutoAdapter adapter;
     private LivroDao livroDao;
+    private EstoqueDao estoqueDao;
 
     // Carrinho de compras: Map<livroId, quantidade>
     private Map<Long, Integer> carrinho = new HashMap<>();
@@ -40,9 +44,12 @@ public class RealizarVendaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityRealizarVendaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        binding.btnHome.setOnClickListener(v -> finish());
 
+        // Inicializa Banco e DAOs
         AppDatabase db = AppDatabase.getInstance(this);
         livroDao = db.livroDao();
+        estoqueDao = db.estoqueDao();
 
         configurarLista();
         configurarBusca();
@@ -57,24 +64,40 @@ public class RealizarVendaActivity extends AppCompatActivity {
     }
 
     private void configurarLista() {
-        List<LivroEntity> livros = livroDao.listarLivrosParaVenda();
+        // Busca livros já com a informação de estoque (LivroComEstoque)
+        List<LivroComEstoque> livros = livroDao.listarLivrosParaVendaComEstoque();
 
         adapter = new ProdutoAdapter(
                 livros,
-                livro -> adicionarAoCarrinho(livro) // Adiciona ao carrinho ao clicar
+                (livro, estoqueDisponivel) -> adicionarAoCarrinho(livro, estoqueDisponivel)
         );
-
-        binding.recyclerProdutos.setLayoutManager(new GridLayoutManager(this, 3));
+        binding.recyclerProdutos.setLayoutManager(new GridLayoutManager(this, 5));
         binding.recyclerProdutos.setAdapter(adapter);
     }
 
-    private void adicionarAoCarrinho(LivroEntity livro) {
-        // Verifica se o livro já está no carrinho
-        int quantidadeAtual = carrinho.getOrDefault((long) livro.id, 0); // Cast para long
-        carrinho.put((long) livro.id, quantidadeAtual + 1); // Cast para long
+    private void adicionarAoCarrinho(LivroEntity livro, int estoqueDisponivel) {
+        // REGRA 1: Não pode adicionar se estiver esgotado
+        if (estoqueDisponivel <= 0) {
+            Toast.makeText(this, "Produto esgotado!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        long id = (long) livro.id;
+        int quantidadeNoCarrinho = carrinho.getOrDefault(id, 0);
+
+        // REGRA 2: Não pode adicionar mais do que tem no estoque real
+        if (quantidadeNoCarrinho >= estoqueDisponivel) {
+            Toast.makeText(this,
+                    "Limite de estoque atingido (" + estoqueDisponivel + " unidades)",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Adiciona ao carrinho
+        carrinho.put(id, quantidadeNoCarrinho + 1);
 
         Toast.makeText(this,
-                livro.titulo + " adicionado ao carrinho",
+                livro.titulo + " adicionado",
                 Toast.LENGTH_SHORT).show();
 
         atualizarCarrinho();
@@ -105,7 +128,8 @@ public class RealizarVendaActivity extends AppCompatActivity {
     }
 
     private void atualizarLista() {
-        List<LivroEntity> livros = livroDao.listarLivrosParaVenda();
+        // Atualiza a lista para refletir baixas de estoque recentes
+        List<LivroComEstoque> livros = livroDao.listarLivrosParaVendaComEstoque();
         adapter.updateList(livros);
     }
 
@@ -118,7 +142,8 @@ public class RealizarVendaActivity extends AppCompatActivity {
                 if (busca.isEmpty()) {
                     atualizarLista();
                 } else {
-                    List<LivroEntity> filtrados = livroDao.buscarLivros(busca);
+                    // Busca específica que retorna LivroComEstoque
+                    List<LivroComEstoque> filtrados = livroDao.buscarLivrosComEstoque(busca);
                     adapter.updateList(filtrados);
                 }
             }
@@ -214,6 +239,7 @@ public class RealizarVendaActivity extends AppCompatActivity {
             carrinho.clear();
             atualizarCarrinho();
             Toast.makeText(this, "Venda concluída com sucesso!", Toast.LENGTH_LONG).show();
+            atualizarLista();
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -231,28 +257,14 @@ public class RealizarVendaActivity extends AppCompatActivity {
         LivroEntity livro = livroDao.buscarPorCodigo(codigo);
 
         if (livro != null) {
-            if (livro.esgotado) {
-                mostrarDialogoLivroEsgotado(livro, codigo);
-            } else {
-                // Adiciona direto ao carrinho
-                adicionarAoCarrinho(livro);
-            }
+            EstoqueEntity estoqueEntity = estoqueDao.buscarPorLivro(livro.id);
+            int qtdDisponivel = (estoqueEntity != null) ? estoqueEntity.quantidadeDisponivel : 0;
+
+            adicionarAoCarrinho(livro, qtdDisponivel);
+
         } else {
             mostrarDialogoLivroNaoEncontrado(codigo);
         }
-    }
-
-    private void mostrarDialogoLivroEsgotado(LivroEntity livro, String codigo) {
-        new AlertDialog.Builder(this)
-                .setTitle("Livro Esgotado")
-                .setMessage("O livro \"" + livro.titulo + "\" está marcado como esgotado.\n\nDeseja cadastrar um novo exemplar?")
-                .setPositiveButton("Sim, Cadastrar", (dialog, which) -> {
-                    Intent intent = new Intent(this, CadastrarLivroActivity.class);
-                    intent.putExtra("codigo", codigo);
-                    startActivity(intent);
-                })
-                .setNegativeButton("Cancelar", null)
-                .show();
     }
 
     private void mostrarDialogoLivroNaoEncontrado(String codigo) {

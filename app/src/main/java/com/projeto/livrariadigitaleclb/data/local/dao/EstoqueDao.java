@@ -23,4 +23,7 @@ public interface EstoqueDao {
 
     @Query("SELECT * FROM estoque WHERE quantidadeDisponivel <= 0")
     List<EstoqueEntity> listarFaltando();
+
+    @Query("UPDATE estoque SET quantidadeDisponivel = quantidadeDisponivel - :qtd WHERE livroId = :livroId AND quantidadeDisponivel >= :qtd")
+    void baixarEstoque(int livroId, int qtd);
 }
