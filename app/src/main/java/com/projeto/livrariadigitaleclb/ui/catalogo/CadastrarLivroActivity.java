@@ -1,24 +1,15 @@
 package com.projeto.livrariadigitaleclb.ui.catalogo;
 
-import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -31,7 +22,6 @@ import com.projeto.livrariadigitaleclb.databinding.ActivityCadastrarLivroBinding
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
@@ -41,16 +31,16 @@ import java.util.Locale;
 public class CadastrarLivroActivity extends AppCompatActivity {
 
     private static final String TAG = "CadastrarLivro";
-    private static final int REQUEST_CAMERA_PERMISSION = 100;
-    private static final int REQUEST_IMAGE_CAPTURE = 101;
     private static final int REQUEST_PICK_IMAGE = 102;
+    private static final int REQUEST_CAMERA_X = 201;
 
     private ActivityCadastrarLivroBinding binding;
     private LivroDao livroDao;
     private EstoqueDao estoqueDao;
 
-    private String currentPhotoPath;
-    private Uri photoUri;
+    private String currentPhotoPath = null;
+
+    private boolean isEditMode = false;
     private int livroIdEditar = -1;
     private LivroEntity livroExistente = null;
 
@@ -60,62 +50,53 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         binding = ActivityCadastrarLivroBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        Log.d(TAG, "onCreate chamado");
+        livroDao = AppDatabase.getInstance(this).livroDao();
+        estoqueDao = AppDatabase.getInstance(this).estoqueDao();
+
         binding.btnHome.setOnClickListener(v -> finish());
-        AppDatabase db = AppDatabase.getInstance(this);
-        livroDao = db.livroDao();
-        estoqueDao = db.estoqueDao();
+
         livroIdEditar = getIntent().getIntExtra("livro_id", -1);
 
         if (livroIdEditar != -1) {
+            isEditMode = true;
             configurarModoEdicao();
         } else {
             String codigoExtra = getIntent().getStringExtra("codigo");
-            if (codigoExtra != null) {
-                binding.edtCodigoBarras.setText(codigoExtra);
-            }
+            if (codigoExtra != null) binding.edtCodigoBarras.setText(codigoExtra);
         }
 
         binding.btnLerCodigo.setOnClickListener(v -> iniciarScanner());
-        binding.btnTirarFoto.setOnClickListener(v -> {
-            Log.d(TAG, "Botão Tirar Foto clicado");
-            mostrarOpcoesFoto();
-        });
-
+        binding.btnTirarFoto.setOnClickListener(v -> mostrarOpcoesFoto());
         binding.btnSalvarLivro.setOnClickListener(v -> salvarOuAtualizarLivro());
     }
 
     private void configurarModoEdicao() {
         binding.textTituloCadastro.setText("Editar Livro");
-        binding.btnSalvarLivro.setText("💾 ATUALIZAR LIVRO");
+        binding.btnSalvarLivro.setText("💾 ATUALIZAR");
 
-        // Carrega os dados do livro e do estoque
         livroExistente = livroDao.getLivroById(livroIdEditar);
         EstoqueEntity estoque = estoqueDao.buscarPorLivro(livroIdEditar);
 
-        if (livroExistente != null) {
-            binding.edtTitulo.setText(livroExistente.titulo);
-            binding.edtAutor.setText(livroExistente.autor);
+        if (livroExistente == null) {
+            Toast.makeText(this, "Erro ao carregar livro", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
 
-            // Carrega localização (se existir)
-            if (livroExistente.localizacao != null && !livroExistente.localizacao.equals("Não informado")) {
-                binding.edtLocalizacao.setText(livroExistente.localizacao);
-            }
+        binding.edtTitulo.setText(livroExistente.titulo);
+        binding.edtAutor.setText(livroExistente.autor);
+        binding.edtLocalizacao.setText(livroExistente.localizacao);
+        binding.edtCodigoBarras.setText(livroExistente.codigoBarras);
+        binding.edtPreco.setText(String.format(Locale.US, "%.2f", livroExistente.preco));
 
-            binding.edtCodigoBarras.setText(livroExistente.codigoBarras);
-            binding.edtPreco.setText(String.format(Locale.US, "%.2f", livroExistente.preco));
+        if (estoque != null)
+            binding.edtQuantidadeEstoque.setText(String.valueOf(estoque.quantidadeDisponivel));
 
-            if (estoque != null) {
-                binding.edtQuantidadeEstoque.setText(String.valueOf(estoque.quantidadeDisponivel));
-            }
-
-            if (livroExistente.imagemPath != null) {
-                currentPhotoPath = livroExistente.imagemPath;
-                File imgFile = new File(currentPhotoPath);
-                if (imgFile.exists()) {
-                    binding.imgPreviewCapa.setImageURI(Uri.fromFile(imgFile));
-                }
-            }
+        if (livroExistente.imagemPath != null) {
+            currentPhotoPath = livroExistente.imagemPath;
+            File imgFile = new File(currentPhotoPath);
+            if (imgFile.exists())
+                binding.imgPreviewCapa.setImageURI(Uri.fromFile(imgFile));
         }
     }
 
@@ -123,152 +104,56 @@ public class CadastrarLivroActivity extends AppCompatActivity {
         String[] opcoes = {"Tirar Foto", "Escolher da Galeria"};
 
         new AlertDialog.Builder(this)
-                .setTitle("Adicionar Foto da Capa")
+                .setTitle("Adicionar Foto")
                 .setItems(opcoes, (dialog, which) -> {
-                    if (which == 0) {
-                        verificarPermissaoCamera();
-                    } else {
-                        abrirGaleria();
-                    }
+                    if (which == 0) abrirCameraX();
+                    else abrirGaleria();
                 })
                 .show();
     }
 
-    private void verificarPermissaoCamera() {
-        Log.d(TAG, "Verificando permissão da câmera");
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    != PackageManager.PERMISSION_GRANTED) {
-                Log.d(TAG, "Permissão não concedida, solicitando...");
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.CAMERA},
-                        REQUEST_CAMERA_PERMISSION);
-            } else {
-                Log.d(TAG, "Permissão já concedida");
-                abrirCamera();
-            }
-        } else {
-            abrirCamera();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-                                           @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        Log.d(TAG, "onRequestPermissionsResult - requestCode: " + requestCode);
-
-        if (requestCode == REQUEST_CAMERA_PERMISSION) {
-            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d(TAG, "Permissão concedida pelo usuário");
-                abrirCamera();
-            } else {
-                Log.d(TAG, "Permissão negada pelo usuário");
-                Toast.makeText(this, "Permissão de câmera negada", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private void abrirCamera() {
-        Log.d(TAG, "Tentando abrir câmera");
-
-        try {
-            File photoFile = criarArquivoImagem();
-
-            if (photoFile == null) {
-                Log.e(TAG, "Erro ao criar arquivo de imagem");
-                Toast.makeText(this, "Erro ao criar arquivo de imagem", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            Log.d(TAG, "Arquivo criado: " + photoFile.getAbsolutePath());
-
-            photoUri = FileProvider.getUriForFile(this,
-                    "com.projeto.livrariadigitaleclb.fileprovider",
-                    photoFile);
-
-            Log.d(TAG, "URI criada: " + photoUri.toString());
-
-            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-            takePictureIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
-            if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                Log.d(TAG, "Iniciando activity da câmera");
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-            } else {
-                Log.e(TAG, "Nenhum app de câmera encontrado");
-                Toast.makeText(this, "Nenhum app de câmera disponível. Tente escolher da galeria.",
-                        Toast.LENGTH_LONG).show();
-            }
-
-        } catch (Exception e) {
-            Log.e(TAG, "Erro ao abrir câmera: " + e.getMessage(), e);
-            Toast.makeText(this, "Erro: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
+    private void abrirCameraX() {
+        Intent intent = new Intent(this, CameraXCaptureActivity.class);
+        startActivityForResult(intent, REQUEST_CAMERA_X);
     }
 
     private void abrirGaleria() {
-        Log.d(TAG, "Abrindo galeria");
-        Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(pickPhoto, REQUEST_PICK_IMAGE);
+        Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(i, REQUEST_PICK_IMAGE);
     }
 
-    private File criarArquivoImagem() throws IOException {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss",
-                Locale.getDefault()).format(new Date());
-        String imageFileName = "LIVRO_" + timeStamp;
-
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        if (storageDir == null) {
-            Log.e(TAG, "Diretório de armazenamento é null");
-            return null;
-        }
-
-        if (!storageDir.exists()) {
-            boolean created = storageDir.mkdirs();
-            Log.d(TAG, "Diretório criado: " + created);
-        }
-
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        currentPhotoPath = image.getAbsolutePath(); // Atualiza o caminho atual
-        Log.d(TAG, "Caminho da foto: " + currentPhotoPath);
-
-        return image;
-    }
-
-    private void copiarImagemDaGaleria(Uri sourceUri) {
+    private File criarArquivoImagem() {
         try {
-            File photoFile = criarArquivoImagem();
-            if (photoFile == null) {
-                Toast.makeText(this, "Erro ao criar arquivo", Toast.LENGTH_SHORT).show();
-                return;
-            }
+            String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault())
+                    .format(new Date());
+            File dir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
 
-            InputStream inputStream = getContentResolver().openInputStream(sourceUri);
-            OutputStream outputStream = new FileOutputStream(photoFile);
-
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = inputStream.read(buffer)) > 0) {
-                outputStream.write(buffer, 0, length);
-            }
-
-            inputStream.close();
-            outputStream.close();
-
-            Log.d(TAG, "Imagem copiada para: " + currentPhotoPath);
-            binding.imgPreviewCapa.setImageURI(Uri.fromFile(photoFile));
-            Toast.makeText(this, "Foto selecionada!", Toast.LENGTH_SHORT).show();
+            File f = new File(dir, "LIVRO_" + timeStamp + ".jpg");
+            currentPhotoPath = f.getAbsolutePath();
+            return f;
 
         } catch (Exception e) {
-            Log.e(TAG, "Erro ao copiar imagem: " + e.getMessage(), e);
-            Toast.makeText(this, "Erro ao processar imagem", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+    }
+
+    private void copiarImagemDaGaleria(Uri srcUri) {
+        try {
+            File out = criarArquivoImagem();
+            InputStream in = getContentResolver().openInputStream(srcUri);
+            OutputStream outStream = new FileOutputStream(out);
+
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) outStream.write(buf, 0, len);
+
+            outStream.close();
+            in.close();
+
+            binding.imgPreviewCapa.setImageURI(Uri.fromFile(out));
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Erro ao copiar imagem", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -280,96 +165,62 @@ public class CadastrarLivroActivity extends AppCompatActivity {
     }
 
     private void salvarOuAtualizarLivro() {
+
         String titulo = binding.edtTitulo.getText().toString().trim();
         String autor = binding.edtAutor.getText().toString().trim();
         String localizacao = binding.edtLocalizacao.getText().toString().trim();
         String codigo = binding.edtCodigoBarras.getText().toString().trim();
         String precoStr = binding.edtPreco.getText().toString().trim();
-        String quantidadeStr = binding.edtQuantidadeEstoque.getText().toString().trim();
+        String qtdStr = binding.edtQuantidadeEstoque.getText().toString().trim();
 
-        if (TextUtils.isEmpty(titulo) || TextUtils.isEmpty(autor) ||
-                TextUtils.isEmpty(precoStr) || TextUtils.isEmpty(quantidadeStr)) {
+        if (titulo.isEmpty() || autor.isEmpty() || precoStr.isEmpty() || qtdStr.isEmpty()) {
             Toast.makeText(this, "Preencha todos os campos obrigatórios", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        double preco;
-        int quantidade;
-        try {
-            preco = Double.parseDouble(precoStr.replace(",", "."));
-        } catch (NumberFormatException e) {
-            Toast.makeText(this, "Preço inválido", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        double preco = Double.parseDouble(precoStr.replace(",", "."));
+        int quantidade = Integer.parseInt(qtdStr);
 
-        try {
-            quantidade = Integer.parseInt(quantidadeStr);
-            if (quantidade < 0) {
-                Toast.makeText(this, "Quantidade não pode ser negativa", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        } catch (NumberFormatException e) {
-            Toast.makeText(this, "Quantidade inválida", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if (livroIdEditar != -1 && livroExistente != null) {
-            // ATUALIZAR (UPDATE)
+        if (isEditMode) {
             livroExistente.titulo = titulo;
             livroExistente.autor = autor;
-            livroExistente.localizacao = localizacao.isEmpty() ? "Não informado" : localizacao;
+            livroExistente.localizacao = localizacao;
             livroExistente.codigoBarras = codigo;
             livroExistente.preco = preco;
 
-            // Só atualiza a imagem se o usuário tiver tirado/selecionado uma nova
-            // Se currentPhotoPath mudou em relação ao original, atualiza
-            if (currentPhotoPath != null && !currentPhotoPath.equals(livroExistente.imagemPath)) {
+            if (currentPhotoPath != null)
                 livroExistente.imagemPath = currentPhotoPath;
-            }
-
-            // Se a imagemPath for nula no objeto mas tivermos um path atual, atribui
-            if (livroExistente.imagemPath == null && currentPhotoPath != null) {
-                livroExistente.imagemPath = currentPhotoPath;
-            }
 
             livroDao.atualizarLivro(livroExistente);
 
-            // Atualiza Estoque
             EstoqueEntity estoque = estoqueDao.buscarPorLivro(livroIdEditar);
             if (estoque != null) {
                 estoque.quantidadeDisponivel = quantidade;
                 estoque.dataAtualizacao = System.currentTimeMillis();
                 estoqueDao.atualizarEstoque(estoque);
-            } else {
-                // Caso raro onde o estoque não existia
-                EstoqueEntity novoEstoque = new EstoqueEntity();
-                novoEstoque.livroId = livroIdEditar;
-                novoEstoque.quantidadeDisponivel = quantidade;
-                novoEstoque.dataAtualizacao = System.currentTimeMillis();
-                estoqueDao.inserirEstoque(novoEstoque);
             }
 
-            Toast.makeText(this, "Livro atualizado com sucesso!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Livro atualizado!", Toast.LENGTH_SHORT).show();
 
         } else {
-            // CADASTRAR (INSERT)
-            LivroEntity novoLivro = new LivroEntity();
-            novoLivro.titulo = titulo;
-            novoLivro.autor = autor;
-            novoLivro.preco = preco;
-            novoLivro.codigoBarras = codigo;
-            novoLivro.localizacao = localizacao.isEmpty() ? "Não informado" : localizacao;
-            novoLivro.imagemPath = currentPhotoPath;
+            LivroEntity novo = new LivroEntity();
+            novo.titulo = titulo;
+            novo.autor = autor;
+            novo.localizacao = localizacao;
+            novo.codigoBarras = codigo;
+            novo.preco = preco;
+            novo.imagemPath = currentPhotoPath;
 
-            long livroIdGerado = livroDao.inserirLivro(novoLivro);
+            long newId = livroDao.inserirLivro(novo);
 
             EstoqueEntity estoque = new EstoqueEntity();
-            estoque.livroId = (int) livroIdGerado;
+            estoque.livroId = (int) newId;
             estoque.quantidadeDisponivel = quantidade;
             estoque.dataAtualizacao = System.currentTimeMillis();
+
             estoqueDao.inserirEstoque(estoque);
 
-            Toast.makeText(this, "Livro cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Livro cadastrado!", Toast.LENGTH_SHORT).show();
         }
 
         finish();
@@ -379,62 +230,28 @@ public class CadastrarLivroActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d(TAG, "onActivityResult - requestCode: " + requestCode + ", resultCode: " + resultCode);
-
-        // Scanner de código de barras
+        // Código de barras
         if (requestCode == IntentIntegrator.REQUEST_CODE) {
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            if (result != null && result.getContents() != null) {
-                binding.edtCodigoBarras.setText(result.getContents());
-                Log.d(TAG, "Código lido: " + result.getContents());
-            }
+            IntentResult r = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+            if (r != null && r.getContents() != null)
+                binding.edtCodigoBarras.setText(r.getContents());
+            return;
         }
 
-        // Câmera
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            Log.d(TAG, "Foto capturada!");
-
-            if (currentPhotoPath != null) {
-                File imgFile = new File(currentPhotoPath);
-                if (imgFile.exists()) {
-                    Log.d(TAG, "Arquivo existe: " + imgFile.length() + " bytes");
-                    binding.imgPreviewCapa.setImageURI(Uri.fromFile(imgFile));
-                    Toast.makeText(this, "Foto capturada!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.e(TAG, "Arquivo não existe");
-                }
+        // CameraX
+        if (requestCode == REQUEST_CAMERA_X && resultCode == RESULT_OK && data != null) {
+            String path = data.getStringExtra(CameraXCaptureActivity.EXTRA_IMAGE_PATH);
+            if (path != null) {
+                currentPhotoPath = path;
+                binding.imgPreviewCapa.setImageURI(Uri.fromFile(new File(path)));
             }
+            return;
         }
 
         // Galeria
         if (requestCode == REQUEST_PICK_IMAGE && resultCode == RESULT_OK && data != null) {
-            Uri selectedImage = data.getData();
-            if (selectedImage != null) {
-                Log.d(TAG, "Imagem selecionada da galeria: " + selectedImage);
-                copiarImagemDaGaleria(selectedImage);
-            }
-        }
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (currentPhotoPath != null) {
-            outState.putString("photo_path", currentPhotoPath);
-        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState.containsKey("photo_path")) {
-            currentPhotoPath = savedInstanceState.getString("photo_path");
-            if (currentPhotoPath != null) {
-                File imgFile = new File(currentPhotoPath);
-                if (imgFile.exists()) {
-                    binding.imgPreviewCapa.setImageURI(Uri.fromFile(imgFile));
-                }
-            }
+            Uri selected = data.getData();
+            if (selected != null) copiarImagemDaGaleria(selected);
         }
     }
 }

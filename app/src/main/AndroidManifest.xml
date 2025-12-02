@@ -61,6 +61,13 @@
             tools:ignore="DiscouragedApi"
             android:theme="@style/Theme.LivrariaDigitalECLB"/>
 
+        <activity
+            android:name=".ui.catalogo.CameraXCaptureActivity"
+            android:exported="true"
+            tools:ignore="DiscouragedApi"
+            android:screenOrientation="portrait" />
+
+
         <!-- Activity principal -->
         <activity
             android:name=".ui.main.MainActivity"
