@@ -196,6 +196,8 @@
     </style>
 
     <!-- ===== Textos ===== -->
+    <style name="Livraria.Texto" />
+
     <style name="Livraria.Texto.TituloTela">
         <item name="android:textSize">@dimen/texto_titulo_tela</item>
         <item name="android:textStyle">bold</item>
