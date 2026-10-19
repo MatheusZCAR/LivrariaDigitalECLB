@@ -1,0 +1,90 @@
+10-19 18:55:12.113 W/PackageManager( 1619): android.content.res.Resources$NotFoundException: String resource ID #0x7f130786
+10-19 18:55:12.300 D/AndroidRuntime( 4165): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-19 18:55:12.305 I/AndroidRuntime( 4165): Using default boot image
+10-19 18:55:12.305 I/AndroidRuntime( 4165): Leaving lock profiling enabled
+10-19 18:55:12.546 D/AndroidRuntime( 4165): Calling main entry com.android.commands.am.Am
+10-19 18:55:12.609 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:13.528 W/NetworkScheduler( 1318): java.lang.IllegalArgumentException: Only the following extra parameter types are supported: Integer, Long, Double, String, Boolean, and nested Bundles with the same restrictions.
+10-19 18:55:14.466 W/NetworkScheduler( 1318): java.lang.IllegalArgumentException: Only the following extra parameter types are supported: Integer, Long, Double, String, Boolean, and nested Bundles with the same restrictions.
+10-19 18:55:15.708 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:16.105 W/NetworkScheduler( 1318): java.lang.IllegalArgumentException: Only the following extra parameter types are supported: Integer, Long, Double, String, Boolean, and nested Bundles with the same restrictions.
+10-19 18:55:18.526 W/NetworkScheduler( 1318): java.lang.IllegalArgumentException: Only the following extra parameter types are supported: Integer, Long, Double, String, Boolean, and nested Bundles with the same restrictions.
+10-19 18:55:18.651 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:22.719 E/dqod    ( 3376): RuntimeException while executing runnable dqra{dkqj@a2ca221} with executor MoreExecutors.directExecutor()
+10-19 18:55:22.719 E/dqod    ( 3376): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:22.719 E/dqod    ( 3376): RuntimeException while executing runnable dqra{dkqj@4947007} with executor MoreExecutors.directExecutor()
+10-19 18:55:22.719 E/dqod    ( 3376): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:22.719 E/dqod    ( 3376): RuntimeException while executing runnable dqra{dkqj@2903f5d} with executor MoreExecutors.directExecutor()
+10-19 18:55:22.719 E/dqod    ( 3376): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:24.712 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:24.827 D/OneSearchSuggestProvider( 1279): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:24.827 D/OneSearchSuggestProvider( 1279): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:24.827 D/OneSearchSuggestProvider( 1279): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:27.662 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:32.316 D/OneSearchSuggestProvider( 1279): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:32.316 D/OneSearchSuggestProvider( 1279): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:32.316 D/OneSearchSuggestProvider( 1279): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:35.671 W/io.grpc.a.d( 1706): java.lang.NoSuchMethodException: com.google.i.a.l.getScopes []
+10-19 18:55:36.387 W/NetworkScheduler( 1318): java.lang.IllegalArgumentException: Only the following extra parameter types are supported: Integer, Long, Double, String, Boolean, and nested Bundles with the same restrictions.
+10-19 18:55:36.735 W/PeoplePU( 1446): java.lang.IllegalArgumentException: Unknown component: ComponentInfo{com.google.android.syncadapters.contacts/com.google.android.syncadapters.contacts.ContactsSyncAdapterService}
+10-19 18:55:36.735 W/PeoplePU( 1446): 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3246)
+10-19 18:55:36.735 W/PeoplePU( 1446): 	at android.os.Parcel.createException(Parcel.java:3226)
+10-19 18:55:36.735 W/PeoplePU( 1446): 	at android.os.Parcel.readException(Parcel.java:3209)
+10-19 18:55:36.735 W/PeoplePU( 1446): 	at android.os.Parcel.readException(Parcel.java:3151)
+10-19 18:55:36.735 W/PeoplePU( 1446): Caused by: android.os.RemoteException: Remote stack trace:
+10-19 18:55:36.742 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:36.744 W/PeoplePU( 1446): java.lang.IllegalArgumentException: Unknown component: ComponentInfo{com.google.android.syncadapters.contacts/com.google.android.syncadapters.contacts.ContactsSyncAdapterService}
+10-19 18:55:36.744 W/PeoplePU( 1446): 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3246)
+10-19 18:55:36.744 W/PeoplePU( 1446): 	at android.os.Parcel.createException(Parcel.java:3226)
+10-19 18:55:36.744 W/PeoplePU( 1446): 	at android.os.Parcel.readException(Parcel.java:3209)
+10-19 18:55:36.744 W/PeoplePU( 1446): 	at android.os.Parcel.readException(Parcel.java:3151)
+10-19 18:55:36.745 W/PeoplePU( 1446): java.lang.IllegalArgumentException: Unknown component: ComponentInfo{com.google.android.syncadapters.contacts/com.google.android.syncadapters.contacts.ProxyGalProvider}
+10-19 18:55:36.745 W/PeoplePU( 1446): 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3246)
+10-19 18:55:36.745 W/PeoplePU( 1446): 	at android.os.Parcel.createException(Parcel.java:3226)
+10-19 18:55:36.745 W/PeoplePU( 1446): 	at android.os.Parcel.readException(Parcel.java:3209)
+10-19 18:55:36.745 W/PeoplePU( 1446): 	at android.os.Parcel.readException(Parcel.java:3151)
+10-19 18:55:37.093 W/SemanticLocation( 1318): [MDD] ModelBundleMetadata: File not found: java.io.FileNotFoundException: /data/user/0/com.google.android.gms/files/model_bundle_metadata.pb: open failed: ENOENT (No such file or directory) [CONTEXT service_id=173 ]
+10-19 18:55:37.093 W/SemanticLocation( 1318): java.io.FileNotFoundException: /data/user/0/com.google.android.gms/files/model_bundle_metadata.pb: open failed: ENOENT (No such file or directory)
+10-19 18:55:37.093 W/SemanticLocation( 1318): Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+10-19 18:55:37.140 W/SemanticLocation( 1318): [MDD] ModelBundleMetadata: File not found: java.io.FileNotFoundException: /data/user/0/com.google.android.gms/files/model_bundle_metadata.pb: open failed: ENOENT (No such file or directory) [CONTEXT service_id=173 ]
+10-19 18:55:37.140 W/SemanticLocation( 1318): java.io.FileNotFoundException: /data/user/0/com.google.android.gms/files/model_bundle_metadata.pb: open failed: ENOENT (No such file or directory)
+10-19 18:55:37.140 W/SemanticLocation( 1318): Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+10-19 18:55:37.383 E/MDD     ( 1706): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:37.383 E/MDD     ( 1706): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:37.528 E/MDD     ( 1706): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:37.531 E/MDD     ( 1706): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:37.645 E/SliceManager( 3869): android.os.DeadObjectException: Transaction failed on small parcel; remote process probably died, but this could also be caused by running out of binder buffer space
+10-19 18:55:37.760 E/MDD     ( 1706): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:37.764 E/MDD     ( 1706): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:37.895 E/SliceIndexUpdateTask( 3869): java.lang.UnsupportedOperationException
+10-19 18:55:38.264 E/gclu    ( 1318): java.lang.RuntimeException: ManagedChannel allocation site
+10-19 18:55:38.761 W/GLSUser ( 1318): [AppCertManager] Exception while requesting key: 
+10-19 18:55:38.761 W/GLSUser ( 1318): java.util.concurrent.ExecutionException: bpcw: Parse Proto Exception with response code 400
+10-19 18:55:38.761 W/GLSUser ( 1318): Caused by: bpcw: Parse Proto Exception with response code 400
+10-19 18:55:38.958 W/Conscrypt( 1318): Could not set socket write timeout: java.net.SocketException: Socket closed
+10-19 18:55:38.992 W/Conscrypt( 1318): Could not set socket write timeout: java.net.SocketException: Socket closed
+10-19 18:55:39.128 W/AlarmManager( 1318): java.lang.IllegalArgumentException: alarm "NetworkLocationLocator" has short window length
+10-19 18:55:44.355 W/TapAndPay( 1318): java.lang.NullPointerException: NfcAdapter is null
+10-19 18:55:45.720 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:48.746 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:49.333 D/OneSearchSuggestProvider( 1279): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:49.333 D/OneSearchSuggestProvider( 1279): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:49.333 D/OneSearchSuggestProvider( 1279): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:51.704 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:57.258 E/dqod    ( 3376): RuntimeException while executing runnable dqra{dkqj@8f87c82} with executor MoreExecutors.directExecutor()
+10-19 18:55:57.258 E/dqod    ( 3376): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:57.259 E/dqod    ( 3376): RuntimeException while executing runnable dqra{dkqj@af15bd0} with executor MoreExecutors.directExecutor()
+10-19 18:55:57.259 E/dqod    ( 3376): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:57.259 E/dqod    ( 3376): RuntimeException while executing runnable dqra{dkqj@bb5dece} with executor MoreExecutors.directExecutor()
+10-19 18:55:57.259 E/dqod    ( 3376): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:57.819 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:56:01.226 D/OneSearchSuggestProvider( 1279): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:56:01.226 D/OneSearchSuggestProvider( 1279): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:56:01.226 D/OneSearchSuggestProvider( 1279): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:56:03.744 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:56:06.752 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:56:09.895 I/ChimeraSrvcProxy( 1318): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:56:10.409 D/OneSearchSuggestProvider( 1279): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:56:10.409 D/OneSearchSuggestProvider( 1279): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:56:10.409 D/OneSearchSuggestProvider( 1279): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:56:10.494 I/AndroidRuntime( 4165): VM exiting with result code 0.
