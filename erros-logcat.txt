@@ -1,0 +1,200 @@
+10-19 05:34:38.409 W/AsyncOperation( 1201): OperationException[Status{statusCode=unknown status code: 29503, resolution=null}]
+10-19 05:34:38.441 W/d.process.acore( 1737): Long monitor contention with owner Worker-1 (1858) at void android.database.sqlite.SQLiteConnectionPool.closeAvailableNonPrimaryConnectionsAndLogExceptions()(SQLiteConnectionPool.java:623) waiters=0 in android.database.sqlite.SQLiteConnection android.database.sqlite.SQLiteConnectionPool.waitForConnection(java.lang.String, int, android.os.CancellationSignal) for 120ms
+10-19 05:34:38.491 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:38.506 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:38.509 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:38.512 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:38.570 E/FileLog ( 1214): java.io.FileNotFoundException: /data/user/0/com.google.android.apps.nexuslauncher/files/log-0: open failed: ENOENT (No such file or directory)
+10-19 05:34:38.570 E/FileLog ( 1214): Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+10-19 05:34:38.706 D/AndroidRuntime( 2075): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-19 05:34:38.710 I/AndroidRuntime( 2075): Using default boot image
+10-19 05:34:38.710 I/AndroidRuntime( 2075): Leaving lock profiling enabled
+10-19 05:34:38.764 D/OneSearchSuggestProvider( 1214): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 05:34:38.764 D/OneSearchSuggestProvider( 1214): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 05:34:38.764 D/OneSearchSuggestProvider( 1214): Caused by: java.util.NoSuchElementException: No value present
+10-19 05:34:38.811 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:38.816 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:38.826 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:38.920 D/AndroidRuntime( 2075): Calling main entry com.android.commands.am.Am
+10-19 05:34:38.975 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.146 I/netd    (  354): networkAddRouteParcel(100, RouteInfoParcel{destination: 0.0.0.0/0, ifName: wlan0, nextHop: 10.0.2.2, mtu: 0}) -> ServiceSpecificException(101, "Network is unreachable") <0.18ms>
+10-19 05:34:39.150 E/ConnectivityService(  555): Exception in addRoute for gateway: android.os.ServiceSpecificException: Network is unreachable (code 101)
+10-19 05:34:39.202 E/FirebaseMessaging( 2061): java.util.concurrent.ExecutionException: com.google.firebase.installations.zzm: Firebase Installations Service is unavailable. Please try again later.
+10-19 05:34:39.514 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.518 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.521 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.524 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.527 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.614 W/DnsResolver(  989): resNetworkResult:android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:39.614 W/DnsResolver(  989): resNetworkResult:android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:39.614 D/NetworkMonitor/100(  989): PROBE_DNS connectivitycheck.gstatic.com 313ms FAIL in type ADDRCONFIG android.net.DnsResolver$DnsException: android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:39.614 D/NetworkMonitor/100(  989): PROBE_DNS www.google.com 309ms FAIL in type ADDRCONFIG android.net.DnsResolver$DnsException: android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:39.617 D/NetworkMonitor/100(  989): PROBE_HTTPS https://www.google.com/generate_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "www.google.com": No address associated with hostname
+10-19 05:34:39.623 D/NetworkMonitor/100(  989): PROBE_HTTP http://connectivitycheck.gstatic.com/generate_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "connectivitycheck.gstatic.com": No address associated with hostname
+10-19 05:34:39.634 D/NetworkMonitor/100(  989): PROBE_FALLBACK http://play.googleapis.com/generate_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "play.googleapis.com": No address associated with hostname
+10-19 05:34:39.644 W/AsyncOperation( 1201): OperationException[Status{statusCode=Empty (package not registered?) or malformed snapshot token for null: , resolution=null}]
+10-19 05:34:39.707 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.712 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.732 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.799 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.842 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.842 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.892 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:39.906 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:39.917 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.921 E/SystemServiceRegistry(  989): android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-19 05:34:39.925 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.946 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.947 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:39.951 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.951 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:39.952 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:39.954 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:39.954 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:39.955 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:39.955 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:39.955 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:39.959 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.975 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.978 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.981 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:39.981 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:40.042 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:40.044 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:40.051 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:40.055 D/StrictMode( 1675): 	at android.os.Parcel.readExceptionCode(Parcel.java:3187)
+10-19 05:34:40.055 D/StrictMode( 1675): 	at android.database.DatabaseUtils.readExceptionFromParcel(DatabaseUtils.java:152)
+10-19 05:34:40.073 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:40.073 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:40.164 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:40.164 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:40.197 I/GmsActivityDetector( 1201): java.io.FileNotFoundException: /data/user/0/com.google.android.gms/files/geofencer_ad_state: open failed: ENOENT (No such file or directory)
+10-19 05:34:40.197 I/GmsActivityDetector( 1201): Caused by: android.system.ErrnoException: open failed: ENOENT (No such file or directory)
+10-19 05:34:40.229 W/AsyncOperation( 1201): OperationException[Status{statusCode=unknown status code: 29503, resolution=null}]
+10-19 05:34:40.245 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:40.245 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:40.469 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:40.469 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:40.502 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:40.502 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:40.504 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:40.886 W/MediaProvider( 1515): Exception encountered while reading xattr:user.intdbsessionid0 from path:/data/media/0.
+10-19 05:34:41.086 W/WPCategoryProvider( 2252): android.content.pm.PackageManager$NameNotFoundException: com.google.pixel.livewallpaper
+10-19 05:34:41.163 W/PackageManager( 1214): android.content.res.Resources$NotFoundException: String resource ID #0x7f130786
+10-19 05:34:41.208 W/ModernMediaScanner( 1515): Failed to visit /system/media: java.nio.file.NoSuchFileException: /system/media
+10-19 05:34:41.213 W/ModernMediaScanner( 1515): Failed to visit /oem/media: java.nio.file.NoSuchFileException: /oem/media
+10-19 05:34:41.679 W/DnsResolver(  989): resNetworkResult:android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:41.679 W/DnsResolver(  989): resNetworkResult:android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:41.679 D/NetworkMonitor/100(  989): PROBE_DNS connectivitycheck.gstatic.com 31ms FAIL in type ADDRCONFIG android.net.DnsResolver$DnsException: android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:41.680 D/NetworkMonitor/100(  989): PROBE_DNS www.google.com 32ms FAIL in type ADDRCONFIG android.net.DnsResolver$DnsException: android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:41.687 D/NetworkMonitor/100(  989): PROBE_HTTP http://connectivitycheck.gstatic.com/generate_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "connectivitycheck.gstatic.com": No address associated with hostname
+10-19 05:34:41.696 D/NetworkMonitor/100(  989): PROBE_HTTPS https://www.google.com/generate_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "www.google.com": No address associated with hostname
+10-19 05:34:41.713 D/NetworkMonitor/100(  989): PROBE_FALLBACK http://play.googleapis.com/generate_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "play.googleapis.com": No address associated with hostname
+10-19 05:34:41.938 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:41.940 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:41.940 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:42.126 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:42.429 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:42.429 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:42.545 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:42.545 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:42.545 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:42.546 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:42.571 W/ChimeraSrvcProxy( 1201): Failed to read the buffer size file. Using default NullBinder reply size. java.io.FileNotFoundException: /data/user_de/0/com.google.android.gms/files/binder_buffer_size.txt: open failed: ENOENT (No such file or directory)
+10-19 05:34:42.624 I/ChimeraSrvcProxy( 1201): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 05:34:42.719 E/MendelPackageState( 1545): java.lang.IllegalArgumentException
+10-19 05:34:42.734 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:42.753 I/ChimeraSrvcProxy( 1201): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 05:34:42.810 I/ChimeraSrvcProxy( 1201): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 05:34:42.903 E/MendelPackageState( 1545): java.lang.IllegalArgumentException
+10-19 05:34:43.075 E/MendelPackageState( 1545): java.lang.IllegalArgumentException
+10-19 05:34:43.239 W/AiAiAutofill( 1518): java.lang.SecurityException: caller is not user's Augmented Autofill Service
+10-19 05:34:43.261 W/AiAiAutofill( 1518): java.lang.SecurityException: caller is not user's Augmented Autofill Service
+10-19 05:34:43.274 W/AiAiAutofill( 1518): java.lang.SecurityException: caller is not user's Augmented Autofill Service
+10-19 05:34:43.584 E/MendelPackageState( 1545): java.lang.IllegalArgumentException
+10-19 05:34:43.674 I/ChimeraSrvcProxy( 1201): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 05:34:43.725 W/Icing   ( 1320): Failed to get Lockbox signed-in status: java.util.concurrent.TimeoutException: Timed out waiting for Task
+10-19 05:34:43.996 W/PackageManager( 1214): android.content.res.Resources$NotFoundException: String resource ID #0x7f130786
+10-19 05:34:44.136 E/MendelPackageState( 1545): java.lang.IllegalArgumentException
+10-19 05:34:44.488 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:44.489 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:44.780 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:44.817 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:44.820 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:44.991 W/PackageManager( 1214): android.content.res.Resources$NotFoundException: String resource ID #0x7f130786
+10-19 05:34:45.224 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.226 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.228 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.232 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.359 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:45.364 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:45.397 W/A       ( 1675): (REDACTED) Exception while fetching versionCode for package[%s].
+10-19 05:34:45.397 W/A       ( 1675): android.content.pm.PackageManager$NameNotFoundException: com.google.android.apps.tv.dreamx
+10-19 05:34:45.535 W/A       ( 1675): (REDACTED) Exception while fetching versionCode for package[%s].
+10-19 05:34:45.535 W/A       ( 1675): android.content.pm.PackageManager$NameNotFoundException: com.google.android.apps.tv.launcherx
+10-19 05:34:45.549 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.550 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.550 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.552 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.553 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:45.816 W/DnsResolver(  989): resNetworkResult:android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:45.818 W/DnsResolver(  989): resNetworkResult:android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:45.824 D/NetworkMonitor/100(  989): PROBE_DNS www.google.com 59ms FAIL in type ADDRCONFIG android.net.DnsResolver$DnsException: android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:45.828 D/NetworkMonitor/100(  989): PROBE_DNS connectivitycheck.gstatic.com 53ms FAIL in type ADDRCONFIG android.net.DnsResolver$DnsException: android.system.ErrnoException: resNetworkResult failed: ECONNREFUSED (Connection refused)
+10-19 05:34:45.868 D/NetworkMonitor/100(  989): PROBE_HTTP http://connectivitycheck.gstatic.com/generate_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "connectivitycheck.gstatic.com": No address associated with hostname
+10-19 05:34:45.873 D/NetworkMonitor/100(  989): PROBE_HTTPS https://www.google.com/generate_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "www.google.com": No address associated with hostname
+10-19 05:34:45.881 D/NetworkMonitor/100(  989): PROBE_FALLBACK http://www.google.com/gen_204 Probe failed with exception java.net.UnknownHostException: Unable to resolve host "www.google.com": No address associated with hostname
+10-19 05:34:46.125 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:46.128 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:46.317 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:46.317 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:46.456 W/WellbeingSettingsProvid( 1418): java.util.concurrent.TimeoutException: Waited 5000 milliseconds (plus 144281 nanoseconds delay) for lep@f2530c7[status=PENDING, info=[inputFuture=[leo@89c96f4[status=PENDING, setFuture=[ldw@562ce1d[status=PENDING, info=[inputFuture=[lep@d4cc892[status=PENDING, info=[inputFuture=[lep@1ba1263[status=PENDING, info=[inputFuture=[lfl@9662e60[status=PENDING, info=[futures=[lep@e32f19[status=PENDING, info=[inputFuture=[lep@f6adbde[status=PENDING, info=[inputFuture=[lgj@b3171bf[status=PENDING, info=[delegate=[lhp@d6fd08c[status=PENDING, setFuture=[lep@26ea3d5[status=PENDING, info=[inputFuture=[leo@ac4d7ea[status=PENDING, info=[inputFuture=[lgj@8956adb[status=PENDING, info=[delegate=[lhp@e8f6978[status=PENDING, setFuture=[leo@2a851[status=PENDING, info=[function=[propagating=[cer@1088b6]]]]]]]]]], function=[propagating=[car@375d9b7]]]]], function=[propagating=[cau@c0da524]]]]]]]]]], function=[propagating=[cag@7f8788d]]]]], function=[propagating=[cme@3947a42]]]]]]]], function=[propagating=[dhi@4845a53]]]]], function=[propagating=[bxu@f11ef90]]]]], exceptionType=[class java.lang.Throwable], fallback=[propagating=[cau@b011089]]]]]]], function=[propagating=[bxu@573f88e]]]]
+10-19 05:34:46.896 E/FirebaseInstanceId( 2399): java.util.concurrent.ExecutionException: com.google.firebase.installations.FirebaseInstallationsException: Firebase Installations Service is unavailable. Please try again later.
+10-19 05:34:46.896 E/FirebaseInstanceId( 2399): Caused by: com.google.firebase.installations.FirebaseInstallationsException: Firebase Installations Service is unavailable. Please try again later.
+10-19 05:34:46.924 I/VoiceDataManager( 2401): Caused by: java.util.concurrent.CancellationException: Task was cancelled.
+10-19 05:34:47.472 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:47.520 W/WellbeingSettingsProvid( 1418): java.util.concurrent.TimeoutException: Waited 5000 milliseconds (plus 100 milliseconds, 406952 nanoseconds delay) for lep@6a8584[status=PENDING, info=[inputFuture=[leo@a21416d[status=PENDING, setFuture=[ntt@96641a2[status=PENDING, delegate=[lhi@dd57e33[status=PENDING]]]]]], function=[propagating=[bxu@ecc75f0]]]]
+10-19 05:34:47.712 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:48.041 E/AlarmClock( 2298): java.lang.NullPointerException: Attempt to get length of null array
+10-19 05:34:48.411 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:48.560 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:48.560 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:48.561 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:48.563 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:48.563 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:48.653 W/FileUtils(  555): android.system.ErrnoException: chmod failed: ENOENT (No such file or directory)
+10-19 05:34:48.837 E/SystemServiceRegistry(  989): android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-19 05:34:48.979 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:49.027 E/SystemServiceRegistry(  989): android.os.ServiceManager$ServiceNotFoundException: No service published for: ethernet
+10-19 05:34:49.093 W/PackageManager( 1214): android.content.res.Resources$NotFoundException: String resource ID #0x7f130786
+10-19 05:34:49.104 W/TRG.Connections( 1545): java.lang.IllegalArgumentException
+10-19 05:34:49.116 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.138 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.139 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.186 W/A       ( 1545): Caused by: java.lang.IllegalArgumentException
+10-19 05:34:49.340 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.353 E/INV.GrpcInterceptor( 1545): Caused by: java.lang.IllegalArgumentException
+10-19 05:34:49.360 E/Ma-Entry-Triggering( 1545): Caused by: java.lang.IllegalArgumentException
+10-19 05:34:49.365 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.426 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.458 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.464 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.515 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.567 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.635 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.649 W/BestClock(  555): java.time.DateTimeException: Missing network time fix
+10-19 05:34:49.681 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:49.681 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:49.930 W/PackageManager( 1518): android.content.res.Resources$NotFoundException: String resource ID #0x7f130786
+10-19 05:34:50.143 W/Telephony( 1080): registerMmTelCapabilityCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:50.143 W/Telephony( 1080): registerImsRegistrationCallback: registration failed, no ImsService available. Exception: code: 1
+10-19 05:34:50.611 W/FontLog ( 1201): java.util.concurrent.ExecutionException: bpcw: Failed to process request
+10-19 05:34:50.611 W/FontLog ( 1201): Caused by: m.mg: Exception in CronetUrlRequest: net::ERR_NAME_NOT_RESOLVED, ErrorCode=1, InternalErrorCode=-105, Retryable=false
+10-19 05:34:51.296 E/Auth    ( 1320): java.util.concurrent.TimeoutException: Timed out waiting for Task
+10-19 05:34:51.508 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:51.510 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:51.510 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:51.510 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:51.511 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:51.512 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
+10-19 05:34:51.512 W/AiAiFed ( 1518): java.lang.IllegalArgumentException: Unsupported response code3
