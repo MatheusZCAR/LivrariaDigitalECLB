@@ -29,7 +29,7 @@
             <!-- Foto da capa -->
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Livraria.Cartao"
-                android:layout_width="300dp"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content">
 
                 <LinearLayout
@@ -120,6 +120,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:baselineAligned="false"
                             android:orientation="horizontal">
 
                             <com.google.android.material.textfield.TextInputLayout
@@ -213,6 +214,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="16dp"
                                 android:layout_weight="1"
+                                android:baselineAligned="false"
                                 android:orientation="horizontal">
 
                                 <com.google.android.material.button.MaterialButton
@@ -283,6 +285,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:baselineAligned="false"
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton

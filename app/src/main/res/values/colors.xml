@@ -22,7 +22,4 @@
     <color name="alerta">#8A5A00</color>
     <color name="alerta_claro">#FFF4D6</color>
 
-    <!-- Mantido por compatibilidade com o ícone do app -->
-    <color name="gray">#4A4A4A</color>
-    <color name="background">#FFFDF5</color>
 </resources>

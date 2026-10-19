@@ -7,10 +7,7 @@
     <string name="salvar">Salvar</string>
     <string name="fechar">Fechar</string>
     <string name="entendi">Entendi</string>
-    <string name="sim">Sim</string>
-    <string name="nao">Não</string>
     <string name="imprimir">Imprimir</string>
-    <string name="enviar">Enviar</string>
     <string name="buscar_livro">Buscar pelo nome do livro ou do autor</string>
     <string name="ler_codigo">Ler código de barras</string>
     <string name="capa_livro">Capa do livro</string>
@@ -45,7 +42,6 @@
     <string name="remover_foto">Remover foto</string>
     <string name="codigo_de_barras">Código de barras (opcional)</string>
     <string name="titulo_do_livro">Nome do livro</string>
-    <string name="autor">Autor</string>
     <string name="autor_opcional">Autor (opcional)</string>
     <string name="preco">Preço (R$)</string>
     <string name="quantidade_em_estoque">Quantidade em estoque</string>
@@ -74,8 +70,6 @@
     <string name="credito">Crédito</string>
     <string name="valor_recebido">Valor recebido (R$)</string>
     <string name="valor_exato">Valor exato</string>
-    <string name="parcelas">Parcelas</string>
-    <string name="total_a_pagar">Total a pagar</string>
     <string name="confirmar_venda">Confirmar venda</string>
     <string name="tirar">Tirar</string>
 

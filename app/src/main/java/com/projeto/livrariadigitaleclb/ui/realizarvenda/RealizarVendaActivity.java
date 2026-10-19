@@ -103,6 +103,11 @@ public class RealizarVendaActivity extends BaseActivity {
         carregar();
     }
 
+    @Override
+    public View ancoraDosAvisos() {
+        return binding.layoutCarrinho;
+    }
+
     private void carregar() {
         todos = db.livroDao().listarLivrosParaVendaComEstoque();
         // Tira do carrinho livros que foram excluídos e ajusta ao estoque atual.

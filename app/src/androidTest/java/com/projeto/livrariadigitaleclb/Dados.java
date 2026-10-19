@@ -104,7 +104,7 @@ final class Dados {
     static void foto(String nome) {
         Instrumentation inst = InstrumentationRegistry.getInstrumentation();
         inst.waitForIdleSync();
-        SystemClock.sleep(900);
+        SystemClock.sleep(1500);
         inst.waitForIdleSync();
         Bitmap b = inst.getUiAutomation().takeScreenshot();
         if (b == null) return;

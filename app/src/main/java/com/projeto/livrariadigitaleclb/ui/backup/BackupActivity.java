@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.text.format.Formatter;
 import android.view.View;
 
@@ -31,6 +30,7 @@ import com.projeto.livrariadigitaleclb.databinding.ActivityBackupBinding;
 import com.projeto.livrariadigitaleclb.ui.BaseActivity;
 import com.projeto.livrariadigitaleclb.ui.main.MainActivity;
 import com.projeto.livrariadigitaleclb.util.Avisos;
+import com.projeto.livrariadigitaleclb.util.Datas;
 import com.projeto.livrariadigitaleclb.util.Dialogos;
 import com.projeto.livrariadigitaleclb.util.Periodo;
 import com.projeto.livrariadigitaleclb.util.Texto;
@@ -163,7 +163,7 @@ public class BackupActivity extends BaseActivity {
             titulo = "Ainda não há nenhuma cópia";
             cor = R.color.alerta;
             icone = R.drawable.ic_aviso;
-        } else if (erroRecente || System.currentTimeMillis() - ultima > 3 * DateUtils.DAY_IN_MILLIS) {
+        } else if (erroRecente || Datas.diasDesde(ultima, System.currentTimeMillis(), java.util.TimeZone.getDefault()) > 3) {
             titulo = "Faça uma cópia nova";
             cor = R.color.alerta;
             icone = R.drawable.ic_aviso;
@@ -180,8 +180,7 @@ public class BackupActivity extends BaseActivity {
     }
 
     private String quando(long instante) {
-        return DateUtils.getRelativeDateTimeString(this, instante, DateUtils.MINUTE_IN_MILLIS,
-                DateUtils.WEEK_IN_MILLIS, 0).toString();
+        return Datas.quando(instante);
     }
 
     private void comecar(String mensagem) {

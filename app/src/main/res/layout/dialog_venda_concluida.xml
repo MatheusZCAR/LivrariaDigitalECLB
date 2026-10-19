@@ -48,31 +48,23 @@
         tools:text="Troco: R$ 25,00"
         tools:visibility="visible" />
 
-    <LinearLayout
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnImprimirRecibo"
+        style="@style/Widget.Livraria.Botao.Contorno"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:orientation="horizontal">
+        android:text="Imprimir recibo"
+        app:icon="@drawable/ic_imprimir" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnImprimirRecibo"
-            style="@style/Widget.Livraria.Botao.Contorno"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_weight="1"
-            android:text="Imprimir recibo"
-            app:icon="@drawable/ic_imprimir" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnEnviarRecibo"
-            style="@style/Widget.Livraria.Botao.Contorno"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Enviar recibo"
-            app:icon="@drawable/ic_compartilhar" />
-    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnEnviarRecibo"
+        style="@style/Widget.Livraria.Botao.Contorno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Enviar recibo (WhatsApp, e-mail…)"
+        app:icon="@drawable/ic_compartilhar" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnNovaVenda"

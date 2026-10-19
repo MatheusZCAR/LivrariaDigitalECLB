@@ -52,10 +52,12 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/barraAcoes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/superficie"
         android:elevation="8dp"
+        android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingStart="@dimen/margem_tela"
         android:paddingTop="12dp"

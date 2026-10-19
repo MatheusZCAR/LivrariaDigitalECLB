@@ -64,6 +64,11 @@ public class PedidosActivity extends BaseActivity implements PedidosAdapter.Acoe
         carregar();
     }
 
+    @Override
+    public View ancoraDosAvisos() {
+        return binding.barraAcoes;
+    }
+
     private void carregar() {
         pedidos = pedidoDao.getPedidos();
         adapter.atualizarLista(pedidos);

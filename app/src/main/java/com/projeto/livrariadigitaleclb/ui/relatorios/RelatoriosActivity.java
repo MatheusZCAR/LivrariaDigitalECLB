@@ -134,7 +134,7 @@ public class RelatoriosActivity extends BaseActivity {
         for (int i = 0; i < Math.min(MAX_MAIS_VENDIDOS, relatorio.livros.size()); i++) {
             RelatorioVendas.LivroVendido lv = relatorio.livros.get(i);
             adicionarLinha(inflater, binding.listaMaisVendidos, (i + 1) + ". " + lv.titulo,
-                    lv.unidades + " × — " + Moeda.formatar(lv.total));
+                    Texto.plural(lv.unidades, "exemplar", "exemplares") + "  ·  " + Moeda.formatar(lv.total));
         }
 
         binding.listaVendas.removeAllViews();

@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.projeto.livrariadigitaleclb.R;
+import com.projeto.livrariadigitaleclb.ui.BaseActivity;
 
 /**
  * Avisos grandes e que ficam tempo suficiente na tela.
@@ -57,6 +58,10 @@ public final class Avisos {
     private static Snackbar criar(Activity a, String mensagem, int cor) {
         View raiz = a.findViewById(android.R.id.content);
         Snackbar s = Snackbar.make(raiz, mensagem, DURACAO_MS);
+        if (a instanceof BaseActivity) {
+            View ancora = ((BaseActivity) a).ancoraDosAvisos();
+            if (ancora != null && ancora.getVisibility() == View.VISIBLE) s.setAnchorView(ancora);
+        }
         s.setBackgroundTint(ContextCompat.getColor(a, cor));
         TextView texto = s.getView().findViewById(com.google.android.material.R.id.snackbar_text);
         if (texto != null) {

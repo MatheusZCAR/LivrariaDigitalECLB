@@ -38,6 +38,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Barra fixa no rodapé desta tela (se houver): os avisos aparecem acima dela,
+     * em vez de cobrir os botões.
+     */
+    public View ancoraDosAvisos() {
+        return null;
+    }
+
     protected void definirTitulo(String titulo) {
         TextView t = findViewById(R.id.txtTituloTela);
         if (t != null) t.setText(titulo);

@@ -2,7 +2,6 @@ package com.projeto.livrariadigitaleclb.ui.main;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.view.View;
 
 import androidx.core.content.ContextCompat;
@@ -19,6 +18,7 @@ import com.projeto.livrariadigitaleclb.ui.pedidos.PedidosActivity;
 import com.projeto.livrariadigitaleclb.ui.realizarvenda.RealizarVendaActivity;
 import com.projeto.livrariadigitaleclb.ui.relatorios.RelatoriosActivity;
 import com.projeto.livrariadigitaleclb.util.Avisos;
+import com.projeto.livrariadigitaleclb.util.Datas;
 import com.projeto.livrariadigitaleclb.util.Periodo;
 
 import java.text.SimpleDateFormat;
@@ -26,8 +26,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends BaseActivity {
-
-    private static final long UM_DIA = 24L * 60 * 60 * 1000;
 
     private ActivityMainBinding binding;
 
@@ -105,11 +103,10 @@ public class MainActivity extends BaseActivity {
             cor = R.color.alerta;
             icone = R.drawable.ic_aviso;
         } else {
-            String quando = DateUtils.getRelativeDateTimeString(this, ultima,
-                    DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0).toString();
+            String quando = Datas.quando(ultima);
             String onde = prefs.ultimoBackupDrive() >= prefs.ultimoBackupArquivo()
                     ? "no Google Drive" : "em arquivo";
-            if (agora - ultima > 3 * UM_DIA) {
+            if (Datas.diasDesde(ultima, agora, java.util.TimeZone.getDefault()) > 3) {
                 texto = "A última cópia " + onde + " é antiga (" + quando + "). Toque para fazer uma nova.";
                 cor = R.color.alerta;
                 icone = R.drawable.ic_aviso;
