@@ -92,7 +92,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/altura_botao_grande"
-            android:text="@string/imprimir_ou_enviar"
+            android:text="@string/imprimir_lista"
             app:icon="@drawable/ic_imprimir"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
@@ -104,13 +104,14 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLimparLista"
             style="@style/Widget.Livraria.Botao.Perigo"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/altura_botao_grande"
             android:text="@string/limpar_lista"
             app:icon="@drawable/ic_lixeira"
             app:layout_constraintTop_toTopOf="@id/btnImprimirLista"
             app:layout_constraintBottom_toBottomOf="@id/btnImprimirLista"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnImprimirLista" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -190,6 +190,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnValor20"
+                    app:layout_constraintHorizontal_weight="1"
                     style="@style/Widget.Livraria.Botao.Contorno"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -203,6 +204,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnValor50"
+                    app:layout_constraintHorizontal_weight="1"
                     style="@style/Widget.Livraria.Botao.Contorno"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -216,6 +218,7 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnValor100"
+                    app:layout_constraintHorizontal_weight="1"
                     style="@style/Widget.Livraria.Botao.Contorno"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

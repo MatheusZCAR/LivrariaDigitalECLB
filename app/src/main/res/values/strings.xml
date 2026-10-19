@@ -45,7 +45,7 @@
     <string name="titulo_do_livro">Nome do livro</string>
     <string name="autor_opcional">Autor (opcional)</string>
     <string name="preco">Preço (R$)</string>
-    <string name="quantidade_em_estoque">Quantidade em estoque</string>
+    <string name="quantidade_em_estoque">Em estoque</string>
     <string name="localizacao">Onde fica (prateleira, opcional)</string>
     <string name="localizacao_exemplo">Ex.: Estante A, prateleira 2</string>
     <string name="salvar_livro">Salvar livro</string>
@@ -59,7 +59,7 @@
     <string name="venda_titulo">Vender</string>
     <string name="venda_dica">Toque no livro para colocar na venda. Tocou errado? Use “Desfazer” no aviso.</string>
     <string name="esvaziar">Esvaziar</string>
-    <string name="finalizar_venda">Finalizar venda</string>
+    <string name="finalizar_venda">Finalizar</string>
 
     <!-- Concluir venda -->
     <string name="concluir_titulo">Finalizar venda</string>
@@ -80,6 +80,7 @@
     <string name="adicionar_livro">Adicionar livro</string>
     <string name="imprimir_ou_enviar">Imprimir ou enviar</string>
     <string name="limpar_lista">Limpar lista</string>
+    <string name="imprimir_lista">Imprimir</string>
     <string name="pedidos_vazio">A lista está vazia.\nToque em “Adicionar livro” ou peça reposição pela tela de Livros.</string>
     <string name="editar">Editar</string>
     <string name="excluir">Excluir</string>

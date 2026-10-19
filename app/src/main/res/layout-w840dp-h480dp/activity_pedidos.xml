@@ -94,7 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/altura_botao_grande"
-            android:text="@string/imprimir_ou_enviar"
+            android:text="@string/imprimir_lista"
             app:icon="@drawable/ic_imprimir"
             android:layout_marginEnd="12dp"
             app:layout_constraintTop_toTopOf="parent"
