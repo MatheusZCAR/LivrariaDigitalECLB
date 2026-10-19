@@ -78,6 +78,11 @@ public class RelatoriosActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // Se a tela ficou aberta de um dia para o outro, "Hoje" passa a ser o dia novo.
+        long agora = System.currentTimeMillis();
+        if (botaoAnterior == R.id.btnHoje) periodo = Periodo.hoje(agora, fuso);
+        else if (botaoAnterior == R.id.btnSemana) periodo = Periodo.semana(agora, fuso);
+        else if (botaoAnterior == R.id.btnMes) periodo = Periodo.mes(agora, fuso);
         carregar();
     }
 
