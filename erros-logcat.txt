@@ -1,0 +1,183 @@
+10-19 18:54:58.835 W/PackageManager( 1512): android.content.res.Resources$NotFoundException: String resource ID #0x7f130786
+10-19 18:54:58.910 D/AndroidRuntime( 4053): >>>>>> START com.android.internal.os.RuntimeInit uid 2000 <<<<<<
+10-19 18:54:58.913 I/AndroidRuntime( 4053): Using default boot image
+10-19 18:54:58.913 I/AndroidRuntime( 4053): Leaving lock profiling enabled
+10-19 18:54:59.238 D/AndroidRuntime( 4053): Calling main entry com.android.commands.am.Am
+10-19 18:54:59.616 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:54:59.616 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:54:59.616 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:54:59.616 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:54:59.616 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:54:59.625 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:00.262 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:00.285 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:02.625 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:02.627 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:02.627 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:02.627 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:02.627 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.289 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.496 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.630 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.630 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.630 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.630 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.630 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.630 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.631 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.639 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.645 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.746 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:05.784 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:05.784 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:06.442 D/OneSearchSuggestProvider( 1233): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:06.442 D/OneSearchSuggestProvider( 1233): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:06.442 D/OneSearchSuggestProvider( 1233): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:08.671 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:08.686 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:08.690 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:08.698 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:08.698 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:08.757 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:08.949 E/OneSearchSuggestProvider( 1233): io.grpc.StatusRuntimeException: CANCELLED
+10-19 18:55:09.515 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:09.516 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:09.517 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:09.517 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:09.560 W/cr_AWNetworkFetcherTask( 4239): IOException during downloadToFile.
+10-19 18:55:09.560 W/cr_AWNetworkFetcherTask( 4239): java.io.IOException: Cleartext HTTP traffic to edgedl.me.gvt1.com not permitted
+10-19 18:55:09.705 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:09.705 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:09.706 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:09.706 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:10.119 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:10.142 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.557 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.717 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.723 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.723 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.723 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.723 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.778 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:11.804 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.806 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.806 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.807 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.816 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.842 D/OneSearchSuggestProvider( 1233): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:11.842 D/OneSearchSuggestProvider( 1233): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:11.842 D/OneSearchSuggestProvider( 1233): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:11.947 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:11.964 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:14.640 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:14.672 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:14.738 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:14.739 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:14.739 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:14.739 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:14.739 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:15.820 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:15.864 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:15.873 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:15.874 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:15.886 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:15.897 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:15.946 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:15.946 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:17.179 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:17.198 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:17.741 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:17.742 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:17.742 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:17.742 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:17.742 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:18.355 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:18.379 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:18.380 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:18.380 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:18.381 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:18.382 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:18.386 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:18.386 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.091 D/OneSearchSuggestProvider( 1233): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:20.091 D/OneSearchSuggestProvider( 1233): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:20.091 D/OneSearchSuggestProvider( 1233): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:20.247 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.247 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.248 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.248 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.248 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.589 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.591 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.596 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.596 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.744 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.745 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.745 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.746 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.746 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:20.785 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:22.501 W/TapAndPay( 1283): java.lang.NullPointerException: NfcAdapter is null
+10-19 18:55:23.755 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:23.756 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:23.756 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:23.756 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:23.756 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:23.825 W/PeoplePU( 1492): android.content.pm.PackageManager$NameNotFoundException: ComponentInfo{com.google.android.gms/com.google.android.gms.people.sync.focus.ContactsSyncAdapterService}
+10-19 18:55:23.828 W/PeoplePU( 1492): java.lang.IllegalArgumentException: Unknown component: ComponentInfo{com.google.android.syncadapters.contacts/com.google.android.syncadapters.contacts.ContactsSyncAdapterService}
+10-19 18:55:23.828 W/PeoplePU( 1492): 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3246)
+10-19 18:55:23.828 W/PeoplePU( 1492): 	at android.os.Parcel.createException(Parcel.java:3226)
+10-19 18:55:23.828 W/PeoplePU( 1492): 	at android.os.Parcel.readException(Parcel.java:3209)
+10-19 18:55:23.828 W/PeoplePU( 1492): 	at android.os.Parcel.readException(Parcel.java:3151)
+10-19 18:55:23.828 W/PeoplePU( 1492): Caused by: android.os.RemoteException: Remote stack trace:
+10-19 18:55:23.835 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:23.846 W/PeoplePU( 1492): java.lang.IllegalArgumentException: Unknown component: ComponentInfo{com.google.android.syncadapters.contacts/com.google.android.syncadapters.contacts.ContactsSyncAdapterService}
+10-19 18:55:23.846 W/PeoplePU( 1492): 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3246)
+10-19 18:55:23.846 W/PeoplePU( 1492): 	at android.os.Parcel.createException(Parcel.java:3226)
+10-19 18:55:23.846 W/PeoplePU( 1492): 	at android.os.Parcel.readException(Parcel.java:3209)
+10-19 18:55:23.846 W/PeoplePU( 1492): 	at android.os.Parcel.readException(Parcel.java:3151)
+10-19 18:55:23.852 W/PeoplePU( 1492): java.lang.IllegalArgumentException: Unknown component: ComponentInfo{com.google.android.syncadapters.contacts/com.google.android.syncadapters.contacts.ProxyGalProvider}
+10-19 18:55:23.852 W/PeoplePU( 1492): 	at android.os.Parcel.createExceptionOrNull(Parcel.java:3246)
+10-19 18:55:23.852 W/PeoplePU( 1492): 	at android.os.Parcel.createException(Parcel.java:3226)
+10-19 18:55:23.852 W/PeoplePU( 1492): 	at android.os.Parcel.readException(Parcel.java:3209)
+10-19 18:55:23.852 W/PeoplePU( 1492): 	at android.os.Parcel.readException(Parcel.java:3151)
+10-19 18:55:24.033 W/NetworkScheduler( 1283): java.lang.IllegalArgumentException: Only the following extra parameter types are supported: Integer, Long, Double, String, Boolean, and nested Bundles with the same restrictions.
+10-19 18:55:25.459 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:25.459 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:25.459 W/BestClock(  580): java.time.DateTimeException: Missing network time fix
+10-19 18:55:25.547 W/AlarmManager( 1283): java.lang.IllegalArgumentException: alarm "NetworkLocationLocator" has short window length
+10-19 18:55:26.793 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:27.427 W/io.grpc.a.d( 1598): java.lang.NoSuchMethodException: com.google.i.a.l.getScopes []
+10-19 18:55:29.368 E/MDD     ( 1598): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:29.370 E/MDD     ( 1598): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:29.383 E/MDD     ( 1598): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:29.384 E/MDD     ( 1598): FileGroupManager: Expecting DownloadException's in AggregateException
+10-19 18:55:29.458 E/SliceManager( 3348): android.os.DeadObjectException: Transaction failed on small parcel; remote process probably died, but this could also be caused by running out of binder buffer space
+10-19 18:55:29.640 E/SliceIndexUpdateTask( 3348): java.lang.UnsupportedOperationException
+10-19 18:55:29.799 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:31.414 E/dqod    ( 3429): RuntimeException while executing runnable dqra{dkqj@6819fd2} with executor MoreExecutors.directExecutor()
+10-19 18:55:31.414 E/dqod    ( 3429): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:31.414 E/dqod    ( 3429): RuntimeException while executing runnable dqra{dkqj@ef7a0} with executor MoreExecutors.directExecutor()
+10-19 18:55:31.414 E/dqod    ( 3429): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:31.415 E/dqod    ( 3429): RuntimeException while executing runnable dqra{dkqj@e35e71e} with executor MoreExecutors.directExecutor()
+10-19 18:55:31.415 E/dqod    ( 3429): java.lang.NullPointerException: Attempt to read from field 'java.lang.String cwru.b' on a null object reference in method 'void cyar.b(java.lang.Object)'
+10-19 18:55:32.798 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:39.346 D/OneSearchSuggestProvider( 1233): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:39.346 D/OneSearchSuggestProvider( 1233): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:39.346 D/OneSearchSuggestProvider( 1233): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:43.564 D/OneSearchSuggestProvider( 1233): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:43.564 D/OneSearchSuggestProvider( 1233): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:43.564 D/OneSearchSuggestProvider( 1233): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:49.839 D/OneSearchSuggestProvider( 1233): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:49.839 D/OneSearchSuggestProvider( 1233): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:49.839 D/OneSearchSuggestProvider( 1233): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:50.978 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:52.636 D/OneSearchSuggestProvider( 1233): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:55:52.636 D/OneSearchSuggestProvider( 1233): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:55:52.636 D/OneSearchSuggestProvider( 1233): Caused by: java.util.NoSuchElementException: No value present
+10-19 18:55:57.030 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:55:59.984 I/ChimeraSrvcProxy( 1283): NullBinder for android.net.action.RECOMMEND_NETWORKS triggering remote TransactionTooLargeException due to Service without Chimera impl
+10-19 18:56:02.906 I/AndroidRuntime( 4053): VM exiting with result code 0.
+10-19 18:56:03.045 D/OneSearchSuggestProvider( 1233): java.util.concurrent.CompletionException: java.util.NoSuchElementException: No value present
+10-19 18:56:03.045 D/OneSearchSuggestProvider( 1233): 	at java.util.concurrent.CompletableFuture.completeExceptionally(CompletableFuture.java:2138)
+10-19 18:56:03.045 D/OneSearchSuggestProvider( 1233): Caused by: java.util.NoSuchElementException: No value present
