@@ -1,79 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="28dp">
+    android:layout_height="wrap_content">
 
-    <ImageView
-        android:layout_width="96dp"
-        android:layout_height="96dp"
-        android:contentDescription="@null"
-        android:src="@drawable/ic_ok"
-        app:tint="@color/sucesso" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Venda registrada!"
-        android:textColor="@color/sucesso"
-        android:textSize="32sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/txtResumoVenda"
-        style="@style/Livraria.Texto.Corpo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:gravity="center"
-        tools:text="Total: R$ 75,00 — Dinheiro" />
-
-    <TextView
-        android:id="@+id/txtTrocoFinal"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:background="@color/sucesso_claro"
-        android:gravity="center"
-        android:padding="16dp"
-        android:textColor="@color/sucesso"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        tools:text="Troco: R$ 25,00"
-        tools:visibility="visible" />
+        android:padding="24dp">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnImprimirRecibo"
-        style="@style/Widget.Livraria.Botao.Contorno"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="Imprimir recibo"
-        app:icon="@drawable/ic_imprimir" />
+        <ImageView
+            android:id="@+id/iconeSucesso"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/sucesso" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnEnviarRecibo"
-        style="@style/Widget.Livraria.Botao.Contorno"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Enviar recibo (WhatsApp, e-mail…)"
-        app:icon="@drawable/ic_compartilhar" />
+        <TextView
+            android:id="@+id/txtVendaRegistrada"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="Venda registrada!"
+            android:textColor="@color/sucesso"
+            android:textSize="@dimen/texto_valor"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iconeSucesso" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnNovaVenda"
-        style="@style/Widget.Livraria.Botao"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:minHeight="@dimen/altura_botao_grande"
-        android:text="Concluir"
-        android:textSize="24sp"
-        app:icon="@drawable/ic_ok" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/txtResumoVenda"
+            style="@style/Livraria.Texto.Corpo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtVendaRegistrada"
+            tools:text="Total: R$ 75,00 — Dinheiro" />
+
+        <TextView
+            android:id="@+id/txtTrocoFinal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/sucesso_claro"
+            android:gravity="center"
+            android:padding="16dp"
+            android:textColor="@color/sucesso"
+            android:textSize="@dimen/texto_destaque"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtResumoVenda"
+            tools:text="Troco: R$ 25,00"
+            tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnImprimirRecibo"
+            style="@style/Widget.Livraria.Botao.Contorno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Imprimir recibo"
+            app:icon="@drawable/ic_imprimir"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtTrocoFinal" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEnviarRecibo"
+            style="@style/Widget.Livraria.Botao.Contorno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="Enviar recibo (WhatsApp, e-mail…)"
+            app:icon="@drawable/ic_compartilhar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnImprimirRecibo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNovaVenda"
+            style="@style/Widget.Livraria.Botao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:minHeight="@dimen/altura_botao_grande"
+            android:text="Concluir"
+            app:icon="@drawable/ic_ok"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnEnviarRecibo" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

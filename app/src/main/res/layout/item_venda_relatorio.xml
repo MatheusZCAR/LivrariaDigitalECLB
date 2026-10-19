@@ -10,73 +10,67 @@
     app:strokeColor="@color/borda"
     app:strokeWidth="1dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:padding="18dp">
+        android:padding="16dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtQuando"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/texto"
+            android:textSize="@dimen/texto_corpo"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/txtTotalVenda"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Domingo, 19/10 às 10:42" />
 
-            <TextView
-                android:id="@+id/txtQuando"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/texto"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                tools:text="Domingo, 19/10 às 10:42" />
-
-            <TextView
-                android:id="@+id/txtPagamento"
-                style="@style/Livraria.Texto.Secundario"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Dinheiro" />
-
-            <TextView
-                android:id="@+id/txtItens"
-                style="@style/Livraria.Texto.Corpo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textSize="19sp"
-                tools:text="2 × O Caminho da Luz\n1 × Encontrei Você" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtTotalVenda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="end"
-            android:orientation="vertical">
+            android:textColor="@color/primaria_escura"
+            android:textSize="@dimen/texto_titulo"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="R$ 75,00" />
 
-            <TextView
-                android:id="@+id/txtTotalVenda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/primaria_escura"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                tools:text="R$ 75,00" />
+        <TextView
+            android:id="@+id/txtPagamento"
+            style="@style/Livraria.Texto.Secundario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtQuando"
+            tools:text="Dinheiro" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnCancelarVenda"
-                style="@style/Widget.Livraria.Botao.Perigo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:minHeight="56dp"
-                android:text="@string/cancelar_venda"
-                android:textSize="18sp"
-                app:icon="@drawable/ic_desfazer"
-                app:iconSize="24dp" />
-        </LinearLayout>
-    </LinearLayout>
+        <TextView
+            android:id="@+id/txtItens"
+            style="@style/Livraria.Texto.Corpo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textSize="@dimen/texto_rotulo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtPagamento"
+            tools:text="2 × O Caminho da Luz\n1 × Encontrei Você" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCancelarVenda"
+            style="@style/Widget.Livraria.Botao.Perigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/cancelar_venda"
+            app:icon="@drawable/ic_desfazer"
+            app:iconSize="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtItens" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

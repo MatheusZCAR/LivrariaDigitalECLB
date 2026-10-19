@@ -1,114 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="24dp">
+    android:layout_height="wrap_content">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        android:padding="20dp">
 
-        <FrameLayout
-            android:layout_width="150dp"
-            android:layout_height="200dp"
-            android:background="@drawable/bg_capa_vazia">
+        <View
+            android:id="@+id/fundoCapa"
+            android:layout_width="@dimen/largura_capa_detalhe"
+            android:layout_height="0dp"
+            android:background="@drawable/bg_capa_vazia"
+            app:layout_constraintDimensionRatio="3:4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center"
-                android:contentDescription="@null"
-                android:src="@drawable/bg_placeholder_livro" />
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:contentDescription="@null"
+            android:src="@drawable/bg_placeholder_livro"
+            app:layout_constraintBottom_toBottomOf="@id/fundoCapa"
+            app:layout_constraintEnd_toEndOf="@id/fundoCapa"
+            app:layout_constraintStart_toStartOf="@id/fundoCapa"
+            app:layout_constraintTop_toTopOf="@id/fundoCapa" />
 
-            <ImageView
-                android:id="@+id/imgCapaDetalhe"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/capa_livro"
-                android:scaleType="centerCrop"
-                android:visibility="invisible" />
-        </FrameLayout>
+        <ImageView
+            android:id="@+id/imgCapaDetalhe"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/capa_livro"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/fundoCapa"
+            app:layout_constraintEnd_toEndOf="@id/fundoCapa"
+            app:layout_constraintStart_toStartOf="@id/fundoCapa"
+            app:layout_constraintTop_toTopOf="@id/fundoCapa" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtTituloDetalhe"
+            style="@style/Livraria.Texto.Titulo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginStart="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/fundoCapa"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="O Caminho da Luz" />
 
-            <TextView
-                android:id="@+id/txtTituloDetalhe"
-                style="@style/Livraria.Texto.Titulo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="O Caminho da Luz" />
+        <TextView
+            android:id="@+id/txtAutorDetalhe"
+            style="@style/Livraria.Texto.Corpo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/texto_secundario"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtTituloDetalhe"
+            app:layout_constraintTop_toBottomOf="@id/txtTituloDetalhe"
+            tools:text="Autor" />
 
-            <TextView
-                android:id="@+id/txtAutorDetalhe"
-                style="@style/Livraria.Texto.Corpo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/texto_secundario"
-                tools:text="Autor" />
+        <TextView
+            android:id="@+id/txtPrecoDetalhe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/primaria"
+            android:textSize="@dimen/texto_valor"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtTituloDetalhe"
+            app:layout_constraintTop_toBottomOf="@id/txtAutorDetalhe"
+            tools:text="R$ 25,00" />
 
-            <TextView
-                android:id="@+id/txtPrecoDetalhe"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/primaria"
-                android:textSize="@dimen/texto_valor"
-                android:textStyle="bold"
-                tools:text="R$ 25,00" />
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/fimTopo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="fundoCapa,txtPrecoDetalhe" />
 
-            <TextView
-                android:id="@+id/txtInfoDetalhe"
-                style="@style/Livraria.Texto.Corpo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:lineSpacingMultiplier="1.2"
-                tools:text="Estoque: 3 exemplares\nOnde fica: Estante A\nCódigo: 978..." />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:baselineAligned="false"
-        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/txtInfoDetalhe"
+            style="@style/Livraria.Texto.Corpo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:lineSpacingMultiplier="1.2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fimTopo"
+            tools:text="Estoque: 3 exemplares\nOnde fica: Estante A\nCódigo: 978..." />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEditarDetalhe"
             style="@style/Widget.Livraria.Botao"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="12dp"
-            android:layout_weight="1"
+            android:layout_marginTop="16dp"
             android:text="@string/editar_livro"
-            app:icon="@drawable/ic_editar" />
+            app:icon="@drawable/ic_editar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtInfoDetalhe" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnReposicaoDetalhe"
             style="@style/Widget.Livraria.Botao.Contorno"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Pedir mais"
-            app:icon="@drawable/ic_adicionar" />
-    </LinearLayout>
+            android:layout_marginTop="4dp"
+            android:text="Pedir mais exemplares"
+            app:icon="@drawable/ic_adicionar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnEditarDetalhe" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnFecharDetalhe"
-        style="@style/Widget.Livraria.Botao.Contorno"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text="@string/fechar" />
-</LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFecharDetalhe"
+            style="@style/Widget.Livraria.Botao.Contorno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/fechar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnReposicaoDetalhe" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

@@ -1,20 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Tamanhos generosos para facilitar a leitura e o toque (pessoas idosas). -->
-    <dimen name="texto_titulo_tela">30sp</dimen>
-    <dimen name="texto_titulo">26sp</dimen>
-    <dimen name="texto_grande">24sp</dimen>
-    <dimen name="texto_corpo">21sp</dimen>
-    <dimen name="texto_rotulo">19sp</dimen>
-    <dimen name="texto_botao">21sp</dimen>
-    <dimen name="texto_valor">34sp</dimen>
+    <!--
+        Tamanhos para CELULAR (telas pequenas). Os tamanhos de tablet ficam em values-sw600dp.
+        Mesmo no celular as letras e botões continuam grandes (pensado para pessoas idosas).
+    -->
+    <dimen name="texto_titulo_tela">24sp</dimen>
+    <dimen name="texto_titulo">22sp</dimen>
+    <dimen name="texto_grande">21sp</dimen>
+    <dimen name="texto_corpo">19sp</dimen>
+    <dimen name="texto_rotulo">17sp</dimen>
+    <dimen name="texto_botao">19sp</dimen>
+    <dimen name="texto_campo">20sp</dimen>
+    <dimen name="texto_valor">30sp</dimen>
+    <dimen name="texto_destaque">36sp</dimen>
+    <dimen name="texto_livro_titulo">18sp</dimen>
+    <dimen name="texto_livro_preco">21sp</dimen>
+    <dimen name="texto_atalho">24sp</dimen>
 
-    <dimen name="altura_botao">64dp</dimen>
-    <dimen name="altura_botao_grande">76dp</dimen>
-    <dimen name="altura_barra_topo">84dp</dimen>
-    <dimen name="margem_tela">24dp</dimen>
-    <dimen name="raio_cartao">18dp</dimen>
+    <dimen name="altura_botao">60dp</dimen>
+    <dimen name="altura_botao_grande">68dp</dimen>
+    <dimen name="altura_escolha">64dp</dimen>
+    <dimen name="altura_barra_topo">72dp</dimen>
+    <dimen name="margem_tela">16dp</dimen>
+    <dimen name="raio_cartao">16dp</dimen>
+
+    <dimen name="tamanho_logo">64dp</dimen>
+    <dimen name="icone_atalho">72dp</dimen>
+    <dimen name="altura_min_atalho">210dp</dimen>
+    <dimen name="largura_capa_detalhe">110dp</dimen>
+    <dimen name="altura_capa_cadastro">260dp</dimen>
+    <dimen name="largura_capa_carrinho">72dp</dimen>
 
     <!-- Largura mínima de cada livro na grade (o número de colunas é calculado na tela). -->
-    <dimen name="largura_minima_livro">210dp</dimen>
+    <dimen name="largura_minima_livro">160dp</dimen>
 </resources>

@@ -23,6 +23,7 @@ playServicesAuth = "21.3.0"
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espressoCore" }
 test-core = { group = "androidx.test", name = "core", version.ref = "testCore" }
 test-runner = { group = "androidx.test", name = "runner", version.ref = "testRunner" }
 test-rules = { group = "androidx.test", name = "rules", version.ref = "testRunner" }

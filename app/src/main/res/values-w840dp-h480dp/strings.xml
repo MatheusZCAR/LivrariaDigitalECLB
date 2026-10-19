@@ -1,0 +1,6 @@
+<resources>
+    <!-- Textos mais longos para telas largas (tablet na horizontal). -->
+    <string name="buscar_livro">Buscar pelo nome do livro ou do autor</string>
+    <string name="ler_codigo">Ler código de barras</string>
+    <string name="cadastrar_livro_botao">Cadastrar livro</string>
+</resources>

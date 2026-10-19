@@ -1,175 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Tela inicial — CELULAR (atalhos em 2 x 2) -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/raiz"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fundo"
-    android:orientation="vertical"
     tools:context=".ui.main.MainActivity">
 
     <include
         android:id="@+id/barraTopo"
-        layout="@layout/barra_topo" />
+        layout="@layout/barra_topo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barraTopo">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:padding="@dimen/margem_tela">
 
-            <!-- Saudação -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:layout_width="88dp"
-                    android:layout_height="88dp"
-                    android:contentDescription="@null"
-                    android:src="@drawable/app_logo" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/txtSaudacao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/texto"
-                        android:textSize="32sp"
-                        android:textStyle="bold"
-                        tools:text="Bom dia!" />
-
-                    <TextView
-                        android:id="@+id/txtData"
-                        style="@style/Livraria.Texto.Corpo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        tools:text="Hoje é domingo, 19 de outubro de 2026" />
-                </LinearLayout>
-            </LinearLayout>
+            <ImageView
+                android:id="@+id/imgLogo"
+                android:layout_width="@dimen/tamanho_logo"
+                android:layout_height="@dimen/tamanho_logo"
+                android:contentDescription="@null"
+                android:src="@drawable/app_logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/Livraria.Texto.Secundario"
+                android:id="@+id/txtSaudacao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/texto"
+                android:textSize="@dimen/texto_valor"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@id/txtData"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgLogo"
+                app:layout_constraintTop_toTopOf="@id/imgLogo"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Bom dia!" />
+
+            <TextView
+                android:id="@+id/txtData"
+                style="@style/Livraria.Texto.Corpo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="@id/imgLogo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/txtSaudacao"
+                app:layout_constraintTop_toBottomOf="@id/txtSaudacao"
+                tools:text="Hoje é segunda-feira, 19 de outubro de 2026" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/fimCabecalho"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="O que você quer fazer?" />
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="imgLogo,txtData" />
 
-            <!-- Atalhos grandes -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txtPergunta"
+                style="@style/Livraria.Texto.Secundario"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="O que você quer fazer?"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/fimCabecalho" />
+
+            <include
+                android:id="@+id/atalhoVender"
+                layout="@layout/item_atalho"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
                 android:layout_marginTop="12dp"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@id/atalhoCatalogo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtPergunta" />
 
-                <include
-                    android:id="@+id/atalhoVender"
-                    layout="@layout/item_atalho"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1" />
+            <include
+                android:id="@+id/atalhoCatalogo"
+                layout="@layout/item_atalho"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/atalhoVender"
+                app:layout_constraintTop_toBottomOf="@id/txtPergunta" />
 
-                <include
-                    android:id="@+id/atalhoCatalogo"
-                    layout="@layout/item_atalho"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1" />
+            <include
+                android:id="@+id/atalhoPedidos"
+                layout="@layout/item_atalho"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toStartOf="@id/atalhoRelatorios"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/atalhoVender" />
 
-                <include
-                    android:id="@+id/atalhoPedidos"
-                    layout="@layout/item_atalho"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="16dp"
-                    android:layout_weight="1" />
+            <include
+                android:id="@+id/atalhoRelatorios"
+                layout="@layout/item_atalho"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/atalhoPedidos"
+                app:layout_constraintTop_toBottomOf="@id/atalhoVender" />
 
-                <include
-                    android:id="@+id/atalhoRelatorios"
-                    layout="@layout/item_atalho"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
-
-            <!-- Situação do backup -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cartaoBackup"
                 style="@style/Widget.Livraria.Cartao"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:clickable="true"
                 android:focusable="true"
-                app:strokeWidth="2dp"
-                app:strokeColor="@color/borda">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/atalhoPedidos"
+                app:strokeColor="@color/borda"
+                app:strokeWidth="2dp">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:baselineAligned="false"
-                    android:orientation="horizontal"
-                    android:padding="20dp">
+                    android:padding="@dimen/margem_tela">
 
                     <ImageView
                         android:id="@+id/iconeBackup"
-                        android:layout_width="56dp"
-                        android:layout_height="56dp"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
                         android:contentDescription="@null"
                         android:src="@drawable/ic_nuvem_ok"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
                         app:tint="@color/sucesso" />
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/txtTituloBackup"
+                        style="@style/Livraria.Texto.Titulo"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_marginStart="16dp"
+                        android:text="@string/backup_titulo"
+                        android:textSize="@dimen/texto_grande"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iconeBackup"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            style="@style/Livraria.Texto.Titulo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/backup_titulo"
-                            android:textSize="@dimen/texto_grande" />
-
-                        <TextView
-                            android:id="@+id/txtStatusBackup"
-                            style="@style/Livraria.Texto.Corpo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp"
-                            tools:text="Última cópia: hoje às 14:32" />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/txtStatusBackup"
+                        style="@style/Livraria.Texto.Corpo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        app:layout_constraintEnd_toEndOf="@id/txtTituloBackup"
+                        app:layout_constraintStart_toStartOf="@id/txtTituloBackup"
+                        app:layout_constraintTop_toBottomOf="@id/txtTituloBackup"
+                        tools:text="Última cópia: hoje às 14:32" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnAbrirBackup"
                         style="@style/Widget.Livraria.Botao.Contorno"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/abrir" />
-                </LinearLayout>
+                        android:text="@string/abrir"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintStart_toStartOf="@id/txtTituloBackup"
+                        app:layout_constraintTop_toBottomOf="@id/txtStatusBackup" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
@@ -177,10 +202,11 @@
                 style="@style/Livraria.Texto.Secundario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
                 android:layout_marginTop="12dp"
                 android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/cartaoBackup"
                 tools:text="Versão 2.0" />
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

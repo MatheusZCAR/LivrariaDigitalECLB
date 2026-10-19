@@ -8,8 +8,8 @@
     <string name="fechar">Fechar</string>
     <string name="entendi">Entendi</string>
     <string name="imprimir">Imprimir</string>
-    <string name="buscar_livro">Buscar pelo nome do livro ou do autor</string>
-    <string name="ler_codigo">Ler código de barras</string>
+    <string name="buscar_livro">Buscar livro ou autor</string>
+    <string name="ler_codigo">Ler código</string>
     <string name="capa_livro">Capa do livro</string>
     <string name="diminuir">Diminuir</string>
     <string name="aumentar">Aumentar</string>
@@ -30,6 +30,7 @@
     <!-- Catálogo -->
     <string name="catalogo_titulo">Livros cadastrados</string>
     <string name="cadastrar_livro">Cadastrar livro</string>
+    <string name="cadastrar_livro_botao">Cadastrar</string>
     <string name="catalogo_vazio">Nenhum livro cadastrado ainda.\nToque em “Cadastrar livro” para começar.</string>
     <string name="busca_vazia">Nenhum livro encontrado com esse nome.</string>
     <string name="esgotado">ESGOTADO</string>

@@ -32,6 +32,7 @@ import com.projeto.livrariadigitaleclb.util.Avisos;
 import com.projeto.livrariadigitaleclb.util.Capas;
 import com.projeto.livrariadigitaleclb.util.Dialogos;
 import com.projeto.livrariadigitaleclb.util.Moeda;
+import com.projeto.livrariadigitaleclb.util.Telas;
 import com.projeto.livrariadigitaleclb.util.Texto;
 
 import java.io.File;
@@ -271,7 +272,7 @@ public class CadastrarLivroActivity extends BaseActivity {
         }
         if (primeiroErro != null) {
             final View alvo = primeiroErro;
-            binding.rolagem.post(() -> binding.rolagem.smoothScrollTo(0, Math.max(0, alvo.getTop() - 40)));
+            Telas.rolarAte(binding.rolagem, alvo);
             alvo.requestFocus();
             return;
         }

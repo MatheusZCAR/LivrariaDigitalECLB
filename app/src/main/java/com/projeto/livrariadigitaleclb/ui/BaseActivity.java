@@ -1,5 +1,6 @@
 package com.projeto.livrariadigitaleclb.ui;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +26,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         EdgeToEdge.enable(this,
                 SystemBarStyle.dark(Color.TRANSPARENT),
                 SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT));
+        // Tablet: sempre na horizontal (o app foi pensado para isso).
+        // Celular: segue o aparelho, porque na horizontal sobraria pouca altura para as telas.
+        // Obs.: a partir do Android 16 o sistema pode ignorar essa trava em tablets; por isso
+        // todas as telas também se adaptam à largura disponível (layouts de celular e tablet).
+        setRequestedOrientation(Telas.ehTablet(this)
+                ? ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+                : ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED);
         super.onCreate(savedInstanceState);
     }
 

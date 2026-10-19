@@ -1,164 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Vender — CELULAR (barra da venda em duas linhas) -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fundo"
-    android:orientation="vertical"
     tools:context=".ui.realizarvenda.RealizarVendaActivity">
 
     <include
         android:id="@+id/barraTopo"
-        layout="@layout/barra_topo" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
+        layout="@layout/barra_topo"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:paddingStart="@dimen/margem_tela"
-        android:paddingTop="16dp"
-        android:paddingEnd="@dimen/margem_tela">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/campoBusca"
-            android:layout_width="0dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/campoBusca"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margem_tela"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:hint="@string/buscar_livro"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toStartOf="@id/btnScan"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/barraTopo"
+        app:startIconDrawable="@drawable/ic_busca">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/searchEditText"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/buscar_livro"
-            app:endIconMode="clear_text"
-            app:startIconDrawable="@drawable/ic_busca">
+            android:imeOptions="actionSearch"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/searchEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:imeOptions="actionSearch"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnScan"
-            style="@style/Widget.Livraria.Botao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:minHeight="72dp"
-            android:text="@string/ler_codigo"
-            app:icon="@drawable/ic_codigo_barras" />
-    </LinearLayout>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnScan"
+        style="@style/Widget.Livraria.Botao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="@dimen/margem_tela"
+        android:text="@string/ler_codigo"
+        app:icon="@drawable/ic_codigo_barras"
+        app:layout_constraintBottom_toBottomOf="@id/campoBusca"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/campoBusca" />
 
     <TextView
         android:id="@+id/txtDica"
         style="@style/Livraria.Texto.Secundario"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margem_tela"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_marginEnd="@dimen/margem_tela"
-        android:text="@string/venda_dica" />
+        android:text="@string/venda_dica"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/campoBusca" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerProdutos"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_marginTop="4dp"
+        android:clipToPadding="false"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:paddingBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutCarrinho"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDica"
+        tools:listitem="@layout/item_livro" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerProdutos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:paddingStart="16dp"
-            android:paddingTop="8dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
-            tools:listitem="@layout/item_livro" />
-
-        <TextView
-            android:id="@+id/txtVazio"
-            style="@style/Livraria.Texto.Corpo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:padding="32dp"
-            android:textSize="@dimen/texto_grande"
-            android:visibility="gone" />
-    </FrameLayout>
+    <TextView
+        android:id="@+id/txtVazio"
+        style="@style/Livraria.Texto.Corpo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="32dp"
+        android:textSize="@dimen/texto_grande"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/recyclerProdutos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/recyclerProdutos" />
 
     <!-- Barra da venda em andamento -->
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layoutCarrinho"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/primaria"
         android:elevation="8dp"
-        android:gravity="center_vertical"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
         android:paddingStart="@dimen/margem_tela"
-        android:paddingTop="14dp"
+        android:paddingTop="12dp"
         android:paddingEnd="@dimen/margem_tela"
-        android:paddingBottom="14dp"
+        android:paddingBottom="12dp"
         android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:visibility="visible">
 
         <ImageView
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:id="@+id/iconeCarrinho"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_carrinho_venda"
+            app:layout_constraintBottom_toBottomOf="@id/txtValorTotal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/txtTotalItens"
             app:tint="@color/white" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtTotalItens"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginStart="14dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/texto_corpo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iconeCarrinho"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="3 livros na venda" />
 
-            <TextView
-                android:id="@+id/txtTotalItens"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/texto_corpo"
-                tools:text="3 livros na venda" />
-
-            <TextView
-                android:id="@+id/txtValorTotal"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/texto_valor"
-                android:textStyle="bold"
-                tools:text="R$ 150,00" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/txtValorTotal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:textSize="@dimen/texto_valor"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/txtTotalItens"
+            app:layout_constraintStart_toStartOf="@id/txtTotalItens"
+            app:layout_constraintTop_toBottomOf="@id/txtTotalItens"
+            tools:text="R$ 150,00" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLimparCarrinho"
             style="@style/Widget.Livraria.Botao.Contorno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
             android:text="@string/esvaziar"
             android:textColor="@color/white"
             app:icon="@drawable/ic_lixeira"
             app:iconTint="@color/white"
-            app:strokeColor="@color/white" />
+            app:strokeColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@id/btnVerCarrinho"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnVerCarrinho" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnVerCarrinho"
             style="@style/Widget.Livraria.Botao.Branco"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/altura_botao_grande"
             android:text="@string/finalizar_venda"
-            android:textSize="24sp"
+            android:textSize="@dimen/texto_grande"
             app:icon="@drawable/ic_avancar"
-            app:iconGravity="end" />
-    </LinearLayout>
-</LinearLayout>
+            app:iconGravity="end"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnLimparCarrinho"
+            app:layout_constraintTop_toBottomOf="@id/txtValorTotal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

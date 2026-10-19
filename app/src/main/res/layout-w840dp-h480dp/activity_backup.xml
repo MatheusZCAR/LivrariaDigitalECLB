@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cópia de segurança — TABLET (Drive à esquerda, arquivo à direita) -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundo"
+    tools:context=".ui.backup.BackupActivity">
+
+    <include
+        android:id="@+id/barraTopo"
+        layout="@layout/barra_topo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/rolagemBackup"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/barraTopo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margem_tela">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/fimDrive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.56" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cartaoStatus"
+                style="@style/Widget.Livraria.Cartao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:strokeColor="@color/borda"
+                app:strokeWidth="2dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fimDrive">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <ImageView
+                        android:id="@+id/iconeStatus"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:contentDescription="@null"
+                        android:src="@drawable/ic_nuvem_ok"
+                        app:tint="@color/sucesso"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtStatusTitulo"
+                        style="@style/Livraria.Texto.Titulo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        tools:text="Os dados estão protegidos"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/iconeStatus"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtStatusDetalhe"
+                        style="@style/Livraria.Texto.Corpo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:lineSpacingMultiplier="1.15"
+                        tools:text="Conta: livraria@gmail.com
+                    Última cópia: hoje às 14:32"
+                        app:layout_constraintTop_toBottomOf="@id/txtStatusTitulo"
+                        app:layout_constraintStart_toStartOf="@id/txtStatusTitulo"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/txtExplicacao"
+                style="@style/Livraria.Texto.Corpo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/backup_explicacao"
+                android:layout_marginTop="16dp"
+                android:lineSpacingMultiplier="1.15"
+                app:layout_constraintTop_toBottomOf="@id/cartaoStatus"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fimDrive" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/areaProgresso"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_aviso_suave"
+                android:padding="20dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/txtExplicacao"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fimDrive">
+
+                <TextView
+                    android:id="@+id/txtProgresso"
+                    style="@style/Livraria.Texto.Corpo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    tools:text="Fazendo a cópia… não feche o app."
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <com.google.android.material.progressindicator.LinearProgressIndicator
+                    android:id="@+id/barraProgresso"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:indeterminate="true"
+                    app:trackThickness="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/txtProgresso"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnConectar"
+                style="@style/Widget.Livraria.Botao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:minHeight="@dimen/altura_botao_grande"
+                android:text="@string/conectar_drive"
+                app:icon="@drawable/ic_nuvem_enviar"
+                app:layout_constraintTop_toBottomOf="@id/areaProgresso"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fimDrive" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnBackupAgora"
+                style="@style/Widget.Livraria.Botao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:minHeight="@dimen/altura_botao_grande"
+                android:text="@string/fazer_backup_agora"
+                app:icon="@drawable/ic_nuvem_enviar"
+                app:layout_constraintTop_toBottomOf="@id/btnConectar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fimDrive" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRestaurarDrive"
+                style="@style/Widget.Livraria.Botao.Contorno"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="@string/restaurar_backup"
+                app:icon="@drawable/ic_nuvem_baixar"
+                app:layout_constraintTop_toBottomOf="@id/btnBackupAgora"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fimDrive" />
+
+            <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/switchAutomatico"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:minHeight="64dp"
+                android:text="@string/backup_automatico"
+                android:textColor="@color/texto"
+                android:textSize="@dimen/texto_corpo"
+                app:layout_constraintTop_toBottomOf="@id/btnRestaurarDrive"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fimDrive" />
+
+            <TextView
+                android:id="@+id/txtDicaAutomatico"
+                style="@style/Livraria.Texto.Secundario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="A cópia automática acontece quando o tablet está com internet, e também cerca de meia hora depois de cada venda."
+                app:layout_constraintTop_toBottomOf="@id/switchAutomatico"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/fimDrive" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDesconectar"
+                style="@style/Widget.Livraria.Botao.Contorno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@string/desconectar"
+                app:icon="@drawable/ic_desconectar"
+                app:layout_constraintTop_toBottomOf="@id/txtDicaAutomatico"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cartaoArquivo"
+                style="@style/Widget.Livraria.Cartao"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margem_tela"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="@id/fimDrive"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp">
+
+                    <TextView
+                        android:id="@+id/txtSemDrive"
+                        style="@style/Livraria.Texto.Titulo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sem_drive_titulo"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txtSemDriveExplicacao"
+                        style="@style/Livraria.Texto.Corpo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/sem_drive_explicacao"
+                        android:layout_marginTop="8dp"
+                        android:lineSpacingMultiplier="1.15"
+                        app:layout_constraintTop_toBottomOf="@id/txtSemDrive"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSalvarArquivo"
+                        style="@style/Widget.Livraria.Botao.Contorno"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/salvar_em_arquivo"
+                        app:icon="@drawable/ic_salvar_arquivo"
+                        app:layout_constraintTop_toBottomOf="@id/txtSemDriveExplicacao"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAbrirArquivo"
+                        style="@style/Widget.Livraria.Botao.Contorno"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="@string/abrir_arquivo"
+                        app:icon="@drawable/ic_abrir_arquivo"
+                        app:layout_constraintTop_toBottomOf="@id/btnSalvarArquivo"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/txtAvisoRestaurar"
+                style="@style/Livraria.Texto.Secundario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ao restaurar, os dados atuais deste tablet são trocados pelos da cópia. Antes disso, o app guarda uma cópia do que existe hoje, por segurança."
+                android:layout_marginTop="12dp"
+                android:lineSpacingMultiplier="1.15"
+                app:layout_constraintTop_toBottomOf="@id/cartaoArquivo"
+                app:layout_constraintStart_toStartOf="@id/cartaoArquivo"
+                app:layout_constraintEnd_toEndOf="@id/cartaoArquivo" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,12 @@
 package com.projeto.livrariadigitaleclb.util;
 
 import android.content.Context;
-import android.util.DisplayMetrics;
+import android.content.res.Resources;
+import android.graphics.Rect;
 import android.view.View;
 
 import androidx.core.graphics.Insets;
+import androidx.core.widget.NestedScrollView;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
@@ -46,12 +48,33 @@ public final class Telas {
         ViewCompat.requestApplyInsets(raiz);
     }
 
-    /** Quantas colunas cabem na largura da tela, com no mínimo 2. */
+    /**
+     * Quantas colunas cabem na largura da janela, com no mínimo 2.
+     * Usa a largura da janela (e não da tela inteira), então funciona também com tela dividida.
+     */
     public static int colunas(Context c, int larguraMinimaDimen) {
-        DisplayMetrics dm = c.getResources().getDisplayMetrics();
-        float larguraMinima = c.getResources().getDimension(larguraMinimaDimen);
-        int n = (int) (dm.widthPixels / larguraMinima);
+        Resources r = c.getResources();
+        float densidade = r.getDisplayMetrics().density;
+        float larguraJanelaDp = r.getConfiguration().screenWidthDp;
+        float larguraMinimaDp = r.getDimension(larguraMinimaDimen) / densidade;
+        // desconta a margem lateral da grade
+        int n = (int) ((larguraJanelaDp - 20) / larguraMinimaDp);
         return Math.max(2, n);
+    }
+
+    /** Verdadeiro em tablets (menor lado da tela com 600dp ou mais). */
+    public static boolean ehTablet(Context c) {
+        return c.getResources().getConfiguration().smallestScreenWidthDp >= 600;
+    }
+
+    /** Rola a tela até mostrar a view (por exemplo, um campo com erro), com um pouco de folga acima. */
+    public static void rolarAte(NestedScrollView rolagem, View alvo) {
+        rolagem.post(() -> {
+            Rect r = new Rect();
+            alvo.getDrawingRect(r);
+            rolagem.offsetDescendantRectToMyCoords(alvo, r);
+            rolagem.smoothScrollTo(0, Math.max(0, r.top - dp(rolagem.getContext(), 24)));
+        });
     }
 
     public static int dp(Context c, int valor) {

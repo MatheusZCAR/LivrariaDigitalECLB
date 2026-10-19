@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Finalizar venda — TABLET (livros à esquerda, pagamento à direita) -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundo"
+    tools:context=".ui.concluirvenda.ConcluirVendaActivity">
+
+    <include
+        android:id="@+id/barraTopo"
+        layout="@layout/barra_topo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guiaPaineis"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.52" />
+
+    <TextView
+        android:id="@+id/txtItensTitulo"
+        style="@style/Livraria.Texto.Titulo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margem_tela"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
+        android:text="@string/itens_da_venda"
+        app:layout_constraintTop_toBottomOf="@id/barraTopo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guiaPaineis" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCarrinho"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:clipToPadding="false"
+        android:paddingStart="@dimen/margem_tela"
+        android:paddingEnd="12dp"
+        android:paddingBottom="16dp"
+        tools:listitem="@layout/item_carrinho"
+        app:layout_constraintTop_toBottomOf="@id/txtItensTitulo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guiaPaineis" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/rolagemPagamento"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/superficie"
+        android:elevation="2dp"
+        app:layout_constraintTop_toBottomOf="@id/barraTopo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guiaPaineis"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margem_tela">
+
+            <TextView
+                android:id="@+id/txtComoPagar"
+                style="@style/Livraria.Texto.Titulo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="@string/como_vai_pagar"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <com.google.android.material.button.MaterialButtonToggleGroup
+                android:id="@+id/grupoPagamento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                app:singleSelection="true"
+                app:layout_constraintTop_toBottomOf="@id/txtComoPagar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDinheiro"
+                    style="@style/Widget.Livraria.Botao.Escolha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/dinheiro"
+                    app:icon="@drawable/ic_dinheiro" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnPix"
+                    style="@style/Widget.Livraria.Botao.Escolha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/pix"
+                    app:icon="@drawable/ic_celular" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDebito"
+                    style="@style/Widget.Livraria.Botao.Escolha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:text="Cartão de débito"
+                    app:icon="@drawable/ic_cartao" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnCredito"
+                    style="@style/Widget.Livraria.Botao.Escolha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:text="Cartão de crédito"
+                    app:icon="@drawable/ic_cartao" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+
+            <TextView
+                android:id="@+id/txtErroPagamento"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Escolha uma das opções acima."
+                android:textColor="@color/perigo"
+                android:textSize="@dimen/texto_rotulo"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/grupoPagamento"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/secaoDinheiro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/txtErroPagamento"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/campoRecebido"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:hint="@string/valor_recebido"
+                    app:helperText="Opcional: serve para calcular o troco"
+                    app:prefixText="R$ ">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edtRecebido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:digits="0123456789,."
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:maxLength="10" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnValorExato"
+                    style="@style/Widget.Livraria.Botao.Contorno"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="6dp"
+                    app:layout_constraintHorizontal_weight="1.5"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:text="@string/valor_exato"
+                    app:layout_constraintTop_toBottomOf="@id/campoRecebido"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btnValor20" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnValor20"
+                    style="@style/Widget.Livraria.Botao.Contorno"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:text="R$ 20"
+                    app:layout_constraintTop_toTopOf="@id/btnValorExato"
+                    app:layout_constraintStart_toEndOf="@id/btnValorExato"
+                    app:layout_constraintEnd_toStartOf="@id/btnValor50" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnValor50"
+                    style="@style/Widget.Livraria.Botao.Contorno"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="6dp"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:text="R$ 50"
+                    app:layout_constraintTop_toTopOf="@id/btnValorExato"
+                    app:layout_constraintStart_toEndOf="@id/btnValor20"
+                    app:layout_constraintEnd_toStartOf="@id/btnValor100" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnValor100"
+                    style="@style/Widget.Livraria.Botao.Contorno"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="4dp"
+                    android:paddingEnd="4dp"
+                    android:text="R$ 100"
+                    app:layout_constraintTop_toTopOf="@id/btnValorExato"
+                    app:layout_constraintStart_toEndOf="@id/btnValor50"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtTroco"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@color/sucesso_claro"
+                    android:padding="16dp"
+                    android:textColor="@color/sucesso"
+                    android:textSize="@dimen/texto_valor"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:text="Troco: R$ 25,00"
+                    tools:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@id/btnValorExato"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/secaoCredito"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone"
+                tools:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@id/secaoDinheiro"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/txtQuantasVezes"
+                    style="@style/Livraria.Texto.Corpo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Em quantas vezes?"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <include
+                    android:id="@+id/seletorParcelas"
+                    layout="@layout/view_seletor_quantidade"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/txtQuantasVezes"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtParcelas"
+                    style="@style/Livraria.Texto.Corpo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textStyle="bold"
+                    tools:text="À vista: R$ 75,00"
+                    app:layout_constraintTop_toTopOf="@id/seletorParcelas"
+                    app:layout_constraintBottom_toBottomOf="@id/seletorParcelas"
+                    app:layout_constraintStart_toEndOf="@id/seletorParcelas"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/caixaTotal"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/primaria_clara"
+                android:padding="20dp"
+                app:layout_constraintTop_toBottomOf="@id/secaoCredito"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/txtTotalItens"
+                    style="@style/Livraria.Texto.Corpo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    tools:text="Total a pagar (3 livros)"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <TextView
+                    android:id="@+id/txtValorTotal"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/primaria_escura"
+                    android:textSize="@dimen/texto_destaque"
+                    android:textStyle="bold"
+                    tools:text="R$ 75,00"
+                    app:layout_constraintTop_toBottomOf="@id/txtTotalItens"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnConfirmar"
+                    style="@style/Widget.Livraria.Botao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:minHeight="@dimen/altura_botao_grande"
+                    android:text="@string/confirmar_venda"
+                    android:textSize="@dimen/texto_grande"
+                    app:icon="@drawable/ic_ok"
+                    app:layout_constraintTop_toBottomOf="@id/txtValorTotal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

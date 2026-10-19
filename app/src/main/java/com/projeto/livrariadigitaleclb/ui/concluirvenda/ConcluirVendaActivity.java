@@ -32,6 +32,7 @@ import com.projeto.livrariadigitaleclb.util.Moeda;
 import com.projeto.livrariadigitaleclb.util.PdfEscritor;
 import com.projeto.livrariadigitaleclb.util.Periodo;
 import com.projeto.livrariadigitaleclb.util.SeletorQuantidade;
+import com.projeto.livrariadigitaleclb.util.Telas;
 import com.projeto.livrariadigitaleclb.util.Texto;
 
 import java.io.File;
@@ -105,6 +106,12 @@ public class ConcluirVendaActivity extends BaseActivity {
 
         atualizarTotais();
         atualizarSecoes();
+    }
+
+    /** No celular o total fica fixo embaixo: os avisos aparecem acima dele. */
+    @Override
+    public View ancoraDosAvisos() {
+        return binding.caixaTotal.getParent() == binding.getRoot() ? binding.caixaTotal : null;
     }
 
     private void carregarItens() {
@@ -218,7 +225,7 @@ public class ConcluirVendaActivity extends BaseActivity {
         String forma = formaEscolhida();
         if (forma == null) {
             binding.txtErroPagamento.setVisibility(View.VISIBLE);
-            binding.rolagemPagamento.smoothScrollTo(0, 0);
+            Telas.rolarAte(binding.rolagemPagamento, binding.txtComoPagar);
             Avisos.info(this, "Escolha como a pessoa vai pagar.");
             return;
         }
@@ -226,6 +233,7 @@ public class ConcluirVendaActivity extends BaseActivity {
         Double recebido = forma.equals(getString(R.string.dinheiro)) ? recebido() : null;
         if (recebido != null && recebido < total) {
             binding.campoRecebido.setError("O valor recebido é menor que o total.");
+            Telas.rolarAte(binding.rolagemPagamento, binding.campoRecebido);
             return;
         }
 
