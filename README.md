@@ -1,209 +1,105 @@
 # 📚 Livraria Digital ECLB
-### Aplicativo Android para gestão da livraria
 
-Aplicativo Android desenvolvido em Java com foco em digitalizar o fluxo de vendas, estoque e pedidos da livraria de uma igreja (ECLB). O app é voltado para **tablets em landscape**, usa **Room** como banco local e ViewBinding para acessar os layouts.
-
----
-
-## 🔧 Funcionalidades Implementadas
-
-### 📖 Catálogo de Livros
-- Exibe todos os livros cadastrados no banco local
-- Mostra capa (se houver imagem salva) ou uma imagem padrão
-- Botão "Cadastrar Livro" exibido como item especial no grid
-- Integração direta com o banco via Room
-
-### ➕ Cadastro de Livros
-Tela para cadastrar:
-- Título
-- Autor
-- Código de barras
-- Preço
-- Leitura de código de barras via biblioteca **ZXing**
-- Validação básica dos campos (não permitir campos vazios, preço válido)
-- Salvamento como LivroEntity no banco Room
-
-### 🛒 Realizar Venda
-- Lista de livros disponíveis para venda em um RecyclerView de 3 colunas
-- Busca dinâmica por título ou autor
-- Scanner de código de barras:
-  - Se o livro existir → abre a tela de conclusão de venda
-  - Se não existir → encaminha para a tela de cadastro de livro, já preenchendo o código lido
-- Ao tocar em um item, abre a tela **ConcluirVendaActivity** para finalizar a venda
-
-### ✔️ Concluir Venda
-- Recebe o livroId via Intent
-- Busca o livro correspondente na base (LivroDao.getLivroById)
-- Exibe:
-  - Título
-  - Autor
-  - Preço
-- Ao confirmar:
-  - Cria um registro de Venda com id do livro, título, preço e data/hora da venda (timestamp)
-  - Salva no banco via VendaDao
-  - Exibe mensagem de sucesso
-
-### 📋 Lista de Pedidos (Reposição)
-Tela para controlar livros que precisam ser comprados/repostos.
-
-**Funcionalidades:**
-- Adicionar novo pedido (título + autor) via diálogo
-- Editar pedido existente
-- Remover pedido
-- A lista é alimentada a partir da tabela PedidoEntity via PedidoDao
-- Geração de **PDF** com todos os itens para impressão:
-  - Criação via PdfDocument
-  - Salvo em diretório interno da aplicação (`/files/pdfs/lista_pedidos.pdf`)
-  - Abre automaticamente usando FileProvider e Intent.ACTION_VIEW
-
-### 📑 Relatórios (estrutura de tela)
-Tela RelatoriosActivity com:
-- Seleção entre Relatório Diário, Semanal ou Mensal (RadioGroup)
-- Botão "Imprimir"
-
-**Estado atual:**
-- Exibe uma mensagem (Toast) indicando qual tipo de relatório foi selecionado
-- Lógica de geração de relatório ainda não implementada, mas a tela está pronta para isso
+Aplicativo Android (Java) para a livraria da igreja: catálogo de livros, vendas, lista de pedidos, relatórios e **cópia de segurança no Google Drive**.
+Feito para **tablets na horizontal** e pensado para **voluntários idosos**: letras grandes, botões grandes, confirmações claras e opção de desfazer.
 
 ---
 
-## 🗄️ Banco de Dados (Room)
+## O que o app faz
 
-Banco local unificado, nome: **livraria_db**
-
-### Configuração principal (AppDatabase)
-- Anotação @Database com todas as entidades
-- version = 10
-- exportSchema = false
-- `.fallbackToDestructiveMigration()` habilitado (útil em desenvolvimento)
-- `.allowMainThreadQueries()` temporariamente habilitado (para simplicidade)
-
-### Entidades principais em `data.local.entity`
-- AutorEntity
-- EstoqueEntity
-- ItemVendaEntity
-- LivroAutorEntity
-- LivroEntity
-- LocalizacaoEntity
-- PedidoEntity
-- RelatorioEntity
-- RelatorioVendaEntity
-- Venda
-
-### DAOs em `data.local.dao`
-- AutorDao
-- EstoqueDao
-- ItemVendaDao
-- LivroAutorDao
-- LivroDao
-- LocalizacaoDao
-- PedidoDao
-- RelatorioDao
-- RelatorioVendaDao
-- VendaDao
-
-### Uso atual no app
-- **LivroDao** → Catálogo, Cadastro, Realizar Venda, Concluir Venda
-- **VendaDao** → Registro das vendas
-- **PedidoDao** → Tela de Pedidos
-- As demais entidades e DAOs já estão modeladas e prontas para evolução futura do banco, mesmo que ainda não sejam usadas em todas as telas
+| Tela | Para que serve |
+|---|---|
+| **Vender** | Toque nos livros (ou leia o código de barras) para montar a venda. Aviso com **Desfazer** a cada toque. Mostra quantos de cada livro já estão na venda. |
+| **Finalizar venda** | Ajusta quantidades com botões − / +, escolhe **Dinheiro, Pix, Débito ou Crédito**, calcula o **troco** (atalhos “Valor exato”, R$ 20, R$ 50, R$ 100) e as parcelas no crédito. Recibo opcional (imprimir ou enviar). |
+| **Livros** | Catálogo com capa, preço e estoque, busca que ignora acentos (“biblia” acha “Bíblia”), cadastro/edição/exclusão de livros, foto da capa (câmera ou galeria), código de barras e “Pedir mais” para a lista de pedidos. |
+| **Pedidos** | Lista do que comprar. Pedir o mesmo livro de novo soma a quantidade. Imprimir ou enviar a lista em PDF. |
+| **Relatórios** | Hoje / esta semana / este mês / datas escolhidas: total vendido, número de vendas, livros vendidos, por forma de pagamento, mais vendidos e a lista de vendas — com **Cancelar venda** (os livros voltam ao estoque). PDF para imprimir ou enviar. |
+| **Cópia de segurança** | Backup no Google Drive (manual, diário e ~30 min depois de cada venda) e restauração. Também salva/restaura de um arquivo. |
 
 ---
 
-## 📁 Estrutura Atual do Projeto
+## ☁️ Configurar o backup no Google Drive (uma vez só)
 
-**Pacote raiz:** `com.projeto.livrariadigitaleclb`
+O app usa a API oficial do Google Drive com a permissão **`drive.file`**: ele só enxerga a pasta que ele mesmo cria
+(**“Livraria ECLB - Cópias de segurança”**) — nada mais do Drive da conta.
 
+Para o Google permitir o login, o app precisa ser registrado num projeto do Google Cloud:
+
+1. Acesse <https://console.cloud.google.com/> e crie um projeto (ex.: `livraria-eclb`).
+2. **APIs e serviços → Biblioteca →** procure **Google Drive API** → **Ativar**.
+3. **APIs e serviços → Tela de consentimento OAuth** (Google Auth Platform):
+   - Tipo de usuário: **Externo**; nome do app: *Livraria ECLB*; e-mail de suporte: o seu.
+   - Em **Escopos/Acesso a dados**, adicione `.../auth/drive.file` (é um escopo *não sensível*, não precisa de verificação do Google).
+   - Em **Público-alvo**, clique em **Publicar app** (ou adicione as contas da livraria como *usuários de teste*; em modo de teste a autorização expira a cada 7 dias, por isso é melhor publicar).
+4. **Credenciais → Criar credenciais → ID do cliente OAuth → Android**:
+   - Nome do pacote: `com.projeto.livrariadigitaleclb`
+   - Impressão digital SHA-1 da chave que assina o APK instalado no tablet. Para ver:
+     ```bash
+     ./gradlew signingReport
+     ```
+     (use o SHA-1 da variante que você instala: `debug` ou `release`).
+5. Pronto. No tablet: **Início → Cópia de segurança → Conectar ao Google Drive**, escolha a conta da livraria e autorize.
+
+> **Importante:** se a chave de assinatura mudar, o SHA-1 muda e o login falha com “erro de configuração (código 10)”.
+> Cadastre um ID de cliente Android para cada chave que você usar (pode ter vários no mesmo projeto).
+
+### APK pelo GitHub Actions com assinatura fixa
+
+Cada execução do GitHub Actions gera uma chave *debug* nova, então o APK baixado de lá não bate com o SHA-1 cadastrado.
+Para resolver, guarde a sua chave debug como segredo do repositório:
+
+```bash
+base64 -w0 ~/.android/debug.keystore   # copie a saída
+```
+
+GitHub → **Settings → Secrets and variables → Actions → New repository secret** → nome `DEBUG_KEYSTORE_BASE64`.
+O passo “Assinatura do APK” do workflow mostra o SHA-1 usado.
+
+### Como o backup funciona
+
+- O arquivo é um `.zip` com o banco de dados, as fotos das capas e um `manifesto.json` (data, versão, nº de livros e vendas).
+- O Drive mantém as **20 cópias mais recentes**; as mais antigas são apagadas automaticamente.
+- A cópia automática roda pelo **WorkManager** quando há internet e bateria (diária + após vendas/cadastros).
+- Ao **restaurar**, o app guarda antes uma cópia do estado atual em `files/seguranca/antes_de_restaurar.zip`.
+- Sem Google Drive configurado, use **Salvar cópia em arquivo** (o seletor do Android permite escolher o próprio Drive, um pendrive etc.).
+- O backup automático do Android (`allowBackup`) também está configurado como proteção extra.
+
+---
+
+## Para desenvolvedores
+
+### Rodar
+1. Android Studio recente (AGP 8.13, Gradle 8.13), JDK 17.
+2. Abra o projeto, sincronize o Gradle e rode num tablet ou emulador de tablet.
+
+Para gerar release assinado, crie `keystore.properties` na raiz (já está no `.gitignore`):
+```properties
+storeFile=caminho/para/livraria.jks
+storePassword=...
+keyAlias=...
+keyPassword=...
+```
+
+### Estrutura
 ```
 com.projeto.livrariadigitaleclb
-├── data
-│   └── local
-│       ├── dao
-│       │   ├── AutorDao
-│       │   ├── EstoqueDao
-│       │   ├── ItemVendaDao
-│       │   ├── LivroAutorDao
-│       │   ├── LivroDao
-│       │   ├── LocalizacaoDao
-│       │   ├── PedidoDao
-│       │   ├── RelatorioDao
-│       │   ├── RelatorioVendaDao
-│       │   └── VendaDao
-│       ├── entity
-│       │   ├── AutorEntity
-│       │   ├── EstoqueEntity
-│       │   ├── ItemVendaEntity
-│       │   ├── LivroAutorEntity
-│       │   ├── LivroEntity
-│       │   ├── LocalizacaoEntity
-│       │   ├── PedidoEntity
-│       │   ├── RelatorioEntity
-│       │   ├── RelatorioVendaEntity
-│       │   └── Venda
-│       └── AppDatabase
-└── ui
-    ├── catalogo
-    │   ├── CadastrarLivroActivity
-    │   ├── CatalogoActivity
-    │   └── LivroAdapter
-    ├── concluirvenda
-    │   └── ConcluirVendaActivity
-    ├── main
-    │   └── MainActivity
-    ├── pedidos
-    │   ├── PedidosActivity
-    │   └── PedidosAdapter
-    ├── realizarvenda
-    │   ├── ProdutoAdapter
-    │   └── RealizarVendaActivity
-    └── relatorios
-        └── RelatoriosActivity
+├── App.java                     agenda backups e migra capas antigas
+├── backup/                      BackupArquivo (zip), DriveClient (REST v3), DriveAuth,
+│                                BackupWorker, BackupAgendador, BackupPrefs, BackupServico
+├── data/
+│   ├── Carrinho, VendaService, PedidosService, RelatorioVendas
+│   └── local/ (Room: AppDatabase, dao/, entity/)
+├── ui/  BaseActivity + main, catalogo, realizarvenda, concluirvenda, pedidos, relatorios, backup
+└── util/ Moeda, Texto, Periodo, Capas, PdfEscritor, Documentos, Avisos, Dialogos, SeletorQuantidade, Telas
 ```
 
----
+### Banco de dados (Room) — regras
+- Versão atual: **16**. O esquema de cada versão é exportado em `app/schemas/`.
+- **Nunca** use `fallbackToDestructiveMigration()`: ele apagava todos os dados a cada mudança.
+  Toda mudança de entidade precisa de uma `Migration` nova (veja `AppDatabase.MIGRACAO_15_16`) e de um teste em `DadosSegurosTest`.
+- Tabelas `autores`, `localizacoes`, `itens_venda`, `relatorios`, `relatorio_venda` e `livro_autor` existem mas ainda não são usadas.
 
-## 🧪 Dependências Principais
-
-- **AndroidX** (AppCompat, Core KTX, ConstraintLayout, etc.)
-- **Room** (runtime + compiler)
-- **RecyclerView**
-- **ViewBinding**
-- **ZXing** (leitura de código de barras)
-- **PdfDocument** (API padrão Android para geração de PDF)
-- **FileProvider** (para abrir PDF em apps externos)
-
----
-
-## ▶️ Como Rodar o Projeto
-
-1. **Clonar o repositório:**
-   ```bash
-   git clone https://github.com/MatheusZCAR/LivrariaDigitalECLB
-   ```
-
-2. **Abrir no Android Studio**
-
-3. **Garantir:**
-   - JDK configurado (Java 17, conforme projeto)
-   - SDK Android atualizado (API 34 ou superior recomendada)
-
-4. **Sincronizar o projeto com o Gradle**
-
-5. **Executar em um emulador ou dispositivo tablet** (orientação landscape)
-
-6. O banco `livraria_db` será criado automaticamente na primeira execução
-
----
-
-## 🎯 Estado Atual
-
-✔ Aplicativo compila e roda sem erros  
-✔ Banco de dados Room unificado e funcionando  
-✔ Fluxo completo: Catálogo → Cadastro → Realizar Venda → Concluir Venda  
-✔ Lista de Pedidos totalmente funcional + geração de PDF  
-✔ Tela de Relatórios pronta visualmente  
-✔ Estrutura de pacotes organizada (data.local + ui por funcionalidade)
-
----
-
-Este README descreve o estado atual do projeto, com todas as funcionalidades já implementadas.
+### Testes
+- `./gradlew testDebugUnitTest` — regras de dinheiro, busca, períodos, carrinho e relatórios.
+- `./gradlew connectedDebugAndroidTest` — abre todas as telas num tablet, faz uma venda completa, testa a migração 15→16 e o ciclo backup → restauração.
+- O GitHub Actions roda tudo isso (emuladores Android 9 e Android 15) a cada push e gera o APK como artefato.

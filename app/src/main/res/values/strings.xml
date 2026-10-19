@@ -1,117 +1,114 @@
 <resources>
     <string name="app_name">Livraria Digital ECLB</string>
-    <string name="bem_vindo">Bem-Vindo!</string>
-    <string name="catalogo">Catálogo</string>
-    <string name="realizar_venda">Realizar venda</string>
-    <string name="pedidos">Pedidos</string>
-    <string name="relatorios">Relatórios</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-    <!-- Adicione estas strings no seu arquivo res/values/strings.xml -->
 
-    <!-- Strings do Carrinho -->
-    <string name="carrinho">Carrinho</string>
-    <string name="ver_carrinho">Ver Carrinho</string>
-    <string name="limpar_carrinho">Limpar Carrinho</string>
-    <string name="scanner">Scanner</string>
-    <string name="buscar_livro">Buscar por título ou autor</string>
-    <string name="btn_home">Voltar para tela inicial</string>
-
-
-    <!-- Adicione estas strings no seu arquivo res/values/strings.xml -->
-
-    <!-- Strings do Carrinho -->
-
-
-
-    <!-- Strings de Concluir Venda -->
-    <string name="concluir_venda">Concluir Venda</string>
-    <string name="revise_itens">Revise os itens antes de finalizar</string>
-    <string name="total_itens">Total de itens:</string>
-    <string name="valor_total">Valor Total:</string>
-    <string name="capa_livro">Capa do livro</string>
-    <string name="remover_item">Remover item</string>
-    <string name="aumentar_quantidade">Aumentar quantidade</string>
-    <string name="diminuir_quantidade">Diminuir quantidade</string>
-    <string name="lorem_ipsum">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
-        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
-        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
-        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
-        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
-        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
-        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
-        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
-        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
-        bibendum, vel congue leo egestas.\n\n
-        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
-        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
-        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
-        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
-        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
-        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
-        est.\n\n
-        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
-        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
-        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
-        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
-        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
-        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
-        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
-        convallis.\n\n
-        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
-        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
-        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
-        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
-        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
-        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
-        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
-    </string>
+    <!-- Comuns -->
     <string name="voltar">Voltar</string>
-    <string name="cadastrar_livro">Cadastrar\nLivro</string>
-    <string name="cadastrar_livro_junto">Cadastrar Livro</string>
-    <string name="titulo">Título</string>
-    <string name="lista_de_pedidos">Lista de pedidos</string>
-    <string name="voltar_home">voltar</string>
-    <string name="relatorio_diario">Relatório diário</string>
-    <string name="relatorio_semanal">Relatório semanal</string>
-    <string name="relatorio_mensal">Relatório mensal</string>
-    <string name="imprimir">IMPRIMIR</string>
-    <string name="adicionar_livro">ADICIONAR LIVRO</string>
-    <string name="imprimir_lista">IMPRIMIR LISTA</string>
-    <string name="selecione_ou_pesquise_os_produtos">Selecione ou pesquise os produtos:</string>
-    <string name="home">Home</string>
-    <string name="pesquisar_produto">Pesquisar produto...</string>
-    <string name="buscar">Buscar</string>
-    <string name="capa_do_livro">Capa do livro</string>
-    <string name="info_livro">Título do livro, Autor\nPreço\nOutras informações</string>
-    <string name="cancelar_venda">CANCELAR VENDA</string>
-    <string name="confirmar_venda">CONFIRMAR VENDA</string>
-    <string name="titulo_do_livro">Título do livro</string>
-    <string name="autor">Autor</string>
-    <string name="editarLista">Editar</string>
-    <string name="excluirLista">Excluir</string>
-    <string name="digite_a_quantidade">Digite a quantidade</string>
-    <string name="quantidade_em_estoque">Quantidade em estoque</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="salvar">Salvar</string>
+    <string name="fechar">Fechar</string>
+    <string name="entendi">Entendi</string>
+    <string name="imprimir">Imprimir</string>
+    <string name="buscar_livro">Buscar pelo nome do livro ou do autor</string>
+    <string name="ler_codigo">Ler código de barras</string>
+    <string name="capa_livro">Capa do livro</string>
+    <string name="diminuir">Diminuir</string>
+    <string name="aumentar">Aumentar</string>
+
+    <!-- Início -->
+    <string name="inicio_titulo">Livraria ECLB</string>
+    <string name="vender">Vender</string>
+    <string name="vender_descricao">Registrar uma venda</string>
+    <string name="catalogo">Livros</string>
+    <string name="catalogo_descricao">Ver, cadastrar e editar livros</string>
+    <string name="pedidos">Pedidos</string>
+    <string name="pedidos_descricao">Livros para comprar</string>
+    <string name="relatorios">Relatórios</string>
+    <string name="relatorios_descricao">Vendas do dia, semana e mês</string>
+    <string name="backup_titulo">Cópia de segurança (Google Drive)</string>
+    <string name="abrir">Abrir</string>
+
+    <!-- Catálogo -->
+    <string name="catalogo_titulo">Livros cadastrados</string>
+    <string name="cadastrar_livro">Cadastrar livro</string>
+    <string name="catalogo_vazio">Nenhum livro cadastrado ainda.\nToque em “Cadastrar livro” para começar.</string>
+    <string name="busca_vazia">Nenhum livro encontrado com esse nome.</string>
+    <string name="esgotado">ESGOTADO</string>
+
+    <!-- Cadastro -->
+    <string name="editar_livro">Editar livro</string>
+    <string name="foto_da_capa">Foto da capa</string>
+    <string name="tirar_foto">Tirar foto</string>
+    <string name="escolher_da_galeria">Escolher da galeria</string>
+    <string name="remover_foto">Remover foto</string>
+    <string name="codigo_de_barras">Código de barras (opcional)</string>
+    <string name="titulo_do_livro">Nome do livro</string>
+    <string name="autor_opcional">Autor (opcional)</string>
     <string name="preco">Preço (R$)</string>
-    <string name="nome_do_autor">Nome do autor</string>
-    <string name="zeros">0,00</string>
-    <string name="nome_do_livro">Nome do livro</string>
-    <string name="ler_emoji">📱 Ler</string>
-    <string name="digite_ou_escaneie">Digite ou escaneie</string>
-    <string name="codigo_de_barras">Código de Barras</string>
-    <string name="informacoes_do_livro">Informações do Livro</string>
-    <string name="tirar_foto_emoji">📷 Tirar Foto</string>
-    <string name="foto_da_capa">Foto da Capa</string>
-    <string name="salvar_livro_emoji">💾 Salvar Livro</string>
-    <string name="Dica_mais_de_um_livro">Dica: toque mais de uma vez no mesmo livro para adicionar mais de uma unidade ao carrinho.</string>
-    <string name="quantidade_ex_5">Quantidade (Ex: 5)</string>
-    <string name="parcelado">Parcelado</string>
-    <string name="a_vista">À Vista</string>
-    <string name="forma_de_pagamento">Forma de Pagamento</string>
+    <string name="quantidade_em_estoque">Quantidade em estoque</string>
+    <string name="localizacao">Onde fica (prateleira, opcional)</string>
+    <string name="localizacao_exemplo">Ex.: Estante A, prateleira 2</string>
+    <string name="salvar_livro">Salvar livro</string>
+    <string name="excluir_livro">Excluir livro</string>
+
+    <!-- Câmera -->
+    <string name="capturar_foto">Tirar foto</string>
+    <string name="camera_dica">Enquadre a capa do livro e toque em “Tirar foto”</string>
+
+    <!-- Venda -->
+    <string name="venda_titulo">Vender</string>
+    <string name="venda_dica">Toque no livro para colocar na venda. Tocou errado? Use “Desfazer” no aviso.</string>
+    <string name="esvaziar">Esvaziar</string>
+    <string name="finalizar_venda">Finalizar venda</string>
+
+    <!-- Concluir venda -->
+    <string name="concluir_titulo">Finalizar venda</string>
+    <string name="itens_da_venda">Livros desta venda</string>
+    <string name="como_vai_pagar">Como a pessoa vai pagar?</string>
+    <string name="dinheiro">Dinheiro</string>
+    <string name="pix">Pix</string>
+    <string name="debito">Débito</string>
+    <string name="credito">Crédito</string>
+    <string name="valor_recebido">Valor recebido (R$)</string>
+    <string name="valor_exato">Valor exato</string>
+    <string name="confirmar_venda">Confirmar venda</string>
+    <string name="tirar">Tirar</string>
+
+    <!-- Pedidos -->
+    <string name="pedidos_titulo">Lista de pedidos</string>
+    <string name="pedidos_subtitulo">Livros que precisam ser comprados ou repostos</string>
+    <string name="adicionar_livro">Adicionar livro</string>
+    <string name="imprimir_ou_enviar">Imprimir ou enviar</string>
+    <string name="limpar_lista">Limpar lista</string>
+    <string name="pedidos_vazio">A lista está vazia.\nToque em “Adicionar livro” ou peça reposição pela tela de Livros.</string>
+    <string name="editar">Editar</string>
+    <string name="excluir">Excluir</string>
+    <string name="quantidade">Quantidade</string>
+
+    <!-- Relatórios -->
+    <string name="relatorios_titulo">Relatórios de vendas</string>
+    <string name="hoje">Hoje</string>
+    <string name="esta_semana">Esta semana</string>
+    <string name="este_mes">Este mês</string>
+    <string name="escolher_datas">Escolher datas</string>
+    <string name="total_vendido">Total vendido</string>
+    <string name="numero_vendas">Vendas</string>
+    <string name="livros_vendidos">Livros vendidos</string>
+    <string name="por_forma_pagamento">Por forma de pagamento</string>
+    <string name="mais_vendidos">Livros mais vendidos</string>
+    <string name="lista_vendas">Vendas do período</string>
+    <string name="cancelar_venda">Cancelar venda</string>
+    <string name="sem_vendas">Nenhuma venda neste período.</string>
+
+    <!-- Backup -->
+    <string name="backup_tela_titulo">Cópia de segurança</string>
+    <string name="backup_explicacao">A cópia de segurança guarda todos os livros, fotos, vendas e pedidos na sua conta do Google Drive. Se o tablet quebrar ou for trocado, é só restaurar.</string>
+    <string name="conectar_drive">Conectar ao Google Drive</string>
+    <string name="fazer_backup_agora">Fazer cópia agora</string>
+    <string name="restaurar_backup">Restaurar uma cópia</string>
+    <string name="backup_automatico">Fazer cópia automática todo dia</string>
+    <string name="desconectar">Desconectar</string>
+    <string name="salvar_em_arquivo">Salvar cópia em arquivo</string>
+    <string name="abrir_arquivo">Restaurar de um arquivo</string>
+    <string name="sem_drive_titulo">Sem Google Drive?</string>
+    <string name="sem_drive_explicacao">Você também pode salvar a cópia como arquivo (no próprio tablet, num pendrive ou escolhendo o Drive na lista) e restaurar depois.</string>
 </resources>

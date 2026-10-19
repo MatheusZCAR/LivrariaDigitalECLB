@@ -1,282 +1,254 @@
 package com.projeto.livrariadigitaleclb.ui.realizarvenda;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.recyclerview.widget.GridLayoutManager;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.journeyapps.barcodescanner.ScanContract;
+import com.journeyapps.barcodescanner.ScanOptions;
+import com.projeto.livrariadigitaleclb.R;
+import com.projeto.livrariadigitaleclb.data.Carrinho;
 import com.projeto.livrariadigitaleclb.data.local.AppDatabase;
-import com.projeto.livrariadigitaleclb.data.local.dao.EstoqueDao;
-import com.projeto.livrariadigitaleclb.data.local.dao.LivroDao;
-import com.projeto.livrariadigitaleclb.data.local.entity.EstoqueEntity;
 import com.projeto.livrariadigitaleclb.data.local.entity.LivroComEstoque;
 import com.projeto.livrariadigitaleclb.data.local.entity.LivroEntity;
 import com.projeto.livrariadigitaleclb.databinding.ActivityRealizarVendaBinding;
+import com.projeto.livrariadigitaleclb.ui.BaseActivity;
 import com.projeto.livrariadigitaleclb.ui.catalogo.CadastrarLivroActivity;
+import com.projeto.livrariadigitaleclb.ui.catalogo.LivrosAdapter;
 import com.projeto.livrariadigitaleclb.ui.concluirvenda.ConcluirVendaActivity;
+import com.projeto.livrariadigitaleclb.util.Avisos;
+import com.projeto.livrariadigitaleclb.util.Moeda;
+import com.projeto.livrariadigitaleclb.util.Telas;
+import com.projeto.livrariadigitaleclb.util.Texto;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RealizarVendaActivity extends AppCompatActivity {
+public class RealizarVendaActivity extends BaseActivity {
 
     private ActivityRealizarVendaBinding binding;
-    private ProdutoAdapter adapter;
-    private LivroDao livroDao;
-    private EstoqueDao estoqueDao;
+    private LivrosAdapter adapter;
+    private AppDatabase db;
+    private final Carrinho carrinho = Carrinho.get();
+    private List<LivroComEstoque> todos = new ArrayList<>();
 
-    // Carrinho de compras: Map<livroId, quantidade>
-    private Map<Long, Integer> carrinho = new HashMap<>();
+    private final ActivityResultLauncher<ScanOptions> leitor =
+            registerForActivityResult(new ScanContract(), r -> {
+                if (r.getContents() != null) buscarPorCodigo(r.getContents().trim());
+            });
+
+    private final ActivityResultLauncher<Intent> finalizar =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), r -> {
+                if (r.getResultCode() == RESULT_OK) {
+                    Avisos.sucesso(this, "Venda registrada. Pronto para a próxima!");
+                }
+            });
+
+    private final ActivityResultLauncher<Intent> cadastro =
+            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), r -> {
+                if (r.getResultCode() == RESULT_OK && r.getData() != null) {
+                    int id = r.getData().getIntExtra(CadastrarLivroActivity.EXTRA_LIVRO_ID, -1);
+                    carregar();
+                    LivroComEstoque novo = encontrar(id);
+                    if (novo != null) adicionar(novo);
+                }
+            });
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityRealizarVendaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        binding.btnHome.setOnClickListener(v -> finish());
+        definirTitulo(getString(R.string.venda_titulo));
+        db = AppDatabase.getInstance(this);
 
-        // Inicializa Banco e DAOs
-        AppDatabase db = AppDatabase.getInstance(this);
-        livroDao = db.livroDao();
-        estoqueDao = db.estoqueDao();
+        adapter = new LivrosAdapter(this::adicionar, carrinho::quantidade);
+        binding.recyclerProdutos.setLayoutManager(
+                new GridLayoutManager(this, Telas.colunas(this, R.dimen.largura_minima_livro)));
+        binding.recyclerProdutos.setAdapter(adapter);
 
-        configurarLista();
-        configurarBusca();
-        configurarBotoes();
-        atualizarCarrinho();
+        binding.searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) { }
+            @Override public void onTextChanged(CharSequence s, int a, int b, int c) { filtrar(); }
+            @Override public void afterTextChanged(Editable s) { }
+        });
+
+        boolean temCamera = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY);
+        binding.btnScan.setVisibility(temCamera ? View.VISIBLE : View.GONE);
+        binding.btnScan.setOnClickListener(v -> lerCodigo());
+        binding.btnVerCarrinho.setOnClickListener(v -> abrirFinalizacao());
+        binding.btnLimparCarrinho.setOnClickListener(v -> confirmarEsvaziar());
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                sair();
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        atualizarLista();
-    }
-
-    private void configurarLista() {
-        // Busca livros já com a informação de estoque (LivroComEstoque)
-        List<LivroComEstoque> livros = livroDao.listarLivrosParaVendaComEstoque();
-
-        adapter = new ProdutoAdapter(
-                livros,
-                (livro, estoqueDisponivel) -> adicionarAoCarrinho(livro, estoqueDisponivel)
-        );
-        binding.recyclerProdutos.setLayoutManager(new GridLayoutManager(this, 5));
-        binding.recyclerProdutos.setAdapter(adapter);
-    }
-
-    private void adicionarAoCarrinho(LivroEntity livro, int estoqueDisponivel) {
-        // REGRA 1: Não pode adicionar se estiver esgotado
-        if (estoqueDisponivel <= 0) {
-            Toast.makeText(this, "Produto esgotado!", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        long id = (long) livro.id;
-        int quantidadeNoCarrinho = carrinho.getOrDefault(id, 0);
-
-        // REGRA 2: Não pode adicionar mais do que tem no estoque real
-        if (quantidadeNoCarrinho >= estoqueDisponivel) {
-            Toast.makeText(this,
-                    "Limite de estoque atingido (" + estoqueDisponivel + " unidades)",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Adiciona ao carrinho
-        carrinho.put(id, quantidadeNoCarrinho + 1);
-
-        Toast.makeText(this,
-                livro.titulo + " adicionado",
-                Toast.LENGTH_SHORT).show();
-
-        atualizarCarrinho();
-    }
-
-    private void atualizarCarrinho() {
-        int totalItens = 0;
-        double valorTotal = 0.0;
-
-        // Calcula totais
-        for (Map.Entry<Long, Integer> entry : carrinho.entrySet()) {
-            LivroEntity livro = livroDao.buscarPorId(entry.getKey());
-            if (livro != null) {
-                int quantidade = entry.getValue();
-                totalItens += quantidade;
-                valorTotal += livro.preco * quantidade;
-            }
-        }
-
-        // Atualiza UI
-        if (totalItens > 0) {
-            binding.layoutCarrinho.setVisibility(View.VISIBLE);
-            binding.txtTotalItens.setText(totalItens + " item(ns)");
-            binding.txtValorTotal.setText(String.format("R$ %.2f", valorTotal));
-        } else {
-            binding.layoutCarrinho.setVisibility(View.GONE);
-        }
-    }
-
-    private void atualizarLista() {
-        // Atualiza a lista para refletir baixas de estoque recentes
-        List<LivroComEstoque> livros = livroDao.listarLivrosParaVendaComEstoque();
-        adapter.updateList(livros);
-    }
-
-    private void configurarBusca() {
-        binding.searchEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String busca = s.toString().trim();
-
-                if (busca.isEmpty()) {
-                    atualizarLista();
-                } else {
-                    // Busca específica que retorna LivroComEstoque
-                    List<LivroComEstoque> filtrados = livroDao.buscarLivrosComEstoque(busca);
-                    adapter.updateList(filtrados);
-                }
-            }
-
-            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-            @Override public void afterTextChanged(Editable s) { }
-        });
-    }
-
-    private void configurarBotoes() {
-        binding.btnHome.setOnClickListener(v -> {
-            if (!carrinho.isEmpty()) {
-                confirmarSaida();
-            } else {
-                finish();
-            }
-        });
-
-        binding.btnScan.setOnClickListener(v -> iniciarScanner());
-
-        binding.btnVerCarrinho.setOnClickListener(v -> abrirCarrinho());
-
-        binding.btnLimparCarrinho.setOnClickListener(v -> limparCarrinho());
-    }
-
-    private void confirmarSaida() {
-        new AlertDialog.Builder(this)
-                .setTitle("Carrinho com itens")
-                .setMessage("Você tem itens no carrinho. Deseja sair sem finalizar a venda?")
-                .setPositiveButton("Sim, sair", (dialog, which) -> finish())
-                .setNegativeButton("Cancelar", null)
-                .show();
-    }
-
-    private void limparCarrinho() {
-        if (carrinho.isEmpty()) {
-            Toast.makeText(this, "Carrinho já está vazio", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        new AlertDialog.Builder(this)
-                .setTitle("Limpar Carrinho")
-                .setMessage("Deseja remover todos os itens do carrinho?")
-                .setPositiveButton("Sim", (dialog, which) -> {
-                    carrinho.clear();
-                    atualizarCarrinho();
-                    Toast.makeText(this, "Carrinho limpo", Toast.LENGTH_SHORT).show();
-                })
-                .setNegativeButton("Cancelar", null)
-                .show();
-    }
-
-    private void abrirCarrinho() {
-        if (carrinho.isEmpty()) {
-            Toast.makeText(this, "Carrinho vazio. Adicione itens para continuar.",
-                    Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        // Passa os dados do carrinho para a tela de concluir venda
-        Intent intent = new Intent(this, ConcluirVendaActivity.class);
-
-        // Converte o carrinho para arrays para passar via Intent
-        ArrayList<Long> livroIds = new ArrayList<>();
-        ArrayList<Integer> quantidades = new ArrayList<>();
-
-        for (Map.Entry<Long, Integer> entry : carrinho.entrySet()) {
-            livroIds.add(entry.getKey());
-            quantidades.add(entry.getValue());
-        }
-
-        intent.putExtra("livroIds", livroIds);
-        intent.putExtra("quantidades", quantidades);
-        startActivityForResult(intent, 100);
+        carregar();
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        // Scanner
-        IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+    public View ancoraDosAvisos() {
+        return binding.layoutCarrinho;
+    }
 
-        if (scanResult != null) {
-            if (scanResult.getContents() == null) {
-                Toast.makeText(this, "Leitura cancelada", Toast.LENGTH_SHORT).show();
-            } else {
-                String codigo = scanResult.getContents();
-                buscarLivroPorCodigo(codigo);
+    private void carregar() {
+        todos = db.livroDao().listarLivrosParaVendaComEstoque();
+        // Tira do carrinho livros que foram excluídos e ajusta ao estoque atual.
+        for (Map.Entry<Integer, Integer> item : carrinho.itens().entrySet()) {
+            LivroComEstoque l = encontrar(item.getKey());
+            if (l == null) {
+                carrinho.remover(item.getKey());
+            } else if (item.getValue() > l.quantidade) {
+                carrinho.definir(item.getKey(), l.quantidade);
             }
         }
-        // Retorno da tela de concluir venda
-        else if (requestCode == 100 && resultCode == RESULT_OK) {
-            // Venda concluída com sucesso - limpa o carrinho
-            carrinho.clear();
-            atualizarCarrinho();
-            Toast.makeText(this, "Venda concluída com sucesso!", Toast.LENGTH_LONG).show();
-            atualizarLista();
+        filtrar();
+        atualizarBarra();
+    }
+
+    private LivroComEstoque encontrar(int livroId) {
+        for (LivroComEstoque l : todos) if (l.livro.id == livroId) return l;
+        return null;
+    }
+
+    private void filtrar() {
+        String busca = binding.searchEditText.getText() == null ? "" : binding.searchEditText.getText().toString();
+        List<LivroComEstoque> filtrados = new ArrayList<>();
+        for (LivroComEstoque l : todos) {
+            if (Texto.combina(busca, l.livro.titulo, l.livro.autor, l.livro.codigoBarras)) filtrados.add(l);
         }
-
-        super.onActivityResult(requestCode, resultCode, data);
-    }
-
-    private void iniciarScanner() {
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setPrompt("Aponte para o código de barras do livro");
-        integrator.setBeepEnabled(true);
-        integrator.setOrientationLocked(true);
-        integrator.initiateScan();
-    }
-
-    private void buscarLivroPorCodigo(String codigo) {
-        LivroEntity livro = livroDao.buscarPorCodigo(codigo);
-
-        if (livro != null) {
-            EstoqueEntity estoqueEntity = estoqueDao.buscarPorLivro(livro.id);
-            int qtdDisponivel = (estoqueEntity != null) ? estoqueEntity.quantidadeDisponivel : 0;
-
-            adicionarAoCarrinho(livro, qtdDisponivel);
-
+        adapter.setItens(filtrados);
+        if (filtrados.isEmpty()) {
+            binding.txtVazio.setVisibility(View.VISIBLE);
+            binding.txtVazio.setText(todos.isEmpty()
+                    ? "Nenhum livro cadastrado.\nCadastre os livros na tela \"Livros\"."
+                    : getString(R.string.busca_vazia));
         } else {
-            mostrarDialogoLivroNaoEncontrado(codigo);
+            binding.txtVazio.setVisibility(View.GONE);
         }
     }
 
-    private void mostrarDialogoLivroNaoEncontrado(String codigo) {
-        new AlertDialog.Builder(this)
-                .setTitle("Livro Não Encontrado")
-                .setMessage("Não foi encontrado nenhum livro com o código:\n" + codigo + "\n\nDeseja cadastrar este livro?")
-                .setPositiveButton("Sim, Cadastrar", (dialog, which) -> {
-                    Intent intent = new Intent(this, CadastrarLivroActivity.class);
-                    intent.putExtra("codigo", codigo);
-                    startActivity(intent);
+    private void adicionar(LivroComEstoque item) {
+        LivroEntity livro = item.livro;
+        int naVenda = carrinho.quantidade(livro.id);
+        if (item.quantidade <= 0) {
+            Avisos.info(this, "\"" + livro.titulo + "\" está sem estoque.");
+            return;
+        }
+        if (naVenda >= item.quantidade) {
+            Avisos.info(this, "Só há " + Texto.plural(item.quantidade, "exemplar", "exemplares")
+                    + " de \"" + livro.titulo + "\" e todos já estão na venda.");
+            return;
+        }
+        carrinho.adicionar(livro.id, 1);
+        adapter.atualizarLivro(livro.id);
+        atualizarBarra();
+
+        int agora = carrinho.quantidade(livro.id);
+        Avisos.comAcao(this, "\"" + livro.titulo + "\": " + agora + " na venda.", "Desfazer", () -> {
+            carrinho.definir(livro.id, carrinho.quantidade(livro.id) - 1);
+            adapter.atualizarLivro(livro.id);
+            atualizarBarra();
+        });
+    }
+
+    private void atualizarBarra() {
+        if (carrinho.vazio()) {
+            binding.layoutCarrinho.setVisibility(View.GONE);
+            return;
+        }
+        double total = 0;
+        for (Map.Entry<Integer, Integer> item : carrinho.itens().entrySet()) {
+            LivroComEstoque l = encontrar(item.getKey());
+            if (l != null) total += l.livro.preco * item.getValue();
+        }
+        binding.layoutCarrinho.setVisibility(View.VISIBLE);
+        binding.txtTotalItens.setText(Texto.plural(carrinho.totalUnidades(), "livro", "livros") + " na venda");
+        binding.txtValorTotal.setText(Moeda.formatar(total));
+    }
+
+    private void lerCodigo() {
+        ScanOptions opcoes = new ScanOptions();
+        opcoes.setPrompt("Aponte a câmera para o código de barras do livro");
+        opcoes.setBeepEnabled(true);
+        opcoes.setOrientationLocked(false);
+        leitor.launch(opcoes);
+    }
+
+    private void buscarPorCodigo(String codigo) {
+        LivroEntity livro = db.livroDao().buscarPorCodigo(codigo);
+        if (livro != null) {
+            LivroComEstoque item = encontrar(livro.id);
+            if (item != null) {
+                adicionar(item);
+                return;
+            }
+        }
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Livro não encontrado")
+                .setMessage("Nenhum livro tem o código " + codigo + ".\n\nQuer cadastrar este livro agora?")
+                .setPositiveButton("Sim, cadastrar", (d, w) -> {
+                    Intent i = new Intent(this, CadastrarLivroActivity.class);
+                    i.putExtra(CadastrarLivroActivity.EXTRA_CODIGO, codigo);
+                    cadastro.launch(i);
                 })
-                .setNegativeButton("Cancelar", null)
+                .setNegativeButton("Não", null)
+                .show();
+    }
+
+    private void abrirFinalizacao() {
+        if (carrinho.vazio()) {
+            Avisos.info(this, "Toque em um livro para colocá-lo na venda.");
+            return;
+        }
+        finalizar.launch(new Intent(this, ConcluirVendaActivity.class));
+    }
+
+    private void confirmarEsvaziar() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Esvaziar a venda?")
+                .setMessage("Todos os livros escolhidos serão tirados desta venda.")
+                .setPositiveButton("Sim, esvaziar", (d, w) -> {
+                    carrinho.limpar();
+                    adapter.notifyDataSetChanged();
+                    atualizarBarra();
+                })
+                .setNegativeButton("Não", null)
+                .show();
+    }
+
+    private void sair() {
+        if (carrinho.vazio()) {
+            finish();
+            return;
+        }
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("A venda não foi finalizada")
+                .setMessage("Há " + Texto.plural(carrinho.totalUnidades(), "livro", "livros")
+                        + " escolhidos. O que você quer fazer?")
+                .setPositiveButton("Continuar vendendo", null)
+                .setNegativeButton("Esvaziar e sair", (d, w) -> {
+                    carrinho.limpar();
+                    finish();
+                })
+                .setNeutralButton("Guardar e sair", (d, w) -> finish())
                 .show();
     }
 }

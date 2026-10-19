@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<paths xmlns:android="http://schemas.android.com/apk/res/android">
-    <external-files-path
-        name="pdfs"
-        path="." />
-
-    <external-files-path
-        name="my_images"
-        path="Pictures" />
-    <external-path
-        name="external_files"
-        path="." />
+<!--
+    Pastas que o app pode compartilhar com outros apps (imprimir, WhatsApp, e-mail...).
+    Antes o arquivo liberava todo o armazenamento externo; agora só os PDFs e as cópias geradas.
+-->
+<paths>
     <cache-path
-        name="cache"
-        path="." />
-
-
+        name="pdfs"
+        path="pdfs/" />
+    <cache-path
+        name="backups"
+        path="backups/" />
 </paths>

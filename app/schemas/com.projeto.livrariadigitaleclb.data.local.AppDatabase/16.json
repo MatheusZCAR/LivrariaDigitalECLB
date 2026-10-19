@@ -1,0 +1,443 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 16,
+    "identityHash": "4da21bf407dbd35b44b29caa984fcc3b",
+    "entities": [
+      {
+        "tableName": "pedidos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titulo` TEXT, `autor` TEXT, `quantidadeDesejada` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titulo",
+            "columnName": "titulo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "autor",
+            "columnName": "autor",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "quantidadeDesejada",
+            "columnName": "quantidadeDesejada",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "livros",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `titulo` TEXT, `autor` TEXT, `codigoBarras` TEXT, `preco` REAL NOT NULL, `esgotado` INTEGER NOT NULL, `imagemPath` TEXT, `localizacao` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titulo",
+            "columnName": "titulo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "autor",
+            "columnName": "autor",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "codigoBarras",
+            "columnName": "codigoBarras",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "preco",
+            "columnName": "preco",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "esgotado",
+            "columnName": "esgotado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imagemPath",
+            "columnName": "imagemPath",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "localizacao",
+            "columnName": "localizacao",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "vendas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `livroId` INTEGER NOT NULL, `titulo` TEXT, `preco` REAL NOT NULL, `dataVenda` INTEGER NOT NULL, `quantidade` INTEGER NOT NULL DEFAULT 1, `formaPagamento` TEXT, `condicaoPagamento` TEXT, `codigoVenda` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "livroId",
+            "columnName": "livroId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "titulo",
+            "columnName": "titulo",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "preco",
+            "columnName": "preco",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataVenda",
+            "columnName": "dataVenda",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantidade",
+            "columnName": "quantidade",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          },
+          {
+            "fieldPath": "formaPagamento",
+            "columnName": "formaPagamento",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "condicaoPagamento",
+            "columnName": "condicaoPagamento",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "codigoVenda",
+            "columnName": "codigoVenda",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "autores",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nome` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "localizacoes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `descricao` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "estoque",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`livroId` INTEGER NOT NULL, `quantidadeDisponivel` INTEGER NOT NULL, `dataAtualizacao` INTEGER NOT NULL, PRIMARY KEY(`livroId`), FOREIGN KEY(`livroId`) REFERENCES `livros`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "livroId",
+            "columnName": "livroId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantidadeDisponivel",
+            "columnName": "quantidadeDisponivel",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataAtualizacao",
+            "columnName": "dataAtualizacao",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "livroId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "livros",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "livroId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "itens_venda",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`vendaId` INTEGER NOT NULL, `livroId` INTEGER NOT NULL, `quantidadeVendida` INTEGER NOT NULL, `precoUnitario` REAL NOT NULL, PRIMARY KEY(`vendaId`, `livroId`), FOREIGN KEY(`vendaId`) REFERENCES `vendas`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`livroId`) REFERENCES `livros`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "vendaId",
+            "columnName": "vendaId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "livroId",
+            "columnName": "livroId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantidadeVendida",
+            "columnName": "quantidadeVendida",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "precoUnitario",
+            "columnName": "precoUnitario",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "vendaId",
+            "livroId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "vendas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "vendaId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "livros",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "livroId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "relatorios",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tipoRelatorio` TEXT, `localizacaoRelatorio` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipoRelatorio",
+            "columnName": "tipoRelatorio",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "localizacaoRelatorio",
+            "columnName": "localizacaoRelatorio",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "relatorio_venda",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`relatorioId` INTEGER NOT NULL, `vendaId` INTEGER NOT NULL, PRIMARY KEY(`relatorioId`, `vendaId`), FOREIGN KEY(`relatorioId`) REFERENCES `relatorios`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`vendaId`) REFERENCES `vendas`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "relatorioId",
+            "columnName": "relatorioId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vendaId",
+            "columnName": "vendaId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "relatorioId",
+            "vendaId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "relatorios",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "relatorioId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "vendas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "vendaId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "livro_autor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`livroId` INTEGER NOT NULL, `autorId` INTEGER NOT NULL, PRIMARY KEY(`livroId`, `autorId`), FOREIGN KEY(`livroId`) REFERENCES `livros`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`autorId`) REFERENCES `autores`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "livroId",
+            "columnName": "livroId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autorId",
+            "columnName": "autorId",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "livroId",
+            "autorId"
+          ]
+        },
+        "foreignKeys": [
+          {
+            "table": "livros",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "livroId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "autores",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "autorId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4da21bf407dbd35b44b29caa984fcc3b')"
+    ]
+  }
+}

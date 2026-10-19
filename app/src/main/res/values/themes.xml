@@ -1,9 +1,229 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.LivrariaDigitalECLB" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+
+    <!--
+        Tema sempre CLARO: o app é usado por voluntários idosos e o modo escuro do
+        sistema deixava textos invisíveis (texto branco em fundo branco).
+    -->
+    <style name="Base.Theme.LivrariaDigitalECLB" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/primaria</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/primaria_clara</item>
+        <item name="colorOnPrimaryContainer">@color/texto</item>
+        <item name="colorSecondary">@color/primaria</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/primaria_clara</item>
+        <item name="colorOnSecondaryContainer">@color/texto</item>
+        <item name="colorError">@color/perigo</item>
+        <item name="android:colorBackground">@color/fundo</item>
+        <item name="colorSurface">@color/superficie</item>
+        <item name="colorOnSurface">@color/texto</item>
+        <item name="colorOnSurfaceVariant">@color/texto_secundario</item>
+        <item name="colorSurfaceContainerHigh">@color/superficie</item>
+        <item name="colorSurfaceContainerHighest">@color/superficie</item>
+        <item name="colorOutline">@color/borda</item>
+        <item name="android:windowBackground">@color/fundo</item>
+        <item name="android:textColorPrimary">@color/texto</item>
+        <item name="android:textColorSecondary">@color/texto_secundario</item>
+        <item name="android:textColorHint">@color/texto_secundario</item>
+        <item name="android:windowSoftInputMode">adjustResize</item>
+
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.Livraria.Dialogo</item>
+        <item name="textInputStyle">@style/Widget.Livraria.CampoTexto</item>
+        <item name="materialButtonStyle">@style/Widget.Livraria.Botao</item>
+        <item name="snackbarTextViewStyle">@style/Widget.Livraria.Snackbar.Texto</item>
+        <item name="snackbarButtonStyle">@style/Widget.Livraria.Snackbar.Botao</item>
     </style>
 
     <style name="Theme.LivrariaDigitalECLB" parent="Base.Theme.LivrariaDigitalECLB" />
+
+    <!-- Tela da câmera: fundo preto -->
+    <style name="Theme.LivrariaDigitalECLB.Camera" parent="Theme.LivrariaDigitalECLB">
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
+    <!-- ===== Botões ===== -->
+    <style name="Widget.Livraria.Botao" parent="Widget.Material3.Button">
+        <item name="android:minHeight">@dimen/altura_botao</item>
+        <item name="android:textSize">@dimen/texto_botao</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:insetTop">4dp</item>
+        <item name="android:insetBottom">4dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="iconSize">30dp</item>
+        <item name="iconPadding">12dp</item>
+    </style>
+
+    <style name="Widget.Livraria.Botao.Contorno" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:minHeight">@dimen/altura_botao</item>
+        <item name="android:textSize">@dimen/texto_botao</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:insetTop">4dp</item>
+        <item name="android:insetBottom">4dp</item>
+        <item name="android:paddingStart">24dp</item>
+        <item name="android:paddingEnd">24dp</item>
+        <item name="android:textColor">@color/primaria</item>
+        <item name="cornerRadius">16dp</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="strokeColor">@color/primaria</item>
+        <item name="iconTint">@color/primaria</item>
+        <item name="iconSize">30dp</item>
+        <item name="iconPadding">12dp</item>
+    </style>
+
+    <style name="Widget.Livraria.Botao.Perigo" parent="Widget.Livraria.Botao.Contorno">
+        <item name="android:textColor">@color/perigo</item>
+        <item name="strokeColor">@color/perigo</item>
+        <item name="iconTint">@color/perigo</item>
+    </style>
+
+    <!-- Botão branco usado sobre fundos coloridos (barra do topo e barra do carrinho) -->
+    <style name="Widget.Livraria.Botao.Branco" parent="Widget.Livraria.Botao">
+        <item name="backgroundTint">@color/white</item>
+        <item name="android:textColor">@color/primaria</item>
+        <item name="iconTint">@color/primaria</item>
+    </style>
+
+    <style name="Widget.Livraria.Botao.Voltar" parent="Widget.Livraria.Botao.Branco">
+        <item name="android:minHeight">60dp</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">22dp</item>
+        <item name="icon">@drawable/ic_voltar</item>
+    </style>
+
+    <!-- Botões de escolha (ex.: forma de pagamento, período) -->
+    <style name="Widget.Livraria.Botao.Escolha" parent="Widget.Material3.Button.OutlinedButton">
+        <item name="android:minHeight">72dp</item>
+        <item name="android:textSize">@dimen/texto_botao</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">@color/selecao_texto</item>
+        <item name="backgroundTint">@color/selecao_fundo</item>
+        <item name="strokeColor">@color/primaria</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="iconTint">@color/selecao_texto</item>
+        <item name="iconSize">30dp</item>
+        <item name="cornerRadius">16dp</item>
+    </style>
+
+    <!-- ===== Campos de texto ===== -->
+    <style name="Widget.Livraria.CampoTexto" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Livraria.CampoTexto</item>
+        <item name="hintTextAppearance">@style/TextAppearance.Livraria.Rotulo</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Livraria.Erro</item>
+        <item name="helperTextTextAppearance">@style/TextAppearance.Livraria.Ajuda</item>
+        <item name="boxStrokeWidth">2dp</item>
+        <item name="boxStrokeWidthFocused">3dp</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxStrokeColor">@color/primaria</item>
+    </style>
+
+    <style name="ThemeOverlay.Livraria.CampoTexto" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="editTextStyle">@style/Widget.Livraria.CampoTexto.Edit</item>
+    </style>
+
+    <style name="Widget.Livraria.CampoTexto.Edit" parent="Widget.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/texto</item>
+        <item name="android:minHeight">64dp</item>
+    </style>
+
+    <style name="TextAppearance.Livraria.Rotulo" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">19sp</item>
+    </style>
+
+    <style name="TextAppearance.Livraria.Erro" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">19sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Livraria.Ajuda" parent="TextAppearance.Material3.BodyLarge">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- ===== Diálogos com letras grandes ===== -->
+    <style name="ThemeOverlay.Livraria.Dialogo" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="materialAlertDialogTitleTextStyle">@style/Livraria.Dialogo.Titulo</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/Livraria.Dialogo.Corpo</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Livraria.Dialogo.Botao</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Livraria.Dialogo.Botao</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Livraria.Dialogo.Botao</item>
+        <item name="colorSurfaceContainerHigh">@color/superficie</item>
+    </style>
+
+    <style name="Livraria.Dialogo.Titulo" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textSize">@dimen/texto_titulo</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto</item>
+    </style>
+
+    <style name="Livraria.Dialogo.Corpo" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textSize">@dimen/texto_corpo</item>
+        <item name="android:textColor">@color/texto</item>
+        <item name="android:lineSpacingMultiplier">1.15</item>
+    </style>
+
+    <style name="Livraria.Dialogo.Botao" parent="Widget.Material3.Button.TextButton.Dialog">
+        <item name="android:textSize">@dimen/texto_botao</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">60dp</item>
+        <item name="android:paddingStart">20dp</item>
+        <item name="android:paddingEnd">20dp</item>
+    </style>
+
+    <!-- ===== Avisos (Snackbar) ===== -->
+    <style name="Widget.Livraria.Snackbar.Texto" parent="Widget.Material3.Snackbar.TextView">
+        <item name="android:textSize">@dimen/texto_corpo</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Widget.Livraria.Snackbar.Botao" parent="Widget.Material3.Button.TextButton.Snackbar">
+        <item name="android:textSize">@dimen/texto_botao</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- ===== Textos ===== -->
+    <style name="Livraria.Texto" parent="" />
+
+    <style name="Livraria.Texto.TituloTela">
+        <item name="android:textSize">@dimen/texto_titulo_tela</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Livraria.Texto.Titulo">
+        <item name="android:textSize">@dimen/texto_titulo</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/texto</item>
+    </style>
+
+    <style name="Livraria.Texto.Corpo">
+        <item name="android:textSize">@dimen/texto_corpo</item>
+        <item name="android:textColor">@color/texto</item>
+    </style>
+
+    <style name="Livraria.Texto.Secundario">
+        <item name="android:textSize">@dimen/texto_rotulo</item>
+        <item name="android:textColor">@color/texto_secundario</item>
+    </style>
+
+    <!-- Cartões -->
+    <style name="Widget.Livraria.Cartao" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/raio_cartao</item>
+        <item name="cardElevation">3dp</item>
+        <item name="cardBackgroundColor">@color/superficie</item>
+    </style>
 </resources>

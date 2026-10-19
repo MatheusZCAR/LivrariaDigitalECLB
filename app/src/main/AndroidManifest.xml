@@ -2,14 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
+    <!-- Internet: cópia de segurança no Google Drive -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <!-- Câmera: foto da capa e leitura do código de barras (opcional: o app funciona sem) -->
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <!--
+        As permissões de armazenamento foram removidas: a galeria usa o seletor de fotos
+        do Android e os arquivos ficam na pasta do próprio app, sem precisar de permissão.
+    -->
 
     <application
+        android:name=".App"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,68 +25,69 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LivrariaDigitalECLB">
+        android:theme="@style/Theme.LivrariaDigitalECLB"
+        tools:targetApi="31">
 
-        <!-- Activity: Catálogo -->
-        <activity
-            android:name=".ui.catalogo.CatalogoActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.LivrariaDigitalECLB"
-            tools:ignore="DiscouragedApi" />
-
-        <!-- Activity: Relatórios -->
-        <activity
-            android:name=".ui.relatorios.RelatoriosActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi"
-            android:theme="@style/Theme.LivrariaDigitalECLB" />
-
-        <!-- Activity: Pedidos -->
-        <activity
-            android:name=".ui.pedidos.PedidosActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi"
-            android:theme="@style/Theme.LivrariaDigitalECLB" />
-
-        <activity android:name=".ui.concluirvenda.ConcluirVendaActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi"
-            android:theme="@style/Theme.LivrariaDigitalECLB"/>
-
-        <activity android:name=".ui.catalogo.CadastrarLivroActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi"
-            android:theme="@style/Theme.LivrariaDigitalECLB"/>
-
-        <activity android:name=".ui.realizarvenda.RealizarVendaActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi"
-            android:theme="@style/Theme.LivrariaDigitalECLB"/>
-
-        <activity
-            android:name=".ui.catalogo.CameraXCaptureActivity"
-            android:exported="true"
-            tools:ignore="DiscouragedApi"
-            android:screenOrientation="portrait" />
-
-
-        <!-- Activity principal -->
+        <!-- Só a tela inicial pode ser aberta por outros apps (antes todas eram "exported"). -->
         <activity
             android:name=".ui.main.MainActivity"
             android:exported="true"
             android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi">
+            tools:ignore="DiscouragedApi,LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".ui.catalogo.CatalogoActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.catalogo.CadastrarLivroActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.catalogo.CameraXCaptureActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.LivrariaDigitalECLB.Camera"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.realizarvenda.RealizarVendaActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.concluirvenda.ConcluirVendaActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.pedidos.PedidosActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.relatorios.RelatoriosActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.backup.BackupActivity"
+            android:exported="false"
+            android:screenOrientation="landscape"
+            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

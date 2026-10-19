@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Barra do topo padrão: botão "Voltar" grande e título da tela. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primaria"
+    android:gravity="center_vertical"
+    android:minHeight="@dimen/altura_barra_topo"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="4dp">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnVoltar"
+        style="@style/Widget.Livraria.Botao.Voltar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/voltar" />
+
+    <TextView
+        android:id="@+id/txtTituloTela"
+        style="@style/Livraria.Texto.TituloTela"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:accessibilityHeading="true"
+        tools:text="Título da tela" />
+
+    <!-- Espaço para uma ação extra à direita (algumas telas usam) -->
+    <FrameLayout
+        android:id="@+id/acaoTopo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

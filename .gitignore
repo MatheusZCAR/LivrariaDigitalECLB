@@ -13,3 +13,8 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Chaves de assinatura (nunca versionar)
+keystore.properties
+*.jks
+*.keystore

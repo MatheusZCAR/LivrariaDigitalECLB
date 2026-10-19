@@ -1,6 +1,7 @@
 package com.projeto.livrariadigitaleclb.data.local.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
@@ -12,17 +13,17 @@ import java.util.List;
 @Dao
 public interface LivroDao {
 
-    @Query("SELECT * FROM livros WHERE esgotado = 0 ORDER BY titulo ASC")
+    @Query("SELECT * FROM livros WHERE esgotado = 0 ORDER BY titulo COLLATE NOCASE ASC")
     List<LivroEntity> listarLivrosParaVenda();
 
     @Query("SELECT * FROM livros " +
             "WHERE esgotado = 0 AND (" +
             "LOWER(titulo) LIKE '%' || LOWER(:busca) || '%' " +
             "OR LOWER(autor) LIKE '%' || LOWER(:busca) || '%'" +
-            ") ORDER BY titulo ASC")
+            ") ORDER BY titulo COLLATE NOCASE ASC")
     List<LivroEntity> buscarLivros(String busca);
 
-    @Query("SELECT titulo FROM livros WHERE esgotado = 0 ORDER BY titulo ASC")
+    @Query("SELECT titulo FROM livros WHERE esgotado = 0 ORDER BY titulo COLLATE NOCASE ASC")
     List<String> listarTitulos();
 
     @Query("SELECT * FROM livros WHERE id = :id LIMIT 1")
@@ -40,10 +41,25 @@ public interface LivroDao {
     @Update
     void atualizarLivro(LivroEntity livro);
 
+    @Delete
+    void excluirLivro(LivroEntity livro);
+
+    @Query("SELECT * FROM livros ORDER BY titulo COLLATE NOCASE ASC")
+    List<LivroEntity> listarTodos();
+
+    @Query("SELECT * FROM livros WHERE codigoBarras = :codigo AND id != :ignorarId LIMIT 1")
+    LivroEntity buscarPorCodigoExceto(String codigo, int ignorarId);
+
+    @Query("UPDATE livros SET imagemPath = :caminho WHERE id = :id")
+    void atualizarImagem(int id, String caminho);
+
+    @Query("SELECT COUNT(*) FROM livros")
+    int contar();
+
     @Query("SELECT L.*, E.quantidadeDisponivel as qtd " +
             "FROM livros L " +
             "LEFT JOIN estoque E ON L.id = E.livroId " +
-            "ORDER BY L.titulo ASC")
+            "ORDER BY L.titulo COLLATE NOCASE ASC")
     List<LivroComEstoque> listarLivrosComEstoque();
 
 
@@ -51,7 +67,7 @@ public interface LivroDao {
             "FROM livros L " +
             "LEFT JOIN estoque E ON L.id = E.livroId " +
             "WHERE L.esgotado = 0 " +
-            "ORDER BY L.titulo ASC")
+            "ORDER BY L.titulo COLLATE NOCASE ASC")
     List<LivroComEstoque> listarLivrosParaVendaComEstoque();
 
     @Query("SELECT L.*, E.quantidadeDisponivel as qtd " +
@@ -60,6 +76,6 @@ public interface LivroDao {
             "WHERE L.esgotado = 0 AND (" +
             "LOWER(L.titulo) LIKE '%' || LOWER(:busca) || '%' " +
             "OR LOWER(L.autor) LIKE '%' || LOWER(:busca) || '%'" +
-            ") ORDER BY L.titulo ASC")
+            ") ORDER BY L.titulo COLLATE NOCASE ASC")
     List<LivroComEstoque> buscarLivrosComEstoque(String busca);
 }
