@@ -6,4 +6,5 @@
     <string name="quantidade_em_estoque">Quantidade em estoque</string>
     <string name="finalizar_venda">Finalizar venda</string>
     <string name="imprimir_lista">Imprimir ou enviar</string>
+    <string name="limpar_lista">Limpar lista</string>
 </resources>

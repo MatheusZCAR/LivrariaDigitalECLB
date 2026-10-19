@@ -11,7 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   build:
@@ -42,10 +42,7 @@ jobs:
           fi
 
       - name: Compilar, testes unitários e lint
-        run: |
-          set -o pipefail
-          mkdir -p ci-out
-          ./gradlew assembleDebug testDebugUnitTest lintDebug --stacktrace 2>&1 | tee ci-out/build.log
+        run: ./gradlew assembleDebug testDebugUnitTest lintDebug --stacktrace
 
       - name: Assinatura do APK (SHA-1 para o Google Cloud)
         if: success()
@@ -67,17 +64,6 @@ jobs:
             app/build/reports/
             app/build/test-results/
             app/schemas/
-
-      - name: "TEMP: publicar log do build na branch ci-resultados-build"
-        if: always() && github.event_name != 'pull_request'
-        run: |
-          cp app/build/reports/lint-results-debug.txt ci-out/ 2>/dev/null || true
-          cd ci-out
-          git init -q
-          git checkout -q -b ci-resultados-build
-          git add -A
-          git -c user.name=ci -c user.email=ci@localhost commit -qm "Build de ${GITHUB_SHA}" || true
-          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:ci-resultados-build
 
   emulador:
     name: Testes no ${{ matrix.aparelho }} (Android ${{ matrix.api }})
@@ -129,13 +115,3 @@ jobs:
         with:
           name: testes-${{ matrix.aparelho }}-android-${{ matrix.api }}
           path: ci-out/
-
-      - name: "TEMP: publicar resultados na branch ci-resultados"
-        if: always() && github.event_name != 'pull_request'
-        run: |
-          cd ci-out
-          git init -q
-          git checkout -q -b ci-resultados-${{ matrix.aparelho }}${{ matrix.api }}
-          git add -A
-          git -c user.name=ci -c user.email=ci@localhost commit -qm "Resultados de ${GITHUB_SHA}" || true
-          git push -qf "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git" HEAD:ci-resultados-${{ matrix.aparelho }}${{ matrix.api }}

@@ -79,7 +79,7 @@
     <string name="pedidos_subtitulo">Livros que precisam ser comprados ou repostos</string>
     <string name="adicionar_livro">Adicionar livro</string>
     <string name="imprimir_ou_enviar">Imprimir ou enviar</string>
-    <string name="limpar_lista">Limpar lista</string>
+    <string name="limpar_lista">Limpar</string>
     <string name="imprimir_lista">Imprimir</string>
     <string name="pedidos_vazio">A lista está vazia.\nToque em “Adicionar livro” ou peça reposição pela tela de Livros.</string>
     <string name="editar">Editar</string>
