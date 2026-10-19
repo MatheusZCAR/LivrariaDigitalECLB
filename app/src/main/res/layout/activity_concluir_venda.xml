@@ -1,273 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFDF5"
+    android:background="@color/fundo"
+    android:orientation="vertical"
     tools:context=".ui.concluirvenda.ConcluirVendaActivity">
 
-    <!-- HEADER -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/headerConcluir"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="#0097A7"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <include
+        android:id="@+id/barraTopo"
+        layout="@layout/barra_topo" />
 
-        <TextView
-            android:id="@+id/textTituloConcluir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Concluir Venda"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/white"
-            android:layout_marginStart="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- RODAPÉ: TOTAL + BOTÕES (fixo embaixo) -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardTotal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:cardCornerRadius="0dp"
-        app:cardElevation="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
+        <!-- Livros da venda -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.1"
             android:orientation="vertical"
-            android:padding="16dp"
-            android:background="@android:color/white">
+            android:paddingStart="@dimen/margem_tela"
+            android:paddingTop="20dp"
+            android:paddingEnd="12dp">
 
-            <!-- Linha Totais -->
+            <TextView
+                style="@style/Livraria.Texto.Titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/itens_da_venda" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerCarrinho"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:clipToPadding="false"
+                android:paddingBottom="16dp"
+                tools:listitem="@layout/item_carrinho" />
+        </LinearLayout>
+
+        <!-- Pagamento -->
+        <ScrollView
+            android:id="@+id/rolagemPagamento"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/superficie"
+            android:elevation="2dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginBottom="16dp">
+                android:orientation="vertical"
+                android:padding="@dimen/margem_tela">
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <TextView
+                    style="@style/Livraria.Texto.Titulo"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:text="@string/como_vai_pagar" />
+
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/grupoPagamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="vertical"
+                    app:singleSelection="true">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDinheiro"
+                        style="@style/Widget.Livraria.Botao.Escolha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/dinheiro"
+                        app:icon="@drawable/ic_dinheiro" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnPix"
+                        style="@style/Widget.Livraria.Botao.Escolha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|center_vertical"
+                        android:text="@string/pix"
+                        app:icon="@drawable/ic_celular" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnDebito"
+                        style="@style/Widget.Livraria.Botao.Escolha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|center_vertical"
+                        android:text="Cartão de débito"
+                        app:icon="@drawable/ic_cartao" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCredito"
+                        style="@style/Widget.Livraria.Botao.Escolha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="start|center_vertical"
+                        android:text="Cartão de crédito"
+                        app:icon="@drawable/ic_cartao" />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <TextView
+                    android:id="@+id/txtErroPagamento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Escolha uma das opções acima."
+                    android:textColor="@color/perigo"
+                    android:textSize="@dimen/texto_rotulo"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
+
+                <!-- Dinheiro: troco -->
+                <LinearLayout
+                    android:id="@+id/secaoDinheiro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/campoRecebido"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/valor_recebido"
+                        app:helperText="Opcional: serve para calcular o troco"
+                        app:prefixText="R$ ">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edtRecebido"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:digits="0123456789,."
+                            android:imeOptions="actionDone"
+                            android:inputType="numberDecimal"
+                            android:maxLength="10" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linhaAtalhosValor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnValorExato"
+                            style="@style/Widget.Livraria.Botao.Contorno"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1.4"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="8dp"
+                            android:text="@string/valor_exato"
+                            android:textSize="18sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnValor20"
+                            style="@style/Widget.Livraria.Botao.Contorno"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            android:text="R$ 20"
+                            android:textSize="18sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnValor50"
+                            style="@style/Widget.Livraria.Botao.Contorno"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:layout_weight="1"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            android:text="R$ 50"
+                            android:textSize="18sp" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnValor100"
+                            style="@style/Widget.Livraria.Botao.Contorno"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingStart="4dp"
+                            android:paddingEnd="4dp"
+                            android:text="R$ 100"
+                            android:textSize="18sp" />
+                    </LinearLayout>
 
                     <TextView
+                        android:id="@+id/txtTroco"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:background="@color/sucesso_claro"
+                        android:padding="16dp"
+                        android:textColor="@color/sucesso"
+                        android:textSize="30sp"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:text="Troco: R$ 25,00"
+                        tools:visibility="visible" />
+                </LinearLayout>
+
+                <!-- Crédito: parcelas -->
+                <LinearLayout
+                    android:id="@+id/secaoCredito"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        style="@style/Livraria.Texto.Corpo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total de Itens"
-                        android:textSize="14sp"
-                        android:textColor="@color/gray" />
+                        android:text="Em quantas vezes?"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <include
+                            android:id="@+id/seletorParcelas"
+                            layout="@layout/view_seletor_quantidade" />
+
+                        <TextView
+                            android:id="@+id/txtParcelas"
+                            style="@style/Livraria.Texto.Corpo"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_weight="1"
+                            android:textStyle="bold"
+                            tools:text="À vista: R$ 75,00" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Total -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/primaria_clara"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:id="@+id/txtTotalItens"
+                        style="@style/Livraria.Texto.Corpo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 item(ns)"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#333333"
-                        android:layout_marginTop="4dp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="end">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Valor Total"
-                        android:textSize="14sp"
-                        android:textColor="@color/gray" />
+                        tools:text="Total a pagar (3 livros)" />
 
                     <TextView
                         android:id="@+id/txtValorTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="R$ 0,00"
-                        android:textSize="24sp"
+                        android:textColor="@color/primaria_escura"
+                        android:textSize="44sp"
                         android:textStyle="bold"
-                        android:textColor="#0097A7"
-                        android:layout_marginTop="4dp" />
+                        tools:text="R$ 75,00" />
                 </LinearLayout>
-            </LinearLayout>
 
-            <!-- Botões -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center">
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btnCancelar"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_weight="1"
-                    android:text="Cancelar"
-                    android:textSize="16sp"
-                    android:textColor="@color/gray"
-                    android:background="@drawable/bg_button_cancel"
-                    android:layout_marginEnd="8dp" />
-
-                <androidx.appcompat.widget.AppCompatButton
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnConfirmar"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_weight="1"
-                    android:text="Confirmar"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    android:background="@drawable/bg_button_rounded"
-                    android:layout_marginStart="8dp" />
-            </LinearLayout>
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-
-    <!-- CONTEÚDO ROLÁVEL: CARRINHO + FORMA DE PAGAMENTO -->
-    <ScrollView
-        android:id="@+id/scrollContent"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/headerConcluir"
-        app:layout_constraintBottom_toTopOf="@id/cardTotal"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <!-- LISTA DO CARRINHO -->
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerCarrinho"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:padding="16dp"
-                android:nestedScrollingEnabled="false"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_carrinho" />
-
-            <!-- CARD FORMA DE PAGAMENTO (fica DEPOIS da lista, e entra no scroll) -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardPagamento"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:cardCornerRadius="0dp"
-                app:cardElevation="4dp">
-
-                <LinearLayout
+                    style="@style/Widget.Livraria.Botao"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:background="#EAF5FF">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Forma de Pagamento"
-                        android:textStyle="bold"
-                        android:textColor="@color/gray"
-                        android:layout_marginBottom="8dp" />
-
-                    <!-- Spinner + RadioGroup -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <Spinner
-                            android:id="@+id/spinnerPagamento"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/bg_button_white"
-                            android:layout_marginEnd="16dp" />
-
-                        <RadioGroup
-                            android:id="@+id/radioGroupCondicao"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <RadioButton
-                                android:id="@+id/radioVista"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="À Vista"
-                                android:checked="true"
-                                android:textColor="@color/gray"
-                                android:buttonTint="#0097A7"
-                                android:layout_marginEnd="12dp" />
-
-                            <RadioButton
-                                android:id="@+id/radioParcelado"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Parcelado"
-                                android:textColor="@color/gray"
-                                android:buttonTint="#0097A7" />
-                        </RadioGroup>
-                    </LinearLayout>
-
-                    <!-- Nº de parcelas -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="end"
-                        android:layout_marginTop="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:gravity="center_vertical"
-                            android:text="Nº de parcelas"
-                            android:textColor="@color/gray"
-                            android:textSize="14sp" />
-
-                        <EditText
-                            android:id="@+id/editParcelas"
-                            android:layout_width="70dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="10dp"
-                            android:background="@drawable/bg_button_white"
-                            android:inputType="number"
-                            android:paddingStart="8dp"
-                            android:paddingEnd="8dp"
-                            android:hint="2"
-                            android:enabled="false"
-                            android:alpha="0.5" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-        </LinearLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_marginTop="20dp"
+                    android:minHeight="84dp"
+                    android:text="@string/confirmar_venda"
+                    android:textSize="26sp"
+                    app:icon="@drawable/ic_ok"
+                    app:iconSize="36dp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

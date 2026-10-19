@@ -1,225 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFDF5"
+    android:background="@color/fundo"
+    android:orientation="vertical"
     tools:context=".ui.realizarvenda.RealizarVendaActivity">
 
-    <!-- Barra Superior -->
-    <View
-        android:id="@+id/barraSuperior"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="#0097A7"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <include
+        android:id="@+id/barraTopo"
+        layout="@layout/barra_topo" />
 
-    <TextView
-        android:id="@+id/txtTitulo"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/realizar_venda"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toTopOf="@id/barraSuperior"
-        app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/margem_tela"
+        android:paddingTop="16dp"
+        android:paddingEnd="@dimen/margem_tela">
 
-    <ImageView
-        android:id="@+id/btnHome"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/ic_home"
-        android:contentDescription="@string/btn_home"
-        android:padding="4dp"
-        app:tint="@android:color/white"
-        app:layout_constraintTop_toTopOf="@id/barraSuperior"
-        app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp" />
-
-    <!-- Barra de busca -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardBusca"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="4dp"
-        app:layout_constraintTop_toBottomOf="@id/barraSuperior"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btnScan">
-
-        <LinearLayout
-            android:id="@+id/layoutBusca"
-            android:layout_width="match_parent"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/campoBusca"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@android:color/white"
-            android:padding="12dp">
+            android:layout_weight="1"
+            android:hint="@string/buscar_livro"
+            app:endIconMode="clear_text"
+            app:startIconDrawable="@drawable/ic_busca">
 
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_search"
-                android:contentDescription="@string/buscar" />
-
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchEditText"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:hint="@string/buscar_livro"
-                android:textSize="16sp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:textColorHint="@color/gray" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:imeOptions="actionSearch"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Botão Scanner -->
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnScan"
-        android:layout_width="wrap_content"
-        android:layout_height="56dp"
-        android:layout_marginEnd="16dp"
-        android:background="@drawable/bg_button_rounded"
-        android:text="@string/scanner"
-        android:textColor="@android:color/white"
-        android:drawableStart="@drawable/ic_barcode"
-        android:drawablePadding="12dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        app:layout_constraintTop_toTopOf="@id/cardBusca"
-        app:layout_constraintBottom_toBottomOf="@id/cardBusca"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnScan"
+            style="@style/Widget.Livraria.Botao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:minHeight="72dp"
+            android:text="@string/ler_codigo"
+            app:icon="@drawable/ic_codigo_barras" />
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/txtDicaQuantidade"
-        android:layout_width="0dp"
+        android:id="@+id/txtDica"
+        style="@style/Livraria.Texto.Secundario"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/Dica_mais_de_um_livro"
-        android:textColor="@color/gray"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/cardBusca"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_marginStart="@dimen/margem_tela"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="@dimen/margem_tela"
+        android:text="@string/venda_dica" />
 
-    <!-- RecyclerView -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerProdutos"
-        android:layout_width="0dp"
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="16dp"
-        android:clipToPadding="false"
-        app:layout_constraintTop_toBottomOf="@id/txtDicaQuantidade"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/layoutCarrinho"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="3"
-        tools:listitem="@layout/item_livro" />
+        android:layout_weight="1">
 
-    <!-- Barra do Carrinho -->
-    <androidx.cardview.widget.CardView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerProdutos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:paddingStart="16dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            tools:listitem="@layout/item_livro" />
+
+        <TextView
+            android:id="@+id/txtVazio"
+            style="@style/Livraria.Texto.Corpo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="32dp"
+            android:textSize="@dimen/texto_grande"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <!-- Barra da venda em andamento -->
+    <LinearLayout
         android:id="@+id/layoutCarrinho"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/primaria"
+        android:elevation="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/margem_tela"
+        android:paddingTop="14dp"
+        android:paddingEnd="@dimen/margem_tela"
+        android:paddingBottom="14dp"
         android:visibility="gone"
-        app:cardElevation="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         tools:visibility="visible">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_carrinho_venda"
+            app:tint="@color/white" />
+
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:padding="16dp"
-            android:background="#0097A7">
+            android:layout_marginStart="16dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iconCarrinho"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_carrinho"
-                android:contentDescription="@string/carrinho"
-                app:tint="@android:color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <LinearLayout
-                android:id="@+id/layoutInfoCarrinho"
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/txtTotalItens"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toEndOf="@id/iconCarrinho"
-                app:layout_constraintEnd_toStartOf="@id/btnLimparCarrinho"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
+                android:textColor="@color/white"
+                android:textSize="@dimen/texto_corpo"
+                tools:text="3 livros na venda" />
 
-                <TextView
-                    android:id="@+id/txtTotalItens"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="14sp"
-                    tools:text="3 item(ns)" />
-
-                <TextView
-                    android:id="@+id/txtValorTotal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@android:color/white"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
-                    android:layout_marginTop="4dp"
-                    tools:text="R$ 150,00" />
-            </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnLimparCarrinho"
+            <TextView
+                android:id="@+id/txtValorTotal"
                 android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_button_white"
-                android:text="🗑️ LIMPAR"
-                android:textColor="#0097A7"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginEnd="24dp"
-                app:layout_constraintEnd_toStartOf="@id/btnVerCarrinho"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnVerCarrinho"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:background="@drawable/bg_button_white"
-                android:text="🛒 VER CARRINHO"
-                android:textColor="#0097A7"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/texto_valor"
                 android:textStyle="bold"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
+                tools:text="R$ 150,00" />
+        </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnLimparCarrinho"
+            style="@style/Widget.Livraria.Botao.Contorno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="@string/esvaziar"
+            android:textColor="@color/white"
+            app:icon="@drawable/ic_lixeira"
+            app:iconTint="@color/white"
+            app:strokeColor="@color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerCarrinho"
+            style="@style/Widget.Livraria.Botao.Branco"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/altura_botao_grande"
+            android:text="@string/finalizar_venda"
+            android:textSize="24sp"
+            app:icon="@drawable/ic_avancar"
+            app:iconGravity="end" />
+    </LinearLayout>
+</LinearLayout>

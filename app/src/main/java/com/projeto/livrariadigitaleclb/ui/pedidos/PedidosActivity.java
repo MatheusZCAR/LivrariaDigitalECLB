@@ -1,260 +1,199 @@
 package com.projeto.livrariadigitaleclb.ui.pedidos;
 
-import android.content.Intent;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.Toast;
-import android.app.AlertDialog;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+import com.projeto.livrariadigitaleclb.App;
 import com.projeto.livrariadigitaleclb.R;
+import com.projeto.livrariadigitaleclb.backup.BackupAgendador;
+import com.projeto.livrariadigitaleclb.data.PedidosService;
 import com.projeto.livrariadigitaleclb.data.local.AppDatabase;
 import com.projeto.livrariadigitaleclb.data.local.dao.PedidoDao;
 import com.projeto.livrariadigitaleclb.data.local.entity.PedidoEntity;
 import com.projeto.livrariadigitaleclb.databinding.ActivityPedidosBinding;
+import com.projeto.livrariadigitaleclb.ui.BaseActivity;
+import com.projeto.livrariadigitaleclb.util.Avisos;
+import com.projeto.livrariadigitaleclb.util.Dialogos;
+import com.projeto.livrariadigitaleclb.util.Documentos;
+import com.projeto.livrariadigitaleclb.util.PdfEscritor;
+import com.projeto.livrariadigitaleclb.util.Periodo;
+import com.projeto.livrariadigitaleclb.util.SeletorQuantidade;
+import com.projeto.livrariadigitaleclb.util.Texto;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Date;
 import java.text.SimpleDateFormat;
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-public class PedidosActivity extends AppCompatActivity {
+public class PedidosActivity extends BaseActivity implements PedidosAdapter.Acoes {
 
     private ActivityPedidosBinding binding;
-
     private PedidoDao pedidoDao;
-    private List<PedidoEntity> listaPedidos = new ArrayList<>();
-    private ArrayList<String> listaStrings = new ArrayList<>();
-
     private PedidosAdapter adapter;
+    private List<PedidoEntity> pedidos = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityPedidosBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        definirTitulo(getString(R.string.pedidos_titulo));
 
         pedidoDao = AppDatabase.getInstance(this).pedidoDao();
-
-        configurarLista();
-        carregarPedidosDoBanco();
-
-        binding.btnAdicionarLivro.setOnClickListener(v -> abrirDialogAdicionarLivro());
-
-        binding.btnImprimirLista.setOnClickListener(v -> {
-            if (listaStrings.isEmpty()) {
-                Toast.makeText(this, "A lista está vazia!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            gerarPDF();
-        });
-
-        binding.iconHome.setOnClickListener(v -> finish());
-    }
-
-    private void configurarLista() {
-        adapter = new PedidosAdapter(this, listaPedidos, this);
+        adapter = new PedidosAdapter(this);
+        binding.listaPedidos.setLayoutManager(new LinearLayoutManager(this));
         binding.listaPedidos.setAdapter(adapter);
+
+        binding.btnAdicionarLivro.setOnClickListener(v -> abrirFormulario(null));
+        binding.btnImprimirLista.setOnClickListener(v -> gerarPdf());
+        binding.btnLimparLista.setOnClickListener(v -> confirmarLimpar());
     }
 
-    private void carregarPedidosDoBanco() {
-        listaPedidos = pedidoDao.getPedidos();
-
-        listaStrings.clear();
-        for (PedidoEntity pedido : listaPedidos) {
-            listaStrings.add(pedido.titulo + " – " + pedido.autor + " (Qtd: " + pedido.quantidadeDesejada + ")");
-        }
-
-        adapter.atualizarLista(listaPedidos);
+    @Override
+    protected void onResume() {
+        super.onResume();
+        carregar();
     }
 
-    public void confirmarExclusao(PedidoEntity pedido) {
-        new AlertDialog.Builder(this)
-                .setTitle("Excluir Pedido")
-                .setMessage("Deseja excluir este item da lista?")
-                .setPositiveButton("Sim", (d, w) -> {
+    private void carregar() {
+        pedidos = pedidoDao.getPedidos();
+        adapter.atualizarLista(pedidos);
+        boolean vazio = pedidos.isEmpty();
+        binding.txtVazio.setVisibility(vazio ? View.VISIBLE : View.GONE);
+        binding.btnImprimirLista.setEnabled(!vazio);
+        binding.btnLimparLista.setEnabled(!vazio);
+
+        int exemplares = 0;
+        for (PedidoEntity p : pedidos) exemplares += p.quantidadeDesejada;
+        binding.txtResumo.setText(vazio
+                ? getString(R.string.pedidos_subtitulo)
+                : Texto.plural(pedidos.size(), "livro", "livros") + " na lista, "
+                + Texto.plural(exemplares, "exemplar", "exemplares") + " no total.");
+    }
+
+    @Override
+    public void editar(PedidoEntity pedido) {
+        abrirFormulario(pedido);
+    }
+
+    @Override
+    public void excluir(PedidoEntity pedido) {
+        Dialogos.confirmar(this, "Tirar da lista?",
+                "\"" + pedido.titulo + "\" vai sair da lista de pedidos.",
+                "Sim, tirar", "Não", () -> {
                     pedidoDao.excluirPedido(pedido);
-                    carregarPedidosDoBanco();
-                })
-                .setNegativeButton("Cancelar", null)
-                .show();
+                    carregar();
+                    BackupAgendador.dadosMudaram(this);
+                    Avisos.comAcao(this, "\"" + pedido.titulo + "\" saiu da lista.", "Desfazer", () -> {
+                        pedido.id = 0;
+                        pedidoDao.inserirPedido(pedido);
+                        carregar();
+                    });
+                });
     }
 
-    private void abrirDialogAdicionarLivro() {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.dialog_add_livro, null);
+    /** Formulário para adicionar (pedido == null) ou editar. Só fecha quando os dados estão certos. */
+    private void abrirFormulario(@Nullable PedidoEntity pedido) {
+        View v = LayoutInflater.from(this).inflate(R.layout.dialog_add_livro, null);
+        TextInputLayout campoTitulo = v.findViewById(R.id.campoTituloPedido);
+        TextInputEditText titulo = v.findViewById(R.id.inputTitulo);
+        TextInputEditText autor = v.findViewById(R.id.inputAutor);
+        SeletorQuantidade seletor = new SeletorQuantidade(v.findViewById(R.id.seletor),
+                pedido == null ? 1 : Math.max(1, pedido.quantidadeDesejada), 1, 999);
 
-        EditText inputTitulo = view.findViewById(R.id.inputTitulo);
-        EditText inputAutor = view.findViewById(R.id.inputAutor);
-        EditText inputQuantidade = view.findViewById(R.id.inputQuantidade);
+        if (pedido != null) {
+            titulo.setText(pedido.titulo);
+            autor.setText(pedido.autor);
+        }
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(view);
-        builder.setTitle("Adicionar Pedido Manual");
+        AlertDialog dialogo = new MaterialAlertDialogBuilder(this)
+                .setTitle(pedido == null ? "Adicionar à lista" : "Editar pedido")
+                .setView(v)
+                .setPositiveButton(R.string.salvar, null)
+                .setNegativeButton(R.string.cancelar, null)
+                .create();
 
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
-
-        builder.setPositiveButton("Adicionar", (dialog, which) -> {
-            String titulo = inputTitulo.getText().toString().trim();
-            String autor = inputAutor.getText().toString().trim();
-            String qtdStr = inputQuantidade.getText().toString().trim();
-
-            if (titulo.isEmpty() || autor.isEmpty()) {
-                Toast.makeText(this, "Preencha título e autor", Toast.LENGTH_SHORT).show();
+        // O botão "Salvar" só fecha a janela se o nome do livro estiver preenchido
+        // (antes a janela fechava e a pessoa perdia o que tinha digitado).
+        dialogo.setOnShowListener(d -> dialogo.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(x -> {
+            String t = titulo.getText() == null ? "" : titulo.getText().toString().trim();
+            String a = autor.getText() == null ? "" : autor.getText().toString().trim();
+            if (t.isEmpty()) {
+                campoTitulo.setError("Escreva o nome do livro.");
+                titulo.requestFocus();
                 return;
             }
-
-            int quantidade = 1; // Valor padrão
-            if (!qtdStr.isEmpty()) {
-                try {
-                    quantidade = Integer.parseInt(qtdStr);
-                } catch (NumberFormatException e) {
-                    Toast.makeText(this, "Quantidade inválida, usando 1", Toast.LENGTH_SHORT).show();
+            if (pedido == null) {
+                int total = PedidosService.adicionarOuSomar(AppDatabase.getInstance(this), t, a, seletor.getValor());
+                if (total != seletor.getValor()) {
+                    Avisos.sucesso(this, "\"" + t + "\" já estava na lista. Agora são " + total + ".");
+                } else {
+                    Avisos.sucesso(this, "\"" + t + "\" foi adicionado à lista.");
                 }
+            } else {
+                pedido.titulo = t;
+                pedido.autor = a;
+                pedido.quantidadeDesejada = seletor.getValor();
+                pedidoDao.atualizarPedido(pedido);
+                Avisos.sucesso(this, "Pedido atualizado.");
             }
-
-            salvarPedido(titulo, autor, quantidade);
-        });
-
-        builder.create().show();
+            BackupAgendador.dadosMudaram(this);
+            dialogo.dismiss();
+            carregar();
+        }));
+        dialogo.show();
     }
 
-    void abrirDialogEditarLivro(PedidoEntity pedido) {
-        LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.dialog_add_livro, null);
+    private void confirmarLimpar() {
+        Dialogos.confirmar(this, "Limpar a lista inteira?",
+                "Todos os " + pedidos.size() + " livros vão sair da lista de pedidos. "
+                        + "Faça isso depois que a compra chegar.",
+                "Sim, limpar tudo", "Não", () -> {
+                    pedidoDao.deletarTodos();
+                    carregar();
+                    BackupAgendador.dadosMudaram(this);
+                    Avisos.sucesso(this, "A lista de pedidos foi esvaziada.");
+                });
+    }
 
-        EditText inputTitulo = view.findViewById(R.id.inputTitulo);
-        EditText inputAutor = view.findViewById(R.id.inputAutor);
-        EditText inputQuantidade = view.findViewById(R.id.inputQuantidade);
-
-        inputTitulo.setText(pedido.titulo);
-        inputAutor.setText(pedido.autor);
-        inputQuantidade.setText(String.valueOf(pedido.quantidadeDesejada));
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setView(view);
-        builder.setTitle("Editar Pedido");
-
-        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
-
-        builder.setPositiveButton("Salvar", (dialog, which) -> {
-            String novoTitulo = inputTitulo.getText().toString().trim();
-            String novoAutor = inputAutor.getText().toString().trim();
-            String qtdStr = inputQuantidade.getText().toString().trim();
-
-            if (novoTitulo.isEmpty() || novoAutor.isEmpty()) {
-                Toast.makeText(this, "Preencha os campos", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            int novaQtd = 1;
+    private void gerarPdf() {
+        if (pedidos.isEmpty()) {
+            Avisos.info(this, "A lista está vazia.");
+            return;
+        }
+        List<PedidoEntity> copia = new ArrayList<>(pedidos);
+        App.SEGUNDO_PLANO.execute(() -> {
             try {
-                novaQtd = Integer.parseInt(qtdStr);
-            } catch (Exception e) {}
-
-            pedido.titulo = novoTitulo;
-            pedido.autor = novoAutor;
-            pedido.quantidadeDesejada = novaQtd;
-            pedidoDao.atualizarPedido(pedido);
-            carregarPedidosDoBanco();
-        });
-
-        builder.create().show();
-    }
-
-    // CORREÇÃO DO ERRO DE COMPILAÇÃO AQUI: Adicionado parâmetro int quantidade
-    private void salvarPedido(String titulo, String autor, int quantidade) {
-        PedidoEntity pedido = new PedidoEntity(titulo, autor, quantidade);
-        pedidoDao.inserirPedido(pedido);
-        carregarPedidosDoBanco();
-    }
-
-    private void gerarPDF() {
-        try {
-            PdfDocument pdf = new PdfDocument();
-            PdfDocument.PageInfo pageInfo =
-                    new PdfDocument.PageInfo.Builder(595, 842, 1).create();
-            PdfDocument.Page page = pdf.startPage(pageInfo);
-
-            Paint paint = new Paint();
-            int x = 40;
-            int y = 40;
-
-            // Cabeçalho
-            Paint headerPaint = new Paint();
-            headerPaint.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
-            headerPaint.setTextSize(24);
-            headerPaint.setTextAlign(Paint.Align.CENTER);
-
-            int pageWidth = pageInfo.getPageWidth();
-            int headerX = pageWidth / 2;
-            int headerY = 50;
-
-            page.getCanvas().drawText("Lista de Reposição/Pedidos", headerX, headerY, headerPaint);
-
-            // Linha separadora
-            page.getCanvas().drawLine(40, 70, pageWidth - 40, 70, paint);
-
-            y = 100;
-
-            // Conteúdo
-            paint.setTextSize(14);
-            paint.setTextAlign(Paint.Align.LEFT);
-
-            for (String item : listaStrings) {
-                page.getCanvas().drawText(item, x, y, paint);
-                y += 30;
-                if (y > 800) break;
+                Date agora = new Date();
+                String data = new SimpleDateFormat("dd/MM/yyyy", Periodo.BR).format(agora);
+                PdfEscritor pdf = new PdfEscritor("Livraria ECLB — Lista de pedidos de " + data);
+                pdf.titulo("Lista de pedidos — Livraria ECLB");
+                pdf.texto("Data: " + data);
+                int exemplares = 0;
+                for (PedidoEntity p : copia) exemplares += p.quantidadeDesejada;
+                pdf.texto(Texto.plural(copia.size(), "livro", "livros") + ", "
+                        + Texto.plural(exemplares, "exemplar", "exemplares") + " no total");
+                pdf.separador();
+                int n = 1;
+                for (PedidoEntity p : copia) {
+                    String linha = n++ + ". " + p.titulo + (Texto.vazio(p.autor) ? "" : " — " + p.autor);
+                    pdf.linhaComValor(linha, "Qtd: " + p.quantidadeDesejada, false);
+                }
+                File arquivo = pdf.salvar(new File(Documentos.pastaPdfs(this),
+                        "Lista_Pedidos_" + new SimpleDateFormat("yyyy-MM-dd", Periodo.BR).format(agora) + ".pdf"));
+                runOnUiThread(() -> Documentos.oferecer(this, arquivo, "Lista de pedidos"));
+            } catch (Exception e) {
+                runOnUiThread(() -> Avisos.erro(this, "Não foi possível gerar o PDF", String.valueOf(e.getMessage())));
             }
-
-            pdf.finishPage(page);
-
-            File pasta = new File(getExternalFilesDir(null), "pdfs");
-            if (!pasta.exists()) pasta.mkdirs();
-
-            String dataAtual = new SimpleDateFormat("dd-MM-yyyy", new Locale("pt", "BR")).format(new Date());
-            String nomeArquivo = "Lista_Pedidos_" + dataAtual + ".pdf";
-
-            File arquivo = new File(pasta, nomeArquivo);
-            FileOutputStream fos = new FileOutputStream(arquivo);
-
-            pdf.writeTo(fos);
-            pdf.close();
-            fos.close();
-
-            Toast.makeText(this, "PDF salvo: " + arquivo.getName(), Toast.LENGTH_LONG).show();
-            abrirPDF(arquivo);
-
-        } catch (Exception e) {
-            Toast.makeText(this, "Erro ao gerar PDF: " + e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private void abrirPDF(File arquivo) {
-        try {
-            Uri uri = FileProvider.getUriForFile(
-                    this,
-                    "com.projeto.livrariadigitaleclb.fileprovider",
-                    arquivo
-            );
-
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri, "application/pdf");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(this, "Nenhum leitor de PDF instalado.", Toast.LENGTH_LONG).show();
-        }
+        });
     }
 }

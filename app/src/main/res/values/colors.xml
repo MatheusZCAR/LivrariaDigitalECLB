@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Paleta pensada para leitura fácil: todos os textos têm contraste alto (≥ 6:1). -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background">#FDFAF2</color>
-    <color name="gray">#737373</color>
+
+    <color name="primaria">#006D77</color>
+    <color name="primaria_escura">#00525A</color>
+    <color name="primaria_clara">#DDF1F2</color>
+
+    <color name="fundo">#FFFDF5</color>
+    <color name="superficie">#FFFFFF</color>
+    <color name="borda">#B9C7C8</color>
+
+    <color name="texto">#1A1A1A</color>
+    <color name="texto_secundario">#4A4A4A</color>
+
+    <color name="sucesso">#1E6B34</color>
+    <color name="sucesso_claro">#E3F4E7</color>
+    <color name="perigo">#B3261E</color>
+    <color name="perigo_claro">#FCE8E6</color>
+    <color name="alerta">#8A5A00</color>
+    <color name="alerta_claro">#FFF4D6</color>
+
+    <!-- Mantido por compatibilidade com o ícone do app -->
+    <color name="gray">#4A4A4A</color>
+    <color name="background">#FFFDF5</color>
 </resources>

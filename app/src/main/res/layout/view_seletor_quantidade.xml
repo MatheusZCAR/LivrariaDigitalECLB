@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- "−  3  +" com botões grandes. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMenos"
+        style="@style/Widget.Livraria.Botao.Contorno"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="@string/diminuir"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        app:icon="@drawable/ic_menos"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="32dp" />
+
+    <TextView
+        android:id="@+id/txtValorQuantidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="64dp"
+        android:gravity="center"
+        android:textColor="@color/texto"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        tools:text="3" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnMais"
+        style="@style/Widget.Livraria.Botao"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="@string/aumentar"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:padding="0dp"
+        app:icon="@drawable/ic_adicionar"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="32dp" />
+</LinearLayout>

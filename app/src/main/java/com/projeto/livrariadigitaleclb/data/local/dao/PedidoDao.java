@@ -16,7 +16,7 @@ public interface PedidoDao {
     @Insert
     void inserirPedido(PedidoEntity pedido);
 
-    @Query("SELECT * FROM pedidos")
+    @Query("SELECT * FROM pedidos ORDER BY titulo COLLATE NOCASE ASC")
     List<PedidoEntity> getPedidos();
 
     @Query("DELETE FROM pedidos")
@@ -25,9 +25,6 @@ public interface PedidoDao {
     @Update
     void atualizarPedido(PedidoEntity pedido);
 
-
     @Delete
     void excluirPedido(PedidoEntity pedido);
-
-
 }

@@ -1,3 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="fab_margin">16dp</dimen>
+    <!-- Tamanhos generosos para facilitar a leitura e o toque (pessoas idosas). -->
+    <dimen name="texto_titulo_tela">30sp</dimen>
+    <dimen name="texto_titulo">26sp</dimen>
+    <dimen name="texto_grande">24sp</dimen>
+    <dimen name="texto_corpo">21sp</dimen>
+    <dimen name="texto_rotulo">19sp</dimen>
+    <dimen name="texto_botao">21sp</dimen>
+    <dimen name="texto_valor">34sp</dimen>
+
+    <dimen name="altura_botao">64dp</dimen>
+    <dimen name="altura_botao_grande">76dp</dimen>
+    <dimen name="altura_barra_topo">84dp</dimen>
+    <dimen name="margem_tela">24dp</dimen>
+    <dimen name="espaco">16dp</dimen>
+    <dimen name="espaco_pequeno">8dp</dimen>
+    <dimen name="raio_cartao">18dp</dimen>
+
+    <!-- Largura mínima de cada livro na grade (o número de colunas é calculado na tela). -->
+    <dimen name="largura_minima_livro">210dp</dimen>
 </resources>

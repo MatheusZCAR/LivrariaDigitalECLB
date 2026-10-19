@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fundo"
+    android:orientation="vertical"
+    tools:context=".ui.backup.BackupActivity">
+
+    <include
+        android:id="@+id/barraTopo"
+        layout="@layout/barra_topo" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="@dimen/margem_tela">
+
+            <!-- Google Drive -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.25"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cartaoStatus"
+                    style="@style/Widget.Livraria.Cartao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:strokeColor="@color/borda"
+                    app:strokeWidth="2dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="24dp">
+
+                        <ImageView
+                            android:id="@+id/iconeStatus"
+                            android:layout_width="64dp"
+                            android:layout_height="64dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_nuvem_ok"
+                            app:tint="@color/sucesso" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtStatusTitulo"
+                                style="@style/Livraria.Texto.Titulo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="Os dados estão protegidos" />
+
+                            <TextView
+                                android:id="@+id/txtStatusDetalhe"
+                                style="@style/Livraria.Texto.Corpo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp"
+                                android:lineSpacingMultiplier="1.15"
+                                tools:text="Conta: livraria@gmail.com\nÚltima cópia: hoje às 14:32" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    style="@style/Livraria.Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:lineSpacingMultiplier="1.15"
+                    android:text="@string/backup_explicacao" />
+
+                <!-- Progresso -->
+                <LinearLayout
+                    android:id="@+id/areaProgresso"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_aviso_suave"
+                    android:orientation="vertical"
+                    android:padding="20dp"
+                    android:visibility="gone"
+                    tools:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/txtProgresso"
+                        style="@style/Livraria.Texto.Corpo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        tools:text="Fazendo a cópia… não feche o app." />
+
+                    <com.google.android.material.progressindicator.LinearProgressIndicator
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:indeterminate="true"
+                        app:trackThickness="8dp" />
+                </LinearLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnConectar"
+                    style="@style/Widget.Livraria.Botao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:minHeight="@dimen/altura_botao_grande"
+                    android:text="@string/conectar_drive"
+                    app:icon="@drawable/ic_nuvem_enviar" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBackupAgora"
+                    style="@style/Widget.Livraria.Botao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:minHeight="@dimen/altura_botao_grande"
+                    android:text="@string/fazer_backup_agora"
+                    app:icon="@drawable/ic_nuvem_enviar" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRestaurarDrive"
+                    style="@style/Widget.Livraria.Botao.Contorno"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/restaurar_backup"
+                    app:icon="@drawable/ic_nuvem_baixar" />
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchAutomatico"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:minHeight="64dp"
+                    android:text="@string/backup_automatico"
+                    android:textColor="@color/texto"
+                    android:textSize="@dimen/texto_corpo" />
+
+                <TextView
+                    android:id="@+id/txtDicaAutomatico"
+                    style="@style/Livraria.Texto.Secundario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="A cópia automática acontece quando o tablet está com internet, e também cerca de meia hora depois de cada venda." />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDesconectar"
+                    style="@style/Widget.Livraria.Botao.Contorno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/desconectar"
+                    app:icon="@drawable/ic_desconectar" />
+            </LinearLayout>
+
+            <!-- Arquivo -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margem_tela"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.Livraria.Cartao"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp">
+
+                        <TextView
+                            style="@style/Livraria.Texto.Titulo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/sem_drive_titulo" />
+
+                        <TextView
+                            style="@style/Livraria.Texto.Corpo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:lineSpacingMultiplier="1.15"
+                            android:text="@string/sem_drive_explicacao" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSalvarArquivo"
+                            style="@style/Widget.Livraria.Botao.Contorno"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/salvar_em_arquivo"
+                            app:icon="@drawable/ic_salvar_arquivo" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnAbrirArquivo"
+                            style="@style/Widget.Livraria.Botao.Contorno"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            android:text="@string/abrir_arquivo"
+                            app:icon="@drawable/ic_abrir_arquivo" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    style="@style/Livraria.Texto.Secundario"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:lineSpacingMultiplier="1.15"
+                    android:text="Ao restaurar, os dados atuais deste tablet são trocados pelos da cópia. Antes disso, o app guarda uma cópia do que existe hoje, por segurança." />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

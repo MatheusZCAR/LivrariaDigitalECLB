@@ -1,316 +1,314 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFDF5"
+    android:background="@color/fundo"
+    android:orientation="vertical"
     tools:context=".ui.catalogo.CadastrarLivroActivity">
 
-    <!-- Barra Superior -->
-    <View
-        android:id="@+id/barraSuperior"
-        android:layout_width="0dp"
-        android:layout_height="56dp"
-        android:background="#0097A7"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+    <include
+        android:id="@+id/barraTopo"
+        layout="@layout/barra_topo" />
 
-    <TextView
-        android:id="@+id/textTituloCadastro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/cadastrar_livro"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/white"
-        android:layout_marginStart="16dp"
-        app:layout_constraintTop_toTopOf="@id/barraSuperior"
-        app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:id="@+id/btnHome"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/ic_home"
-        android:contentDescription="@string/btn_home"
-        android:padding="4dp"
-        app:tint="@android:color/white"
-        app:layout_constraintTop_toTopOf="@id/barraSuperior"
-        app:layout_constraintBottom_toBottomOf="@id/barraSuperior"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="16dp" />
-
-    <!-- Conteúdo -->
     <ScrollView
-        android:layout_width="0dp"
+        android:id="@+id/rolagem"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/barraSuperior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_weight="1"
+        android:fillViewport="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="24dp">
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:padding="@dimen/margem_tela">
 
-            <!-- Card da Foto -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardFoto"
-                android:layout_width="160dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginEnd="24dp">
+            <!-- Foto da capa -->
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Livraria.Cartao"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="12dp"
-                    android:background="@android:color/white">
+                    android:padding="20dp">
 
                     <TextView
+                        style="@style/Livraria.Texto.Titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="@string/foto_da_capa"
+                        android:textSize="@dimen/texto_grande" />
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="340dp"
+                        android:background="@drawable/bg_capa_vazia">
+
+                        <ImageView
+                            android:layout_width="110dp"
+                            android:layout_height="110dp"
+                            android:layout_gravity="center"
+                            android:contentDescription="@null"
+                            android:src="@drawable/bg_placeholder_livro" />
+
+                        <ImageView
+                            android:id="@+id/imgPreviewCapa"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:contentDescription="@string/capa_livro"
+                            android:scaleType="centerCrop"
+                            android:visibility="invisible" />
+                    </FrameLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnTirarFoto"
+                        style="@style/Widget.Livraria.Botao"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/foto_da_capa"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#0097A7"
-                        android:gravity="center"
-                        android:layout_marginBottom="8dp"/>
+                        android:layout_marginTop="16dp"
+                        android:text="@string/tirar_foto"
+                        app:icon="@drawable/ic_camera" />
 
-                    <ImageView
-                        android:id="@+id/imgPreviewCapa"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnGaleria"
+                        style="@style/Widget.Livraria.Botao.Contorno"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:scaleType="centerCrop"
-                        android:background="@drawable/bg_placeholder_livro"
-                        android:contentDescription="@string/capa_do_livro"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/escolher_da_galeria"
+                        app:icon="@drawable/ic_galeria" />
 
-                    <androidx.appcompat.widget.AppCompatButton
-                        android:id="@+id/btnTirarFoto"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnRemoverFoto"
+                        style="@style/Widget.Livraria.Botao.Perigo"
                         android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:text="@string/tirar_foto_emoji"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/white"
-                        android:background="@drawable/bg_button_rounded"
-                        android:layout_marginTop="12dp"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/remover_foto"
+                        android:visibility="gone"
+                        app:icon="@drawable/ic_lixeira"
+                        tools:visibility="visible" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </com.google.android.material.card.MaterialCardView>
 
             <!-- Formulário -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardFormulario"
+            <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp"
-                app:layout_constraintTop_toTopOf="@id/cardFoto"
-                app:layout_constraintStart_toEndOf="@id/cardFoto"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginStart="24dp">
+                android:layout_marginStart="@dimen/margem_tela"
+                android:layout_weight="1"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <com.google.android.material.card.MaterialCardView
+                    style="@style/Widget.Livraria.Cartao"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:background="@android:color/white">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/informacoes_do_livro"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#0097A7"
-                        android:layout_marginBottom="16dp"/>
-
-                    <!-- Código de Barras -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/codigo_de_barras"
-                        android:textSize="12sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="4dp"/>
+                    android:layout_height="wrap_content">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="16dp">
+                        android:orientation="vertical"
+                        android:padding="24dp">
 
-                        <EditText
-                            android:id="@+id/edtCodigoBarras"
-                            android:layout_width="0dp"
-                            android:layout_height="48dp"
-                            android:layout_weight="1"
-                            android:hint="@string/digite_ou_escaneie"
-                            android:inputType="text"
-                            android:background="@drawable/bg_livro_card"
-                            android:paddingStart="12dp"
-                            android:paddingEnd="12dp"
-                            android:textSize="14sp"
-                            android:textColor="@android:color/black"
-                            android:textColorHint="@color/gray"/>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-                        <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btnLerCodigo"
-                            android:layout_width="80dp"
-                            android:layout_height="48dp"
-                            android:text="@string/ler_emoji"
-                            android:textSize="12sp"
-                            android:textColor="@android:color/white"
-                            android:background="@drawable/bg_button_rounded"
-                            android:layout_marginStart="8dp"/>
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/campoCodigo"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="@string/codigo_de_barras">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edtCodigoBarras"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:imeOptions="actionNext"
+                                    android:inputType="text"
+                                    android:maxLength="40" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnLerCodigo"
+                                style="@style/Widget.Livraria.Botao.Contorno"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="4dp"
+                                android:minHeight="68dp"
+                                android:text="Ler código"
+                                app:icon="@drawable/ic_codigo_barras" />
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/campoTitulo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/titulo_do_livro">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtTitulo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapSentences"
+                                android:maxLength="200" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/campoAutor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/autor_opcional">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtAutor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionNext"
+                                android:inputType="textCapWords"
+                                android:maxLength="120" />
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:baselineAligned="false"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/campoPreco"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:hint="@string/preco"
+                                app:helperText="Ex.: 25,90"
+                                app:prefixText="R$ ">
+
+                                <com.google.android.material.textfield.TextInputEditText
+                                    android:id="@+id/edtPreco"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:digits="0123456789,."
+                                    android:imeOptions="actionNext"
+                                    android:inputType="numberDecimal"
+                                    android:maxLength="12" />
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="16dp"
+                                android:layout_weight="1"
+                                android:orientation="horizontal">
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btnMenosEstoque"
+                                    style="@style/Widget.Livraria.Botao.Contorno"
+                                    android:layout_width="64dp"
+                                    android:layout_height="68dp"
+                                    android:layout_marginTop="4dp"
+                                    android:contentDescription="@string/diminuir"
+                                    android:padding="0dp"
+                                    app:icon="@drawable/ic_menos"
+                                    app:iconGravity="textStart"
+                                    app:iconPadding="0dp" />
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/campoQuantidade"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="8dp"
+                                    android:layout_marginEnd="8dp"
+                                    android:layout_weight="1"
+                                    android:hint="@string/quantidade_em_estoque">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edtQuantidadeEstoque"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:gravity="center"
+                                        android:imeOptions="actionNext"
+                                        android:inputType="number"
+                                        android:maxLength="5" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.button.MaterialButton
+                                    android:id="@+id/btnMaisEstoque"
+                                    style="@style/Widget.Livraria.Botao"
+                                    android:layout_width="64dp"
+                                    android:layout_height="68dp"
+                                    android:layout_marginTop="4dp"
+                                    android:contentDescription="@string/aumentar"
+                                    android:padding="0dp"
+                                    app:icon="@drawable/ic_adicionar"
+                                    app:iconGravity="textStart"
+                                    app:iconPadding="0dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/campoLocal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:hint="@string/localizacao"
+                            app:helperText="@string/localizacao_exemplo">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/edtLocalizacao"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:imeOptions="actionDone"
+                                android:inputType="textCapSentences"
+                                android:maxLength="80" />
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
 
-                    <!-- Título -->
-                    <TextView
-                        android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnExcluirLivro"
+                        style="@style/Widget.Livraria.Botao.Perigo"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/titulo"
-                        android:textSize="12sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="4dp"/>
+                        android:layout_marginEnd="16dp"
+                        android:minHeight="@dimen/altura_botao_grande"
+                        android:text="@string/excluir_livro"
+                        android:visibility="gone"
+                        app:icon="@drawable/ic_lixeira"
+                        tools:visibility="visible" />
 
-                    <EditText
-                        android:id="@+id/edtTitulo"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="@string/nome_do_livro"
-                        android:inputType="textCapWords"
-                        android:background="@drawable/bg_livro_card"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="16dp"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@color/gray"/>
-
-                    <!-- Autor -->
-                    <TextView
-                        android:layout_width="match_parent"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSalvarLivro"
+                        style="@style/Widget.Livraria.Botao"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="@string/autor"
-                        android:textSize="12sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="4dp"/>
-
-                    <EditText
-                        android:id="@+id/edtAutor"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="@string/nome_do_autor"
-                        android:inputType="textCapWords"
-                        android:background="@drawable/bg_livro_card"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="16dp"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@color/gray"/>
-
-                    <!-- Preço -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/preco"
-                        android:textSize="12sp"
-                        android:textColor="#666666"
-                        android:layout_marginBottom="4dp"/>
-
-                    <EditText
-                        android:id="@+id/edtPreco"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="@string/zeros"
-                        android:inputType="numberDecimal"
-                        android:background="@drawable/bg_livro_card"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@color/gray"/>
-
-                    <!-- Quantidade em estoque -->
-                    <TextView
-                        android:id="@+id/textViewEstoque"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/quantidade_em_estoque"
-                        android:textSize="12sp"
-                        android:textColor="#666666"
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="4dp" />
-
-                    <EditText
-                        android:id="@+id/edtQuantidadeEstoque"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginStart="0dp"
-                        android:layout_marginEnd="0dp"
-                        android:inputType="number"
-                        android:hint="@string/digite_a_quantidade"
-                        android:background="@drawable/bg_livro_card"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:textSize="14sp"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@color/gray"/>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Prateleira / Local"
-                        android:textSize="12sp"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@color/gray"
-                        android:layout_marginBottom="4dp"/>
-
-                    <EditText
-                        android:id="@+id/edtLocalizacao"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="Ex: Estante A, Prateleira 2"
-                        android:inputType="textCapSentences"
-                        android:background="@drawable/bg_livro_card"
-                        android:paddingStart="12dp"
-                        android:paddingEnd="12dp"
-                        android:textSize="14sp"
-                        android:layout_marginBottom="16dp"
-                        android:textColor="@android:color/black"
-                        android:textColorHint="@color/gray"/>
-
+                        android:layout_weight="1"
+                        android:minHeight="@dimen/altura_botao_grande"
+                        android:text="@string/salvar_livro"
+                        android:textSize="24sp"
+                        app:icon="@drawable/ic_ok" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Botão Salvar -->
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btnSalvarLivro"
-                android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:text="@string/salvar_livro_emoji"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:background="@drawable/bg_button_rounded"
-                app:layout_constraintTop_toBottomOf="@id/cardFormulario"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="24dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </LinearLayout>
     </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

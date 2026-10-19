@@ -1,146 +1,215 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layoutRelatorios"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFDF5"
+    android:background="@color/fundo"
+    android:orientation="vertical"
     tools:context=".ui.relatorios.RelatoriosActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/barraSuperior"
-        android:layout_width="0dp"
-        android:layout_height="60dp"
-        android:background="#0097A7"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <include
+        android:id="@+id/barraTopo"
+        layout="@layout/barra_topo" />
 
-        <TextView
-            android:id="@+id/txtTitulo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/relatorios"
-            android:textColor="@android:color/white"
-            android:textSize="36sp"
-            android:fontFamily="monospace"
-            android:textStyle="bold"
-            android:layout_marginStart="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/btnHome"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/voltar"
-            android:padding="4dp"
-            android:src="@drawable/ic_home"
-            app:tint="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <ScrollView
-        android:id="@+id/scrollRelatorios"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toBottomOf="@id/barraSuperior"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_weight="1"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/grupoPrincipal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="48dp">
+        <!-- Escolha do período -->
+        <ScrollView
+            android:layout_width="320dp"
+            android:layout_height="match_parent">
 
-            <RadioGroup
-                android:id="@+id/radioGroupRelatorios"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingHorizontal="40dp"
-                android:layout_marginBottom="40dp">
+                android:padding="@dimen/margem_tela">
 
-                <RadioButton
-                    android:id="@+id/radioDiario"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:background="#E8F6F5"
-                    android:buttonTint="#0097A7"
-                    android:gravity="center_vertical"
-                    android:paddingStart="24dp"
-                    android:text="@string/relatorio_diario"
-                    android:textColor="#000"
-                    android:textSize="20sp"
-                    android:fontFamily="monospace"
-                    android:textStyle="bold"
-                    tools:ignore="RtlSymmetry" />
+                <TextView
+                    style="@style/Livraria.Texto.Titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ver vendas de:" />
 
-                <RadioButton
-                    android:id="@+id/radioSemanal"
+                <com.google.android.material.button.MaterialButtonToggleGroup
+                    android:id="@+id/grupoPeriodo"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:background="#E8F6F5"
-                    android:buttonTint="#0097A7"
-                    android:gravity="center_vertical"
-                    android:paddingStart="24dp"
-                    android:text="@string/relatorio_semanal"
-                    android:textColor="#000"
-                    android:textSize="20sp"
-                    android:fontFamily="monospace"
-                    android:textStyle="bold"
-                    tools:ignore="RtlSymmetry" />
+                    android:orientation="vertical"
+                    app:selectionRequired="true"
+                    app:singleSelection="true">
 
-                <RadioButton
-                    android:id="@+id/radioMensal"
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnHoje"
+                        style="@style/Widget.Livraria.Botao.Escolha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hoje" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSemana"
+                        style="@style/Widget.Livraria.Botao.Escolha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/esta_semana" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnMes"
+                        style="@style/Widget.Livraria.Botao.Escolha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/este_mes" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnEscolherDatas"
+                        style="@style/Widget.Livraria.Botao.Escolha"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/escolher_datas"
+                        app:icon="@drawable/ic_calendario" />
+                </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnImprimir"
+                    style="@style/Widget.Livraria.Botao"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_marginTop="12dp"
-                    android:background="#E8F6F5"
-                    android:buttonTint="#0097A7"
-                    android:gravity="center_vertical"
-                    android:paddingStart="24dp"
-                    android:text="@string/relatorio_mensal"
-                    android:textColor="#000"
-                    android:textSize="20sp"
-                    android:fontFamily="monospace"
-                    android:textStyle="bold"
-                    tools:ignore="RtlSymmetry" />
-            </RadioGroup>
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:minHeight="@dimen/altura_botao_grande"
+                    android:text="@string/imprimir_ou_enviar"
+                    app:icon="@drawable/ic_imprimir" />
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Resultado -->
+        <ScrollView
+            android:id="@+id/rolagemResultado"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/superficie"
+            android:elevation="2dp">
 
             <LinearLayout
-                android:id="@+id/grupoBotao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:orientation="vertical"
+                android:padding="@dimen/margem_tela">
 
-                <Button
-                    android:id="@+id/btnImprimir"
-                    android:layout_width="220dp"
-                    android:layout_height="70dp"
-                    android:backgroundTint="#0097A7"
-                    android:text="@string/imprimir"
-                    android:textAllCaps="true"
-                    android:textColor="@android:color/white"
-                    android:textSize="22sp"
-                    android:fontFamily="sans-serif-medium"
-                    android:letterSpacing="0.02"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginBottom="40dp"
-                    app:cornerRadius="16dp" />
+                <TextView
+                    android:id="@+id/txtPeriodo"
+                    style="@style/Livraria.Texto.Titulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="28sp"
+                    tools:text="Hoje, domingo, 19/10/2026" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <include
+                        android:id="@+id/resumoTotal"
+                        layout="@layout/item_resumo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="1.3" />
+
+                    <include
+                        android:id="@+id/resumoVendas"
+                        layout="@layout/item_resumo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_weight="1" />
+
+                    <include
+                        android:id="@+id/resumoLivros"
+                        layout="@layout/item_resumo"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txtSemVendas"
+                    style="@style/Livraria.Texto.Corpo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center"
+                    android:text="@string/sem_vendas"
+                    android:textSize="@dimen/texto_grande"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/secaoDetalhes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/Livraria.Texto.Titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:text="@string/por_forma_pagamento"
+                        android:textSize="@dimen/texto_grande" />
+
+                    <LinearLayout
+                        android:id="@+id/listaFormas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical" />
+
+                    <TextView
+                        style="@style/Livraria.Texto.Titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:text="@string/mais_vendidos"
+                        android:textSize="@dimen/texto_grande" />
+
+                    <LinearLayout
+                        android:id="@+id/listaMaisVendidos"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical" />
+
+                    <TextView
+                        style="@style/Livraria.Texto.Titulo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp"
+                        android:text="@string/lista_vendas"
+                        android:textSize="@dimen/texto_grande" />
+
+                    <TextView
+                        style="@style/Livraria.Texto.Secundario"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Registrou algo errado? Use “Cancelar venda”: os livros voltam para o estoque." />
+
+                    <LinearLayout
+                        android:id="@+id/listaVendas"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="vertical" />
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

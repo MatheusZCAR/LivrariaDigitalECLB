@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="150dp"
+            android:layout_height="200dp"
+            android:background="@drawable/bg_capa_vazia">
+
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:contentDescription="@null"
+                android:src="@drawable/bg_placeholder_livro" />
+
+            <ImageView
+                android:id="@+id/imgCapaDetalhe"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@string/capa_livro"
+                android:scaleType="centerCrop"
+                android:visibility="invisible" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtTituloDetalhe"
+                style="@style/Livraria.Texto.Titulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="O Caminho da Luz" />
+
+            <TextView
+                android:id="@+id/txtAutorDetalhe"
+                style="@style/Livraria.Texto.Corpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/texto_secundario"
+                tools:text="Autor" />
+
+            <TextView
+                android:id="@+id/txtPrecoDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/primaria"
+                android:textSize="@dimen/texto_valor"
+                android:textStyle="bold"
+                tools:text="R$ 25,00" />
+
+            <TextView
+                android:id="@+id/txtInfoDetalhe"
+                style="@style/Livraria.Texto.Corpo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:lineSpacingMultiplier="1.2"
+                tools:text="Estoque: 3 exemplares\nOnde fica: Estante A\nCódigo: 978..." />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEditarDetalhe"
+            style="@style/Widget.Livraria.Botao"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:text="@string/editar_livro"
+            app:icon="@drawable/ic_editar" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReposicaoDetalhe"
+            style="@style/Widget.Livraria.Botao.Contorno"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Pedir mais"
+            app:icon="@drawable/ic_adicionar" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnFecharDetalhe"
+        style="@style/Widget.Livraria.Botao.Contorno"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/fechar" />
+</LinearLayout>
