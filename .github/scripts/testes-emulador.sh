@@ -5,6 +5,14 @@ API="${1:-?}"
 PACOTE=com.projeto.livrariadigitaleclb
 mkdir -p ci-out
 
+# Deixa o sistema terminar de iniciar e esconde avisos do sistema
+# ("X não está respondendo"), que no emulador roubam o foco das telas testadas.
+adb shell settings put global hide_error_dialogs 1 || true
+adb shell settings put secure show_first_crash_dialog_dev_option 0 || true
+sleep 45
+adb shell am broadcast -a android.intent.action.CLOSE_SYSTEM_DIALOGS || true
+adb shell input keyevent 82 || true
+
 adb install -r -g app/build/outputs/apk/debug/app-debug.apk
 adb install -r -g app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 adb logcat -c || true
