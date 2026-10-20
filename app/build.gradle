@@ -104,4 +104,5 @@ dependencies {
     androidTestImplementation libs.test.runner
     androidTestImplementation libs.test.rules
     androidTestImplementation libs.espresso.core
+    androidTestImplementation libs.espresso.contrib
 }

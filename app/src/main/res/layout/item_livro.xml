@@ -7,7 +7,7 @@
     style="@style/Widget.Livraria.Cartao"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_margin="6dp"
     android:clickable="true"
     android:focusable="true"
     app:strokeColor="@color/primaria"
@@ -17,116 +17,136 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <FrameLayout
-            android:id="@+id/areaCapa"
+        <!-- Fundo e desenho mostrados quando o livro não tem foto -->
+        <View
+            android:id="@+id/fundoCapa"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_capa_vazia"
             app:layout_constraintDimensionRatio="3:4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- Desenho mostrado quando o livro não tem foto -->
-            <ImageView
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:layout_gravity="center"
-                android:alpha="0.85"
-                android:contentDescription="@null"
-                android:src="@drawable/bg_placeholder_livro" />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.85"
+            android:contentDescription="@null"
+            android:src="@drawable/bg_placeholder_livro"
+            app:layout_constraintBottom_toBottomOf="@id/fundoCapa"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="@id/fundoCapa"
+            app:layout_constraintStart_toStartOf="@id/fundoCapa"
+            app:layout_constraintTop_toTopOf="@id/fundoCapa"
+            app:layout_constraintWidth_max="96dp"
+            app:layout_constraintWidth_percent="0.45" />
 
-            <ImageView
-                android:id="@+id/imgCapaLivro"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/capa_livro"
-                android:scaleType="centerCrop"
-                android:visibility="invisible" />
+        <ImageView
+            android:id="@+id/imgCapaLivro"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@string/capa_livro"
+            android:scaleType="centerCrop"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@id/fundoCapa"
+            app:layout_constraintEnd_toEndOf="@id/fundoCapa"
+            app:layout_constraintStart_toStartOf="@id/fundoCapa"
+            app:layout_constraintTop_toTopOf="@id/fundoCapa" />
 
-            <TextView
-                android:id="@+id/txtEsgotadoBanner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top"
-                android:background="@color/perigo"
-                android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="@string/esgotado"
-                android:textColor="@color/white"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-            <TextView
-                android:id="@+id/txtNaVenda"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom|center_horizontal"
-                android:layout_marginBottom="12dp"
-                android:background="@drawable/bg_selo"
-                android:paddingStart="16dp"
-                android:paddingTop="6dp"
-                android:paddingEnd="16dp"
-                android:paddingBottom="6dp"
-                android:textColor="@color/white"
-                android:textSize="21sp"
-                android:textStyle="bold"
-                android:visibility="gone"
-                tools:text="2 na venda"
-                tools:visibility="visible" />
-        </FrameLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtEsgotadoBanner"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="14dp"
+            android:background="@color/perigo"
+            android:gravity="center"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:text="@string/esgotado"
+            android:textColor="@color/white"
+            android:textSize="@dimen/texto_corpo"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/fundoCapa"
+            app:layout_constraintStart_toStartOf="@id/fundoCapa"
+            app:layout_constraintTop_toTopOf="@id/fundoCapa"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/txtNaVenda"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_selo"
+            android:paddingStart="14dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="14dp"
+            android:paddingBottom="6dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/texto_corpo"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/fundoCapa"
+            app:layout_constraintEnd_toEndOf="@id/fundoCapa"
+            app:layout_constraintStart_toStartOf="@id/fundoCapa"
+            tools:text="2 na venda"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/txtTituloLivro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:minLines="2"
+            android:textColor="@color/texto"
+            android:textSize="@dimen/texto_livro_titulo"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/areaCapa">
+            app:layout_constraintTop_toBottomOf="@id/fundoCapa"
+            tools:text="O Caminho da Luz" />
 
-            <TextView
-                android:id="@+id/txtTituloLivro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:minLines="2"
-                android:textColor="@color/texto"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="O Caminho da Luz" />
+        <TextView
+            android:id="@+id/txtAutorLivro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/texto_secundario"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@id/txtTituloLivro"
+            app:layout_constraintStart_toStartOf="@id/txtTituloLivro"
+            app:layout_constraintTop_toBottomOf="@id/txtTituloLivro"
+            tools:text="Autor do livro" />
 
-            <TextView
-                android:id="@+id/txtAutorLivro"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/texto_secundario"
-                android:textSize="17sp"
-                tools:text="Autor do livro" />
+        <TextView
+            android:id="@+id/txtPrecoLivro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/primaria"
+            android:textSize="@dimen/texto_livro_preco"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/txtTituloLivro"
+            app:layout_constraintStart_toStartOf="@id/txtTituloLivro"
+            app:layout_constraintTop_toBottomOf="@id/txtAutorLivro"
+            tools:text="R$ 25,00" />
 
-            <TextView
-                android:id="@+id/txtPrecoLivro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:textColor="@color/primaria"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                tools:text="R$ 25,00" />
-
-            <TextView
-                android:id="@+id/txtEstoqueLivro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/texto_secundario"
-                android:textSize="17sp"
-                tools:text="5 em estoque" />
-        </LinearLayout>
+        <TextView
+            android:id="@+id/txtEstoqueLivro"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:textColor="@color/texto_secundario"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/txtTituloLivro"
+            app:layout_constraintStart_toStartOf="@id/txtTituloLivro"
+            app:layout_constraintTop_toBottomOf="@id/txtPrecoLivro"
+            tools:text="5 em estoque" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

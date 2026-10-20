@@ -4,47 +4,62 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/Widget.Livraria.Cartao"
     android:layout_width="0dp"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:clickable="true"
     android:focusable="true"
+    android:minHeight="@dimen/altura_min_atalho"
     app:strokeColor="@color/primaria"
     app:strokeWidth="2dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingStart="16dp"
-        android:paddingTop="24dp"
-        android:paddingEnd="16dp"
-        android:paddingBottom="24dp">
+        android:minHeight="@dimen/altura_min_atalho"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/iconeAtalho"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="@dimen/icone_atalho"
+            android:layout_height="@dimen/icone_atalho"
             android:contentDescription="@null"
+            app:layout_constraintBottom_toTopOf="@id/rotuloAtalho"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
             tools:src="@drawable/ic_venda" />
 
         <TextView
             android:id="@+id/rotuloAtalho"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
             android:gravity="center"
+            android:maxLines="1"
             android:textColor="@color/primaria"
-            android:textSize="30sp"
+            android:textSize="@dimen/texto_atalho"
             android:textStyle="bold"
+            app:autoSizeMaxTextSize="@dimen/texto_atalho"
+            app:autoSizeMinTextSize="16sp"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintBottom_toTopOf="@id/descricaoAtalho"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iconeAtalho"
             tools:text="Vender" />
 
         <TextView
             android:id="@+id/descricaoAtalho"
             style="@style/Livraria.Texto.Secundario"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="4dp"
             android:gravity="center"
+            android:lines="2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rotuloAtalho"
             tools:text="Registrar uma venda" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- "−  3  +" com botões grandes. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:baselineAligned="false"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content">
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnMenos"
         style="@style/Widget.Livraria.Botao.Contorno"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:contentDescription="@string/diminuir"
         android:insetTop="0dp"
         android:insetBottom="0dp"
@@ -21,24 +18,30 @@
         app:icon="@drawable/ic_menos"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
-        app:iconSize="32dp" />
+        app:iconSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtValorQuantidade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:minWidth="64dp"
         android:gravity="center"
+        android:minWidth="56dp"
         android:textColor="@color/texto"
-        android:textSize="28sp"
+        android:textSize="26sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnMenos"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="3" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnMais"
         style="@style/Widget.Livraria.Botao"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:contentDescription="@string/aumentar"
         android:insetTop="0dp"
         android:insetBottom="0dp"
@@ -46,5 +49,8 @@
         app:icon="@drawable/ic_adicionar"
         app:iconGravity="textStart"
         app:iconPadding="0dp"
-        app:iconSize="32dp" />
-</LinearLayout>
+        app:iconSize="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/txtValorQuantidade"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -65,16 +65,18 @@ jobs:
             app/build/test-results/
             app/schemas/
 
-
   emulador:
-    name: Testes no tablet (Android ${{ matrix.api }})
+    name: Testes no ${{ matrix.aparelho }} (Android ${{ matrix.api }})
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 45
     strategy:
       fail-fast: false
       matrix:
-        api: [28, 35]
+        include:
+          - { aparelho: tablet, perfil: pixel_c, api: 28 }
+          - { aparelho: tablet, perfil: pixel_c, api: 35 }
+          - { aparelho: celular, perfil: pixel_5, api: 35 }
     steps:
       - uses: actions/checkout@v4
 
@@ -94,20 +96,22 @@ jobs:
       - name: Compilar APKs de teste
         run: ./gradlew assembleDebug assembleDebugAndroidTest
 
-      - name: Rodar testes no emulador de tablet
+      - name: Rodar testes no emulador
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api }}
           target: google_apis
           arch: x86_64
-          profile: pixel_c
+          profile: ${{ matrix.perfil }}
+          cores: 4
+          ram-size: 4096M
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back emulated
           script: bash .github/scripts/testes-emulador.sh ${{ matrix.api }}
 
-      - name: Screenshots e resultados (Android ${{ matrix.api }})
+      - name: Screenshots e resultados
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: testes-tablet-android-${{ matrix.api }}
+          name: testes-${{ matrix.aparelho }}-android-${{ matrix.api }}
           path: ci-out/

@@ -90,7 +90,7 @@
     </style>
 
     <style name="Widget.Livraria.Botao.Voltar" parent="Widget.Livraria.Botao.Branco">
-        <item name="android:minHeight">60dp</item>
+        <item name="android:minHeight">56dp</item>
         <item name="android:paddingStart">16dp</item>
         <item name="android:paddingEnd">22dp</item>
         <item name="icon">@drawable/ic_voltar</item>
@@ -98,7 +98,7 @@
 
     <!-- Botões de escolha (ex.: forma de pagamento, período) -->
     <style name="Widget.Livraria.Botao.Escolha" parent="Widget.Material3.Button.OutlinedButton">
-        <item name="android:minHeight">72dp</item>
+        <item name="android:minHeight">@dimen/altura_escolha</item>
         <item name="android:textSize">@dimen/texto_botao</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textAllCaps">false</item>
@@ -132,9 +132,9 @@
     </style>
 
     <style name="Widget.Livraria.CampoTexto.Edit" parent="Widget.Material3.TextInputEditText.OutlinedBox">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">@dimen/texto_campo</item>
         <item name="android:textColor">@color/texto</item>
-        <item name="android:minHeight">64dp</item>
+        <item name="android:minHeight">@dimen/altura_botao</item>
     </style>
 
     <style name="TextAppearance.Livraria.Rotulo" parent="TextAppearance.Material3.BodyLarge">

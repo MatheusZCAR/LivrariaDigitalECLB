@@ -28,12 +28,13 @@
         android:theme="@style/Theme.LivrariaDigitalECLB"
         tools:targetApi="31">
 
-        <!-- Só a tela inicial pode ser aberta por outros apps (antes todas eram "exported"). -->
+        <!--
+            Só a tela inicial pode ser aberta por outros apps (antes todas eram "exported").
+            A orientação (horizontal no tablet, livre no celular) é definida em BaseActivity.
+        -->
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -42,52 +43,36 @@
 
         <activity
             android:name=".ui.catalogo.CatalogoActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:exported="false" />
 
         <activity
             android:name=".ui.catalogo.CadastrarLivroActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:exported="false" />
 
         <activity
             android:name=".ui.catalogo.CameraXCaptureActivity"
             android:exported="false"
-            android:screenOrientation="landscape"
-            android:theme="@style/Theme.LivrariaDigitalECLB.Camera"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:theme="@style/Theme.LivrariaDigitalECLB.Camera" />
 
         <activity
             android:name=".ui.realizarvenda.RealizarVendaActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:exported="false" />
 
         <activity
             android:name=".ui.concluirvenda.ConcluirVendaActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:exported="false" />
 
         <activity
             android:name=".ui.pedidos.PedidosActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:exported="false" />
 
         <activity
             android:name=".ui.relatorios.RelatoriosActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:exported="false" />
 
         <activity
             android:name=".ui.backup.BackupActivity"
-            android:exported="false"
-            android:screenOrientation="landscape"
-            tools:ignore="DiscouragedApi,LockedOrientationActivity" />
+            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

@@ -2,6 +2,7 @@
 
 Aplicativo Android (Java) para a livraria da igreja: catálogo de livros, vendas, lista de pedidos, relatórios e **cópia de segurança no Google Drive**.
 Feito para **tablets na horizontal** e pensado para **voluntários idosos**: letras grandes, botões grandes, confirmações claras e opção de desfazer.
+Também funciona bem em **celular** (em pé ou deitado): todas as telas usam ConstraintLayout e têm versão para tela estreita.
 
 ---
 
@@ -93,6 +94,16 @@ com.projeto.livrariadigitaleclb
 └── util/ Moeda, Texto, Periodo, Capas, PdfEscritor, Documentos, Avisos, Dialogos, SeletorQuantidade, Telas
 ```
 
+### Telas: celular e tablet
+- Todas as telas usam **ConstraintLayout**.
+- `res/layout/` tem a versão para **telas estreitas** (celular, tablet pequeno em pé).
+  `res/layout-w840dp-h480dp/` tem a versão para **telas largas** (tablet deitado): painéis lado a lado.
+  As duas versões precisam ter **os mesmos IDs** (o lint avisa se não tiverem).
+- Tamanhos de letra e botões: `values/dimens.xml` (celular) e `values-sw600dp/dimens.xml` (tablet).
+  Textos mais longos para tela larga ficam em `values-w840dp-h480dp/strings.xml`.
+- No tablet a tela fica travada na horizontal; no celular segue o aparelho (veja `BaseActivity`).
+  A partir do Android 16 o sistema pode ignorar essa trava em tablets, por isso as telas se adaptam à largura.
+
 ### Banco de dados (Room) — regras
 - Versão atual: **16**. O esquema de cada versão é exportado em `app/schemas/`.
 - **Nunca** use `fallbackToDestructiveMigration()`: ele apagava todos os dados a cada mudança.
@@ -102,4 +113,4 @@ com.projeto.livrariadigitaleclb
 ### Testes
 - `./gradlew testDebugUnitTest` — regras de dinheiro, busca, períodos, carrinho e relatórios.
 - `./gradlew connectedDebugAndroidTest` — abre todas as telas num tablet, faz uma venda completa, testa a migração 15→16 e o ciclo backup → restauração.
-- O GitHub Actions roda tudo isso (emuladores Android 9 e Android 15) a cada push e gera o APK como artefato.
+- O GitHub Actions roda tudo isso a cada push (tablet com Android 9 e 15, celular com Android 15), guarda as screenshots de cada tela e gera o APK como artefato.

@@ -7,13 +7,10 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:padding="20dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/txtQuantidade"
@@ -21,39 +18,57 @@
             android:layout_height="wrap_content"
             android:background="@drawable/bg_selo"
             android:gravity="center"
-            android:minWidth="72dp"
+            android:minWidth="64dp"
             android:paddingStart="12dp"
             android:paddingTop="8dp"
             android:paddingEnd="12dp"
             android:paddingBottom="8dp"
             android:textColor="@color/white"
-            android:textSize="26sp"
+            android:textSize="@dimen/texto_titulo"
             android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="3" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/txtTitulo"
+            style="@style/Livraria.Texto.Titulo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_marginStart="16dp"
+            android:textSize="@dimen/texto_grande"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/txtQuantidade"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="O Caminho da Luz" />
 
-            <TextView
-                android:id="@+id/txtTitulo"
-                style="@style/Livraria.Texto.Titulo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/texto_grande"
-                tools:text="O Caminho da Luz" />
+        <TextView
+            android:id="@+id/txtAutor"
+            style="@style/Livraria.Texto.Secundario"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/txtTitulo"
+            app:layout_constraintTop_toBottomOf="@id/txtTitulo"
+            tools:text="Autor do livro" />
 
-            <TextView
-                android:id="@+id/txtAutor"
-                style="@style/Livraria.Texto.Secundario"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Autor do livro" />
-        </LinearLayout>
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/fimTexto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="bottom"
+            app:constraint_referenced_ids="txtQuantidade,txtAutor,txtTitulo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDelete"
+            style="@style/Widget.Livraria.Botao.Perigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/excluir"
+            app:icon="@drawable/ic_lixeira"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fimTexto" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnEdit"
@@ -62,14 +77,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="12dp"
             android:text="@string/editar"
-            app:icon="@drawable/ic_editar" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnDelete"
-            style="@style/Widget.Livraria.Botao.Perigo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/excluir"
-            app:icon="@drawable/ic_lixeira" />
-    </LinearLayout>
+            app:icon="@drawable/ic_editar"
+            app:layout_constraintEnd_toStartOf="@id/btnDelete"
+            app:layout_constraintTop_toTopOf="@id/btnDelete" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

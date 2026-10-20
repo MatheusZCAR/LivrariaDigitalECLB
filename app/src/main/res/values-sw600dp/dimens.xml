@@ -1,0 +1,31 @@
+<resources>
+    <!-- Tamanhos para TABLET (a tela principal do app). -->
+    <dimen name="texto_titulo_tela">30sp</dimen>
+    <dimen name="texto_titulo">26sp</dimen>
+    <dimen name="texto_grande">24sp</dimen>
+    <dimen name="texto_corpo">21sp</dimen>
+    <dimen name="texto_rotulo">19sp</dimen>
+    <dimen name="texto_botao">21sp</dimen>
+    <dimen name="texto_campo">22sp</dimen>
+    <dimen name="texto_valor">34sp</dimen>
+    <dimen name="texto_destaque">44sp</dimen>
+    <dimen name="texto_livro_titulo">20sp</dimen>
+    <dimen name="texto_livro_preco">24sp</dimen>
+    <dimen name="texto_atalho">30sp</dimen>
+
+    <dimen name="altura_botao">64dp</dimen>
+    <dimen name="altura_botao_grande">76dp</dimen>
+    <dimen name="altura_escolha">72dp</dimen>
+    <dimen name="altura_barra_topo">84dp</dimen>
+    <dimen name="margem_tela">24dp</dimen>
+    <dimen name="raio_cartao">18dp</dimen>
+
+    <dimen name="tamanho_logo">88dp</dimen>
+    <dimen name="icone_atalho">120dp</dimen>
+    <dimen name="altura_min_atalho">290dp</dimen>
+    <dimen name="largura_capa_detalhe">150dp</dimen>
+    <dimen name="altura_capa_cadastro">340dp</dimen>
+    <dimen name="largura_capa_carrinho">84dp</dimen>
+
+    <dimen name="largura_minima_livro">210dp</dimen>
+</resources>

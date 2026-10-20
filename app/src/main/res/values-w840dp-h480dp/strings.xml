@@ -1,0 +1,10 @@
+<resources>
+    <!-- Textos mais longos para telas largas (tablet na horizontal). -->
+    <string name="buscar_livro">Buscar pelo nome do livro ou do autor</string>
+    <string name="ler_codigo">Ler código de barras</string>
+    <string name="cadastrar_livro_botao">Cadastrar livro</string>
+    <string name="quantidade_em_estoque">Quantidade em estoque</string>
+    <string name="finalizar_venda">Finalizar venda</string>
+    <string name="imprimir_lista">Imprimir ou enviar</string>
+    <string name="limpar_lista">Limpar lista</string>
+</resources>
